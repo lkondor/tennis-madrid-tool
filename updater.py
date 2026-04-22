@@ -1,146 +1,77 @@
 import json
+from pathlib import Path
 from datetime import datetime
 from zoneinfo import ZoneInfo
-from pathlib import Path
 
-import requests
-from bs4 import BeautifulSoup
+from backfill.elo import SurfaceElo
+from backfill.atp_backfill import build_atp_player_backfill
+from backfill.wta_backfill import aggregate_wta_players_from_matches
+from backfill.aggregate_players import build_three_year_rates
 
 
 OUT_DIR = Path("data/live")
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 
-def fetch_madrid_order_of_play():
-    url = "https://mutuamadridopen.com/en/order-of-play/"
-    r = requests.get(url, timeout=20)
-    r.raise_for_status()
-    soup = BeautifulSoup(r.text, "html.parser")
-
-    text = soup.get_text("\n", strip=True)
-    lines = [x.strip() for x in text.splitlines() if x.strip()]
-
-    # parser semplice da migliorare sul markup reale della pagina
-    current_court = None
-    current_date = None
-    matches = []
-
-    court_names = {
-        "Manolo Santana Stadium",
-        "Arantxa Sanchez Stadium",
-        "Stadium 3",
-        "Court 3",
-        "Court 4",
-        "Court 5",
-        "Court 6",
-        "Court 7",
-        "Court 8",
-    }
-
-    for i, line in enumerate(lines):
-        if line in ["Today", "Tomorrow"]:
-            current_date = line
-            continue
-
-        if line in court_names:
-            current_court = line
-            continue
-
-        if " vs " in line and current_court and current_date:
-            left, right = line.split(" vs ", 1)
-            matches.append({
-                "player1": left.strip(),
-                "player2": right.strip(),
-                "court": current_court,
-                "date": current_date,
-                "tour": "ATP/WTA"
-            })
-
-    return matches
+def load_official_results_history():
+    path = OUT_DIR / "results_history.json"
+    if not path.exists():
+        return []
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
 
 
-def fetch_atp_madrid_schedule_fallback():
-    url = "https://www.atptour.com/en/news/madrid-2026-schedule"
-    r = requests.get(url, timeout=20)
-    r.raise_for_status()
-    soup = BeautifulSoup(r.text, "html.parser")
-    text = soup.get_text("\n", strip=True)
-    lines = [x.strip() for x in text.splitlines() if x.strip()]
+def compute_clay_elo(results_history):
+    elo = SurfaceElo(base_rating=1500, k=24)
 
-    matches = []
-    current_court = None
-
-    courts = [
-        "Manolo Santana Stadium - start 11 a.m.",
-        "Arantxa Sanchez Stadium - start 11 a.m.",
-        "Stadium 3 - start 11 a.m.",
-        "Court 4 - start 11 a.m.",
+    clay_results = [
+        r for r in results_history
+        if r.get("surface", "").lower() == "clay"
+        and str(r.get("date", ""))[:4] in ["2023", "2024", "2025", "2026"]
     ]
 
-    for line in lines:
-        if line in courts:
-            current_court = line.split(" - ")[0]
-            continue
+    clay_results.sort(key=lambda x: x["date"])
 
-        if " vs " in line and current_court:
-            cleaned = line.replace("ATP - ", "").replace("WTA - ", "")
-            left, right = cleaned.split(" vs ", 1)
-            matches.append({
-                "player1": left.strip(),
-                "player2": right.strip(),
-                "court": current_court,
-                "date": "Today",
-                "tour": "ATP/WTA"
-            })
+    for r in clay_results:
+        winner = r["winner"]
+        loser = r["loser"]
+        elo.update(winner, loser)
 
-    return matches
+    return elo.export()
 
 
-def build_players_dataset():
-    # seed iniziale; qui va collegato il backfill vero ATP/WTA
-    return {
-        "jannik sinner": {
-            "elo_clay": 2120,
-            "ace_rate_clay_3y": 7.3,
-            "ace_allowed_clay_3y": 5.4,
-            "break_rate_clay_3y": 2.4,
-            "break_allowed_clay_3y": 1.8
-        },
-        "carlos alcaraz": {
-            "elo_clay": 2160,
-            "ace_rate_clay_3y": 5.9,
-            "ace_allowed_clay_3y": 4.8,
-            "break_rate_clay_3y": 2.9,
-            "break_allowed_clay_3y": 1.6
-        }
-    }
+def merge_players(atp_players, wta_players, elo_map):
+    merged = {}
+
+    for name, rec in atp_players.items():
+        merged[name] = build_three_year_rates(rec)
+
+    for name, rec in wta_players.items():
+        merged[name] = build_three_year_rates(rec)
+
+    for name, rating in elo_map.items():
+        merged.setdefault(name, {})
+        merged[name]["elo_clay"] = round(rating, 1)
+
+    return merged
 
 
 def main():
-    try:
-        matches = fetch_madrid_order_of_play()
-        source = "Mutua Madrid Open"
-        if not matches:
-            matches = fetch_atp_madrid_schedule_fallback()
-            source = "ATP Madrid schedule fallback"
-    except Exception:
-        matches = []
-        source = "failed"
+    results_history = load_official_results_history()
+    elo_map = compute_clay_elo(results_history)
 
-    players = build_players_dataset()
+    atp_players = build_atp_player_backfill()
+    wta_players = aggregate_wta_players_from_matches()
 
-    with open(OUT_DIR / "matches.json", "w", encoding="utf-8") as f:
-        json.dump(matches, f, ensure_ascii=False, indent=2)
+    players = merge_players(atp_players, wta_players, elo_map)
 
     with open(OUT_DIR / "players.json", "w", encoding="utf-8") as f:
         json.dump(players, f, ensure_ascii=False, indent=2)
 
+    with open(OUT_DIR / "meta.json", "r", encoding="utf-8") as f:
+        meta = json.load(f)
+
+    meta["players_backfill_updated_at"] = datetime.now(ZoneInfo("Europe/Madrid")).isoformat()
+
     with open(OUT_DIR / "meta.json", "w", encoding="utf-8") as f:
-        json.dump({
-            "updated_at": datetime.now(ZoneInfo("Europe/Madrid")).isoformat(),
-            "match_source": source
-        }, f, ensure_ascii=False, indent=2)
-
-
-if __name__ == "__main__":
-    main()
+        json.dump(meta, f, ensure_ascii=False, indent=2)
