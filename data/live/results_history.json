@@ -1,1 +1,13 @@
-
+{
+  "date": "2025-05-02",
+  "surface": "Clay",
+  "tournament": "Madrid",
+  "winner": "Carlos Alcaraz",
+  "loser": "Jannik Sinner",
+  "aces_w": 7,
+  "aces_l": 5,
+  "service_games_w": 10,
+  "service_games_l": 10,
+  "breaks_w": 2,
+  "breaks_l": 1
+}
