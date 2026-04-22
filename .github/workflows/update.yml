@@ -1,8 +1,8 @@
-name: Update Data
+name: Update Madrid Data
 
 on:
   schedule:
-    - cron: "0 20 * * *"
+    - cron: "5 20 * * *"
   workflow_dispatch:
 
 jobs:
@@ -10,22 +10,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - name: Setup Python
-        uses: actions/setup-python@v4
+      - uses: actions/setup-python@v5
         with:
-          python-version: "3.10"
+          python-version: "3.11"
 
-      - run: pip install requests pandas
+      - run: pip install requests beautifulsoup4 pypdf
 
-      - name: Run updater
-        run: python updater.py
+      - run: python updater.py
 
-      - name: Commit data
+      - name: Commit updated data
         run: |
-          git config user.name "bot"
-          git config user.email "bot@example.com"
-          git add data/live/*
-          git commit -m "update data" || echo "no changes"
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add data/live/*.json
+          git commit -m "daily data update" || echo "no changes"
           git push
