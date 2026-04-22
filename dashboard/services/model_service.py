@@ -2,18 +2,29 @@ import json
 from pathlib import Path
 
 
-PLAYER_PATH = Path("data/live/players.json")
+PLAYERS_PATH = Path("data/live/players.json")
 
 
 def load_players():
-    if not PLAYER_PATH.exists():
+    if not PLAYERS_PATH.exists():
         return {}
-    with open(PLAYER_PATH) as f:
+    with open(PLAYERS_PATH, "r", encoding="utf-8") as f:
         return json.load(f)
 
 
 def win_prob(elo_a, elo_b):
     return 1 / (1 + 10 ** ((elo_b - elo_a) / 400))
+
+
+def court_factor(court: str):
+    c = court.lower()
+    if "court 4" in c:
+        return 1.08
+    if "manolo" in c:
+        return 1.02
+    if "arantxa" in c:
+        return 1.01
+    return 1.0
 
 
 def run_prediction(match):
@@ -25,33 +36,48 @@ def run_prediction(match):
     elo_a = a.get("elo_clay", 1800)
     elo_b = b.get("elo_clay", 1800)
 
-    serve_a = a.get("ace_rate_clay", 6)
-    serve_b = b.get("ace_rate_clay", 6)
+    ace_rate_a = a.get("ace_rate_clay_3y", 5.5)
+    ace_rate_b = b.get("ace_rate_clay_3y", 5.5)
 
-    break_a = a.get("break_rate_clay", 2)
-    break_b = b.get("break_rate_clay", 2)
+    ace_allowed_a = a.get("ace_allowed_clay_3y", 5.5)
+    ace_allowed_b = b.get("ace_allowed_clay_3y", 5.5)
+
+    break_rate_a = a.get("break_rate_clay_3y", 2.0)
+    break_rate_b = b.get("break_rate_clay_3y", 2.0)
+
+    break_allowed_a = a.get("break_allowed_clay_3y", 2.0)
+    break_allowed_b = b.get("break_allowed_clay_3y", 2.0)
 
     p_a = win_prob(elo_a, elo_b)
-    match_length = 1.1 + (1 - abs(p_a - 0.5)) * 0.5
+    p_b = 1 - p_a
 
-    court_factor = 1.08 if "court 4" in match.court.lower() else 1.0
+    c_factor = court_factor(match.court)
+    madrid_factor = 1.15
+    match_length = 1.08 + (1 - abs(p_a - 0.5)) * 0.5
 
-    aces_a = round(serve_a * court_factor * match_length, 1)
-    aces_b = round(serve_b * court_factor * match_length, 1)
+    aces_a = round(((ace_rate_a + ace_allowed_b) / 2) * c_factor * madrid_factor * match_length, 1)
+    aces_b = round(((ace_rate_b + ace_allowed_a) / 2) * c_factor * madrid_factor * match_length, 1)
 
-    breaks_a = round(break_a * (1.2 - court_factor / 10), 1)
-    breaks_b = round(break_b * (1.2 - court_factor / 10), 1)
+    breaks_a = round(((break_rate_a + break_allowed_b) / 2) * (1.12 - (c_factor - 1) * 0.5), 1)
+    breaks_b = round(((break_rate_b + break_allowed_a) / 2) * (1.12 - (c_factor - 1) * 0.5), 1)
 
-    return {
+    result = {
         "playerA": {"aces": aces_a, "breaks": breaks_a},
         "playerB": {"aces": aces_b, "breaks": breaks_b},
         "totals": {
             "aces": round(aces_a + aces_b, 1),
             "breaks": round(breaks_a + breaks_b, 1)
         }
-    }, {
+    }
+
+    context = {
         "elo_a": elo_a,
         "elo_b": elo_b,
-        "match_length": match_length,
-        "court_factor": court_factor
+        "win_prob_a": round(p_a, 3),
+        "win_prob_b": round(p_b, 3),
+        "court_factor": c_factor,
+        "madrid_factor": madrid_factor,
+        "match_length": round(match_length, 2)
     }
+
+    return result, context
