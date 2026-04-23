@@ -20,10 +20,19 @@ jobs:
 
       - run: python updater.py
 
-      - name: Commit updated data
-        run: |
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
-          git add data/live/*.json
-          git commit -m "daily data update" || echo "no changes"
+    - name: Set permissions
+      run: |
+        git config --global --add safe.directory /github/workspace
+
+    - name: Commit updated data
+      run: |
+        git config user.name "github-actions"
+        git config user.email "actions@github.com"
+        git add data/live/*.json
+
+        if git diff --cached --quiet; then
+          echo "No changes to commit"
+        else
+          git commit -m "daily data update"
           git push
+        fi
