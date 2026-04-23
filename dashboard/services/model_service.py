@@ -1,8 +1,6 @@
 import json
+import math
 from pathlib import Path
-
-from backfill.similarity import find_similar_players
-from backfill.weather import ace_weather_factor, break_weather_factor
 
 
 PLAYERS_PATH = Path("data/live/players.json")
@@ -28,7 +26,7 @@ def win_prob(elo_a, elo_b):
 
 
 def court_factor(court: str):
-    c = court.lower()
+    c = str(court).lower()
     if "court 4" in c:
         return 1.08
     if "manolo" in c:
@@ -36,6 +34,69 @@ def court_factor(court: str):
     if "arantxa" in c:
         return 1.01
     return 1.0
+
+
+def ace_weather_factor(avg_temp, wind_kmh):
+    factor = 1.0
+
+    if avg_temp is not None:
+        factor *= 1 + ((avg_temp - 20) * 0.01)
+
+    if wind_kmh is not None:
+        factor *= max(0.8, 1 - wind_kmh * 0.01)
+
+    return round(factor, 3)
+
+
+def break_weather_factor(avg_temp, wind_kmh):
+    factor = 1.0
+
+    if avg_temp is not None and avg_temp < 18:
+        factor *= 1.03
+
+    if wind_kmh is not None:
+        factor *= 1 + min(0.12, wind_kmh * 0.005)
+
+    return round(factor, 3)
+
+
+def cosine_similarity(a, b):
+    dot = sum(x * y for x, y in zip(a, b))
+    na = math.sqrt(sum(x * x for x in a))
+    nb = math.sqrt(sum(y * y for y in b))
+    if na == 0 or nb == 0:
+        return 0.0
+    return dot / (na * nb)
+
+
+def build_feature_vector(player_data: dict):
+    return [
+        player_data.get("elo_clay", 1800) / 2500.0,
+        player_data.get("ace_rate_clay_3y", 0),
+        player_data.get("ace_allowed_clay_3y", 0),
+        player_data.get("break_rate_clay_3y", 0),
+        player_data.get("break_allowed_clay_3y", 0),
+        player_data.get("madrid_ace_rate", 0),
+        player_data.get("madrid_break_rate", 0),
+    ]
+
+
+def find_similar_players(player_name: str, all_players: dict, top_n: int = 5):
+    if player_name not in all_players:
+        return []
+
+    target_vec = build_feature_vector(all_players[player_name])
+    scores = []
+
+    for other_name, other_data in all_players.items():
+        if other_name == player_name:
+            continue
+        other_vec = build_feature_vector(other_data)
+        sim = cosine_similarity(target_vec, other_vec)
+        scores.append((other_name, sim))
+
+    scores.sort(key=lambda x: x[1], reverse=True)
+    return scores[:top_n]
 
 
 def run_prediction(match):
@@ -83,11 +144,43 @@ def run_prediction(match):
     sim_boost_a = 1.0 + (0.01 * len(sim_a))
     sim_boost_b = 1.0 + (0.01 * len(sim_b))
 
-    aces_a = round(((ace_rate_a + ace_allowed_b) / 2) * 20 * c_factor * madrid_factor * match_length * ace_wf * sim_boost_a, 1)
-    aces_b = round(((ace_rate_b + ace_allowed_a) / 2) * 20 * c_factor * madrid_factor * match_length * ace_wf * sim_boost_b, 1)
+    aces_a = round(
+        ((ace_rate_a + ace_allowed_b) / 2)
+        * 20
+        * c_factor
+        * madrid_factor
+        * match_length
+        * ace_wf
+        * sim_boost_a,
+        1
+    )
 
-    breaks_a = round(((break_rate_a + break_allowed_b) / 2) * 10 * (1.12 - (c_factor - 1) * 0.5) * break_wf, 1)
-    breaks_b = round(((break_rate_b + break_allowed_a) / 2) * 10 * (1.12 - (c_factor - 1) * 0.5) * break_wf, 1)
+    aces_b = round(
+        ((ace_rate_b + ace_allowed_a) / 2)
+        * 20
+        * c_factor
+        * madrid_factor
+        * match_length
+        * ace_wf
+        * sim_boost_b,
+        1
+    )
+
+    breaks_a = round(
+        ((break_rate_a + break_allowed_b) / 2)
+        * 10
+        * (1.12 - (c_factor - 1) * 0.5)
+        * break_wf,
+        1
+    )
+
+    breaks_b = round(
+        ((break_rate_b + break_allowed_a) / 2)
+        * 10
+        * (1.12 - (c_factor - 1) * 0.5)
+        * break_wf,
+        1
+    )
 
     result = {
         "playerA": {"aces": aces_a, "breaks": breaks_a},
