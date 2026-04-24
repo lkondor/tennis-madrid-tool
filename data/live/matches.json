@@ -14,13 +14,6 @@
     "tour": "ATP/WTA"
   },
   {
-    "player1": "R. Jodar",
-    "player2": "A. De Minaur",
-    "court": "Manolo Santana Stadium",
-    "date": "2026-04-24",
-    "tour": "ATP/WTA"
-  },
-  {
     "player1": "J. Pegula",
     "player2": "K. Boulter",
     "court": "Manolo Santana Stadium",
@@ -42,13 +35,6 @@
     "tour": "ATP/WTA"
   },
   {
-    "player1": "T. Tirante",
-    "player2": "T. Paul",
-    "court": "Arantxa Sanchez Stadium",
-    "date": "2026-04-24",
-    "tour": "ATP/WTA"
-  },
-  {
     "player1": "M. Keys",
     "player2": "S. Zhang",
     "court": "Stadium 3",
@@ -59,20 +45,6 @@
     "player1": "Z. Sonmez",
     "player2": "C. Bucsa",
     "court": "Stadium 3",
-    "date": "2026-04-24",
-    "tour": "ATP/WTA"
-  },
-  {
-    "player1": "A. Rublev",
-    "player2": "V. Kopriva",
-    "court": "Stadium 3",
-    "date": "2026-04-24",
-    "tour": "ATP/WTA"
-  },
-  {
-    "player1": "C. Norrie",
-    "player2": "T. Machac",
-    "court": "Court 4",
     "date": "2026-04-24",
     "tour": "ATP/WTA"
   },
