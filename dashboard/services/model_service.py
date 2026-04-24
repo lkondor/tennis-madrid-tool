@@ -25,43 +25,33 @@ def load_weather():
 
 def resolve_player_key(display_name, players):
     name = str(display_name).lower().strip()
-
-    if name in players:
-        return name
-
-    # normalizza spazi e punti
     cleaned = name.replace(".", "").strip()
     parts = cleaned.split()
 
-    if len(parts) < 2:
+    # Se è nome abbreviato tipo "q zheng", cerca prima il nome completo
+    if len(parts) >= 2 and len(parts[0]) == 1:
+        initial = parts[0][0]
+        surname = " ".join(parts[1:])
+
+        for key in players.keys():
+            key_parts = key.split()
+            if len(key_parts) < 2:
+                continue
+
+            key_initial = key_parts[0][0]
+            key_surname = " ".join(key_parts[1:])
+
+            if key_initial == initial and key_surname == surname:
+                return key
+
+            if key_initial == initial and key.endswith(surname):
+                return key
+
+    # Solo dopo prova match esatto
+    if name in players:
         return name
 
-    initial = parts[0][0]
-    surname = " ".join(parts[1:])
-
-    # caso: "j sinner" -> "jannik sinner"
-    for key in players.keys():
-        key_parts = key.split()
-        if len(key_parts) < 2:
-            continue
-
-        key_initial = key_parts[0][0]
-        key_surname = " ".join(key_parts[1:])
-
-        if key_initial == initial and key_surname == surname:
-            return key
-
-    # caso cognomi composti: "a de minaur" -> "alex de minaur"
-    for key in players.keys():
-        key_parts = key.split()
-        if len(key_parts) < 2:
-            continue
-
-        if key_parts[0][0] == initial and key.endswith(surname):
-            return key
-
     return name
-
 
 def win_prob(elo_a, elo_b):
     return 1 / (1 + 10 ** ((elo_b - elo_a) / 400))
