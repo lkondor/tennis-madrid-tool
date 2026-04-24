@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 from collections import defaultdict
 
-
+ALIASES_PATH = OUT_DIR / "player_aliases.json"
 OUT_DIR = Path("data/live")
 
 RESULTS_HISTORY_PATH = OUT_DIR / "results_history.json"
@@ -65,6 +65,16 @@ def load_player_indices():
             }
 
     return players
+
+
+def load_aliases():
+    return safe_load_json(ALIASES_PATH, {})
+
+
+def canonical_name(name, aliases=None):
+    aliases = aliases or {}
+    key = normalize_name(name)
+    return normalize_name(aliases.get(key, key))
 
 
 def compute_surface_elo(results, surface="Clay", base=1500.0, k=24.0):
@@ -241,6 +251,7 @@ def aggregate_player_stats(results):
 
 
 def build_players_database():
+    aliases = load_aliases()
     indexed_players = load_player_indices()
     results = load_results_history()
 
@@ -251,17 +262,19 @@ def build_players_database():
 
     players = {}
 
-    for name in sorted(all_names):
+    for raw_name in sorted(all_names):
+        name = canonical_name(raw_name, aliases)
+
         base = dict(DEFAULT_PLAYER)
 
-        if name in indexed_players:
-            base.update(indexed_players[name])
+        if raw_name in indexed_players:
+            base.update(indexed_players[raw_name])
 
-        if name in stats_map:
-            base.update(stats_map[name])
+        if raw_name in stats_map:
+            base.update(stats_map[raw_name])
 
-        if name in elo_map:
-            base["elo_clay"] = round(elo_map[name], 1)
+        if raw_name in elo_map:
+            base["elo_clay"] = round(elo_map[raw_name], 1)
 
         players[name] = base
 
