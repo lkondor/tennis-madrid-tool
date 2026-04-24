@@ -20,6 +20,32 @@ def load_weather():
     with open(WEATHER_PATH, "r", encoding="utf-8") as f:
         return json.load(f)
 
+def resolve_player_key(display_name, players):
+    name = display_name.lower().strip()
+
+    if name in players:
+        return name
+
+    parts = name.replace(".", "").split()
+    if len(parts) < 2:
+        return name
+
+    initial = parts[0][0]
+    surname = " ".join(parts[1:])
+
+    for key in players.keys():
+        key_parts = key.split()
+        if len(key_parts) < 2:
+            continue
+
+        key_initial = key_parts[0][0]
+        key_surname = " ".join(key_parts[1:])
+
+        if key_initial == initial and key_surname == surname:
+            return key
+
+    return name
+
 
 def win_prob(elo_a, elo_b):
     return 1 / (1 + 10 ** ((elo_b - elo_a) / 400))
@@ -103,8 +129,8 @@ def run_prediction(match):
     players = load_players()
     weather = load_weather()
 
-    a_name = match.player1.lower()
-    b_name = match.player2.lower()
+    a_name = resolve_player_key(match.player1, players)
+    b_name = resolve_player_key(match.player2, players)
 
     a = players.get(a_name, {})
     b = players.get(b_name, {})
@@ -203,6 +229,10 @@ def run_prediction(match):
         "wind_kmh": wind_kmh,
         "ace_weather_factor": ace_wf,
         "break_weather_factor": break_wf
+        "matched_player_a": a_name,
+        "matched_player_b": b_name,
+        "data_quality_a": a.get("data_quality", "fallback"),
+        "data_quality_b": b.get("data_quality", "fallback"),
     }
 
     return result, context
