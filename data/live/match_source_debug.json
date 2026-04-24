@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-04-24T12:43:05.511795+02:00",
-  "used_source": "fallback demo",
+  "updated_at": "2026-04-24T12:55:56.274907+02:00",
+  "used_source": "ATP daily schedule",
   "atp": {
-    "status": "no_matches",
+    "status": "ok",
     "url": "https://www.atptour.com/en/scores/current/madrid/1536/daily-schedule",
     "http_status": 200,
-    "line_count": 419,
+    "line_count": 420,
     "sample_lines": [
       "ATP Masters 1000 Madrid | Daily Schedule | ATP Tour | Tennis",
       "ATP Tour",
@@ -128,32 +128,9 @@
       "Vs",
       "C."
     ],
-    "matches_count": 0,
+    "matches_count": 34,
     "error": null
   },
-  "pdf": [
-    {
-      "status": "http_error",
-      "url": "https://mutuamadridopen.com/wp-content/uploads/2026/04/OP-2026-04-24.pdf",
-      "date": "2026-04-24",
-      "http_status": 404,
-      "content_type": "text/html; charset=UTF-8",
-      "line_count": 0,
-      "sample_lines": [],
-      "matches_count": 0,
-      "error": null
-    },
-    {
-      "status": "http_error",
-      "url": "https://mutuamadridopen.com/wp-content/uploads/2026/04/OP-2026-04-25.pdf",
-      "date": "2026-04-25",
-      "http_status": 404,
-      "content_type": "text/html; charset=UTF-8",
-      "line_count": 0,
-      "sample_lines": [],
-      "matches_count": 0,
-      "error": null
-    }
-  ],
-  "final_matches_count": 3
+  "pdf": null,
+  "final_matches_count": 34
 }
