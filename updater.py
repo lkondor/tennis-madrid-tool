@@ -114,11 +114,17 @@ def _candidate_dates():
 
 def _normalize_line(line: str) -> str:
     line = line.replace("\xa0", " ").strip()
-    line = re.sub(r"\[[^\]]+\]", "", line)
-    line = re.sub(r"\([A-Z]{2,3}\)", "", line)
-    line = re.sub(r"\s+", " ", line).strip(" -–•")
-    return line.strip()
 
+    # rimuove qualunque parentesi: seed, WC, Q, LL, nazioni, ecc.
+    line = re.sub(r"\([^)]*\)", "", line)
+
+    # rimuove marker tipo [WC], [1], ecc.
+    line = re.sub(r"\[[^\]]+\]", "", line)
+
+    # normalizza spazi e simboli
+    line = re.sub(r"\s+", " ", line).strip(" -–•")
+
+    return line.strip()
 
 def _looks_like_name(line: str) -> bool:
     if not line:
