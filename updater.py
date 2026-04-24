@@ -137,7 +137,7 @@ def _looks_like_name(line: str) -> bool:
         "ORDER", "PLAY", "MADRID", "OPEN", "COURT", "STADIUM",
         "FOLLOWED", "STARTING", "NOT", "BEFORE", "SINGLES", "DOUBLES",
         "TODAY", "TOMORROW", "ROUND", "DAY", "DEFEATS", "WTA", "ATP",
-        "STARTS", "AT", "H2H"
+        "STARTS", "AT", "H2H", "LIVE", "RESULTS", "SCHEDULE"
     }
 
     words = line.replace(".", " ").split()
@@ -147,13 +147,11 @@ def _looks_like_name(line: str) -> bool:
     if any(w.upper() in banned for w in words):
         return False
 
-    # ammetti iniziali tipo "I." e seed già rimossi
     letters = [c for c in line if c.isalpha()]
     if len(letters) < 3:
         return False
 
     return True
-
 
 def _parse_matches_from_lines(lines, date_str):
     matches = []
@@ -212,12 +210,11 @@ def fetch_matches_from_atp_daily_schedule(target_date):
         soup = BeautifulSoup(r.text, "html.parser")
         text = soup.get_text("\n", strip=True)
         raw_lines = [x.strip() for x in text.splitlines() if x.strip()]
-
-        # normalizza
         lines = [_normalize_line(x) for x in raw_lines if _normalize_line(x)]
 
-        target_label = target_date.strftime("%a, %-d %B, %Y")
-        target_label_alt = target_date.strftime("%a, %d %B, %Y")
+        # la pagina ATP usa formato tipo "Thu, 23 April, 2026 (Day 4)"
+        target_label_1 = target_date.strftime("%a, %-d %B, %Y")
+        target_label_2 = target_date.strftime("%a, %d %B, %Y")
 
         matches = []
         current_court = None
@@ -228,13 +225,13 @@ def fetch_matches_from_atp_daily_schedule(target_date):
             line = lines[i]
             upper = line.upper()
 
-            # attiva parsing solo quando siamo nella giornata giusta
-            if target_label.lower() in line.lower() or target_label_alt.lower() in line.lower():
+            # entra nella giornata target
+            if target_label_1.lower() in line.lower() or target_label_2.lower() in line.lower():
                 in_target_day = True
                 i += 1
                 continue
 
-            # se arriva un altro giorno, fermati
+            # se siamo già dentro il giorno target e parte un nuovo giorno, fermati
             if in_target_day and re.match(r"^[A-Z][a-z]{2}, \d{1,2} [A-Z][a-z]+, \d{4}", line):
                 break
 
@@ -242,7 +239,7 @@ def fetch_matches_from_atp_daily_schedule(target_date):
                 i += 1
                 continue
 
-            # campi
+            # riconoscimento campi
             if upper.startswith("MANOLO SANTANA STADIUM"):
                 current_court = "Manolo Santana Stadium"
                 i += 1
@@ -286,11 +283,7 @@ def fetch_matches_from_atp_daily_schedule(target_date):
                 mid = lines[i + 1]
                 p2 = lines[i + 2]
 
-                if (
-                    _looks_like_name(p1)
-                    and mid.upper() == "VS"
-                    and _looks_like_name(p2)
-                ):
+                if _looks_like_name(p1) and mid.upper() == "VS" and _looks_like_name(p2):
                     matches.append({
                         "player1": p1.title(),
                         "player2": p2.title(),
@@ -307,18 +300,8 @@ def fetch_matches_from_atp_daily_schedule(target_date):
         deduped = []
         seen = set()
         for m in matches:
-            key = (
-                m["player1"].lower(),
-                m["player2"].lower(),
-                m["court"].lower(),
-                m["date"]
-            )
-            rev = (
-                m["player2"].lower(),
-                m["player1"].lower(),
-                m["court"].lower(),
-                m["date"]
-            )
+            key = (m["player1"].lower(), m["player2"].lower(), m["court"].lower(), m["date"])
+            rev = (m["player2"].lower(), m["player1"].lower(), m["court"].lower(), m["date"])
             if key not in seen and rev not in seen:
                 seen.add(key)
                 deduped.append(m)
@@ -327,7 +310,6 @@ def fetch_matches_from_atp_daily_schedule(target_date):
 
     except Exception:
         return []
-
 
 def fetch_matches_from_madrid_pdf(target_date):
     if PdfReader is None:
