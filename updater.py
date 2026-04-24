@@ -22,6 +22,7 @@ from backfill.results_scraper import scrape_results_history
 from backfill.results_scraper import refresh_results_history
 from backfill.player_database import build_players_database
 from backfill.player_database import load_aliases, canonical_name
+from backfill.historical_builder import expand_history
 aliases = load_aliases()
 
 OUT_DIR = Path("data/live")
@@ -644,6 +645,7 @@ def main():
     timestamp = now_madrid().isoformat()
 
     matches, match_source = update_matches()
+    expand_history()
     results_info = refresh_results_history()
     player_info = update_players(matches)
     weather_info = update_weather()
