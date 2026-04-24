@@ -2,12 +2,13 @@ import json
 from pathlib import Path
 from collections import defaultdict
 
-ALIASES_PATH = OUT_DIR / "player_aliases.json"
+
 OUT_DIR = Path("data/live")
 
 RESULTS_HISTORY_PATH = OUT_DIR / "results_history.json"
 ATP_INDEX_PATH = OUT_DIR / "atp_players_index.json"
 WTA_INDEX_PATH = OUT_DIR / "wta_players_index.json"
+ALIASES_PATH = OUT_DIR / "player_aliases.json"
 
 
 DEFAULT_PLAYER = {
