@@ -6,11 +6,7 @@ from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
 import requests
-
-try:
-    from bs4 import BeautifulSoup
-except Exception:
-    BeautifulSoup = None
+from bs4 import BeautifulSoup
 
 try:
     from pypdf import PdfReader
@@ -28,18 +24,31 @@ from backfill.results_scraper import scrape_results_history
 OUT_DIR = Path("data/live")
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
+MADRID_TZ = ZoneInfo("Europe/Madrid")
 
-COURT_NAMES = {
-    "MANOLO SANTANA STADIUM",
-    "ARANTXA SANCHEZ STADIUM",
-    "STADIUM 3",
-    "COURT 3",
-    "COURT 4",
-    "COURT 5",
-    "COURT 6",
-    "COURT 7",
-    "COURT 8",
-}
+ATP_DAILY_SCHEDULE_URL = (
+    "https://www.atptour.com/en/scores/current/madrid/1536/daily-schedule"
+)
+
+COURTS = [
+    "Manolo Santana Stadium",
+    "Arantxa Sanchez Stadium",
+    "Stadium 3",
+    "Court 3",
+    "Court 4",
+    "Court 5",
+    "Court 6",
+    "Court 7",
+    "Court 8",
+]
+
+
+# ============================================================
+# Generic helpers
+# ============================================================
+
+def now_madrid():
+    return datetime.now(MADRID_TZ)
 
 
 def safe_write_json(path: Path, payload):
@@ -47,6 +56,422 @@ def safe_write_json(path: Path, payload):
     with open(path, "w", encoding="utf-8") as f:
         json.dump(payload, f, ensure_ascii=False, indent=2)
 
+
+def safe_get(url: str, timeout: int = 25):
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (compatible; MadridPredictor/1.0; "
+            "+https://github.com)"
+        )
+    }
+    return requests.get(url, timeout=timeout, headers=headers)
+
+
+def clean_text(value: str) -> str:
+    value = value.replace("\xa0", " ").strip()
+    value = re.sub(r"\([^)]*\)", "", value)      # remove seeds / Q / WC / country
+    value = re.sub(r"\[[^\]]+\]", "", value)     # remove bracket markers
+    value = re.sub(r"\s+", " ", value)
+    return value.strip(" -–•")
+
+
+def looks_like_player_name(value: str) -> bool:
+    if not value:
+        return False
+
+    lower = value.lower()
+
+    blocked_fragments = [
+        "order of play",
+        "mutua madrid open",
+        "singles",
+        "doubles",
+        "starts at",
+        "followed by",
+        "not before",
+        "defeats",
+        "walkover",
+        "retired",
+        "court",
+        "stadium",
+        "schedule",
+        "results",
+        "tickets",
+        "news",
+        "ranking",
+        "draw",
+        "h2h",
+        "vs",
+    ]
+
+    if any(x in lower for x in blocked_fragments):
+        return False
+
+    words = value.replace(".", " ").split()
+
+    if len(words) < 2 or len(words) > 5:
+        return False
+
+    letters = [c for c in value if c.isalpha()]
+    if len(letters) < 3:
+        return False
+
+    return True
+
+
+def normalize_court(line: str):
+    upper = line.upper()
+
+    for court in COURTS:
+        if upper.startswith(court.upper()):
+            return court
+
+    return None
+
+
+def fallback_matches():
+    today = now_madrid().date().isoformat()
+
+    return [
+        {
+            "player1": "Jannik Sinner",
+            "player2": "Daniil Medvedev",
+            "court": "Manolo Santana Stadium",
+            "date": today,
+            "tour": "ATP",
+        },
+        {
+            "player1": "Carlos Alcaraz",
+            "player2": "Alexander Zverev",
+            "court": "Court 4",
+            "date": today,
+            "tour": "ATP",
+        },
+        {
+            "player1": "Iga Swiatek",
+            "player2": "Aryna Sabalenka",
+            "court": "Arantxa Sanchez Stadium",
+            "date": today,
+            "tour": "WTA",
+        },
+    ]
+
+
+# ============================================================
+# Date helpers
+# ============================================================
+
+def candidate_dates():
+    today = now_madrid().date()
+
+    return [
+        today,
+        today + timedelta(days=1),
+    ]
+
+
+def parse_atp_date_line(line: str):
+    """
+    Expected examples:
+    Thu, 23 April, 2026
+    Thu, 23 April, 2026 (Day 4)
+    """
+    line = line.split("(")[0].strip()
+
+    for fmt in ("%a, %d %B, %Y", "%a, %-d %B, %Y"):
+        try:
+            return datetime.strptime(line, fmt).date().isoformat()
+        except Exception:
+            continue
+
+    return None
+
+
+def is_atp_date_line(line: str):
+    return bool(
+        re.match(
+            r"^[A-Z][a-z]{2},\s+\d{1,2}\s+[A-Z][a-z]+,\s+\d{4}",
+            line,
+        )
+    )
+
+
+# ============================================================
+# Match parsing
+# ============================================================
+
+def dedupe_matches(matches):
+    output = []
+    seen = set()
+
+    for m in matches:
+        key = (
+            m["player1"].lower(),
+            m["player2"].lower(),
+            m["court"].lower(),
+            m["date"],
+        )
+
+        reverse = (
+            m["player2"].lower(),
+            m["player1"].lower(),
+            m["court"].lower(),
+            m["date"],
+        )
+
+        if key in seen or reverse in seen:
+            continue
+
+        seen.add(key)
+        output.append(m)
+
+    return output
+
+
+def parse_matches_from_lines(lines, default_date=None):
+    matches = []
+    current_date = default_date
+    current_court = None
+
+    i = 0
+
+    while i < len(lines):
+        line = clean_text(lines[i])
+
+        if not line:
+            i += 1
+            continue
+
+        parsed_date = parse_atp_date_line(line)
+        if parsed_date:
+            current_date = parsed_date
+            current_court = None
+            i += 1
+            continue
+
+        court = normalize_court(line)
+        if court:
+            current_court = court
+            i += 1
+            continue
+
+        if current_date and current_court and i + 2 < len(lines):
+            p1 = clean_text(lines[i])
+            mid = clean_text(lines[i + 1])
+            p2 = clean_text(lines[i + 2])
+
+            if (
+                looks_like_player_name(p1)
+                and mid.upper() == "VS"
+                and looks_like_player_name(p2)
+            ):
+                matches.append(
+                    {
+                        "player1": p1.title(),
+                        "player2": p2.title(),
+                        "court": current_court,
+                        "date": current_date,
+                        "tour": "ATP/WTA",
+                    }
+                )
+                i += 3
+                continue
+
+        i += 1
+
+    return dedupe_matches(matches)
+
+
+# ============================================================
+# Source 1: ATP Daily Schedule
+# ============================================================
+
+def fetch_atp_daily_schedule_matches():
+    debug = {
+        "status": "not_started",
+        "url": ATP_DAILY_SCHEDULE_URL,
+        "http_status": None,
+        "line_count": 0,
+        "sample_lines": [],
+        "matches_count": 0,
+        "error": None,
+    }
+
+    try:
+        response = safe_get(ATP_DAILY_SCHEDULE_URL)
+        debug["http_status"] = response.status_code
+
+        if response.status_code != 200:
+            debug["status"] = "http_error"
+            return [], debug
+
+        soup = BeautifulSoup(response.text, "html.parser")
+        raw_text = soup.get_text("\n", strip=True)
+
+        lines = [
+            clean_text(x)
+            for x in raw_text.splitlines()
+            if clean_text(x)
+        ]
+
+        debug["line_count"] = len(lines)
+        debug["sample_lines"] = lines[:120]
+
+        matches = parse_matches_from_lines(lines)
+
+        debug["matches_count"] = len(matches)
+        debug["status"] = "ok" if matches else "no_matches"
+
+        return matches, debug
+
+    except Exception as exc:
+        debug["status"] = "exception"
+        debug["error"] = str(exc)
+        return [], debug
+
+
+# ============================================================
+# Source 2: Madrid Official PDF
+# ============================================================
+
+def madrid_pdf_url(target_date):
+    return (
+        "https://mutuamadridopen.com/wp-content/uploads/"
+        f"{target_date.year}/{target_date.month:02d}/"
+        f"OP-{target_date.year}-{target_date.month:02d}-{target_date.day:02d}.pdf"
+    )
+
+
+def fetch_madrid_pdf_matches_for_date(target_date):
+    url = madrid_pdf_url(target_date)
+
+    debug = {
+        "status": "not_started",
+        "url": url,
+        "date": target_date.isoformat(),
+        "http_status": None,
+        "content_type": None,
+        "line_count": 0,
+        "sample_lines": [],
+        "matches_count": 0,
+        "error": None,
+    }
+
+    if PdfReader is None:
+        debug["status"] = "pypdf_missing"
+        return [], debug
+
+    try:
+        response = safe_get(url)
+        debug["http_status"] = response.status_code
+        debug["content_type"] = response.headers.get("content-type", "")
+
+        if response.status_code != 200:
+            debug["status"] = "http_error"
+            return [], debug
+
+        if "pdf" not in debug["content_type"].lower():
+            debug["status"] = "not_pdf"
+            return [], debug
+
+        reader = PdfReader(io.BytesIO(response.content))
+
+        text = "\n".join(
+            (page.extract_text() or "")
+            for page in reader.pages
+        )
+
+        lines = [
+            clean_text(x)
+            for x in text.splitlines()
+            if clean_text(x)
+        ]
+
+        debug["line_count"] = len(lines)
+        debug["sample_lines"] = lines[:120]
+
+        matches = parse_matches_from_lines(
+            lines,
+            default_date=target_date.isoformat(),
+        )
+
+        debug["matches_count"] = len(matches)
+        debug["status"] = "ok" if matches else "no_matches"
+
+        return matches, debug
+
+    except Exception as exc:
+        debug["status"] = "exception"
+        debug["error"] = str(exc)
+        return [], debug
+
+
+def fetch_madrid_pdf_matches():
+    all_matches = []
+    debug_items = []
+
+    for d in candidate_dates():
+        matches, debug = fetch_madrid_pdf_matches_for_date(d)
+        debug_items.append(debug)
+        all_matches.extend(matches)
+
+    return dedupe_matches(all_matches), debug_items
+
+
+# ============================================================
+# Match update orchestration
+# ============================================================
+
+def update_matches():
+    debug = {
+        "updated_at": now_madrid().isoformat(),
+        "used_source": None,
+        "atp": None,
+        "pdf": None,
+        "final_matches_count": 0,
+    }
+
+    # 1. ATP primary source
+    atp_matches, atp_debug = fetch_atp_daily_schedule_matches()
+    debug["atp"] = atp_debug
+
+    if atp_matches:
+        debug["used_source"] = "ATP daily schedule"
+        debug["final_matches_count"] = len(atp_matches)
+
+        safe_write_json(OUT_DIR / "matches.json", atp_matches)
+        safe_write_json(OUT_DIR / "match_source_debug.json", debug)
+
+        return atp_matches, "ATP daily schedule"
+
+    # 2. Madrid PDF fallback
+    pdf_matches, pdf_debug = fetch_madrid_pdf_matches()
+    debug["pdf"] = pdf_debug
+
+    if pdf_matches:
+        debug["used_source"] = "Madrid official PDF"
+        debug["final_matches_count"] = len(pdf_matches)
+
+        safe_write_json(OUT_DIR / "matches.json", pdf_matches)
+        safe_write_json(OUT_DIR / "match_source_debug.json", debug)
+
+        return pdf_matches, "Madrid official PDF"
+
+    # 3. Demo fallback
+    demo = fallback_matches()
+
+    debug["used_source"] = "fallback demo"
+    debug["final_matches_count"] = len(demo)
+
+    safe_write_json(OUT_DIR / "matches.json", demo)
+    safe_write_json(OUT_DIR / "match_source_debug.json", debug)
+
+    return demo, "fallback demo"
+
+
+# ============================================================
+# Player / Elo / Weather update
+# ============================================================
 
 def compute_clay_elo(results_history):
     elo = SurfaceElo(base_rating=1500, k=24)
@@ -60,362 +485,57 @@ def compute_clay_elo(results_history):
 
     clay_results.sort(key=lambda x: x.get("date", ""))
 
-    for r in clay_results:
-        elo.update(r["winner"], r["loser"])
+    for result in clay_results:
+        elo.update(result["winner"], result["loser"])
 
     elo_map = elo.export()
 
-    if not elo_map:
-        return {
-            "jannik sinner": 2100.0,
-            "carlos alcaraz": 2200.0,
-            "daniil medvedev": 2050.0,
-            "alexander zverev": 2000.0,
-            "iga swiatek": 2150.0,
-            "aryna sabalenka": 2100.0,
-        }
+    if elo_map:
+        return elo_map
 
-    return elo_map
+    return {
+        "jannik sinner": 2100.0,
+        "carlos alcaraz": 2200.0,
+        "daniil medvedev": 2050.0,
+        "alexander zverev": 2000.0,
+        "iga swiatek": 2150.0,
+        "aryna sabalenka": 2100.0,
+    }
 
 
 def merge_players(atp_players, wta_players, elo_map):
     merged = {}
 
-    for name, rec in atp_players.items():
-        merged[name.lower().strip()] = build_three_year_rates(rec)
+    for name, record in atp_players.items():
+        merged[name.lower().strip()] = build_three_year_rates(record)
 
-    for name, rec in wta_players.items():
-        merged[name.lower().strip()] = build_three_year_rates(rec)
+    for name, record in wta_players.items():
+        merged[name.lower().strip()] = build_three_year_rates(record)
 
     for name, rating in elo_map.items():
-        clean_name = name.lower().strip()
-        merged.setdefault(clean_name, {})
-        merged[clean_name]["elo_clay"] = round(rating, 1)
+        key = name.lower().strip()
+        merged.setdefault(key, {})
+        merged[key]["elo_clay"] = round(rating, 1)
 
-    for _, rec in merged.items():
-        rec.setdefault("elo_clay", 1800.0)
-        rec.setdefault("ace_rate_clay_3y", 0.25)
-        rec.setdefault("break_rate_clay_3y", 0.20)
-        rec.setdefault("ace_allowed_clay_3y", round(rec["ace_rate_clay_3y"] * 0.9, 4))
-        rec.setdefault("break_allowed_clay_3y", round(rec["break_rate_clay_3y"] * 0.8, 4))
-        rec.setdefault("madrid_ace_rate", 0.0)
-        rec.setdefault("madrid_break_rate", 0.0)
+    for record in merged.values():
+        record.setdefault("elo_clay", 1800.0)
+        record.setdefault("ace_rate_clay_3y", 0.25)
+        record.setdefault("break_rate_clay_3y", 0.20)
+        record.setdefault(
+            "ace_allowed_clay_3y",
+            round(record["ace_rate_clay_3y"] * 0.9, 4),
+        )
+        record.setdefault(
+            "break_allowed_clay_3y",
+            round(record["break_rate_clay_3y"] * 0.8, 4),
+        )
+        record.setdefault("madrid_ace_rate", 0.0)
+        record.setdefault("madrid_break_rate", 0.0)
 
     return merged
 
 
-def _candidate_dates():
-    madrid_today = datetime.now(ZoneInfo("Europe/Madrid")).date()
-    return [
-        madrid_today,
-        madrid_today + timedelta(days=1),
-    ]
-
-
-def _normalize_line(line: str) -> str:
-    line = line.replace("\xa0", " ").strip()
-
-    # rimuove qualunque parentesi: seed, WC, Q, LL, nazioni, ecc.
-    line = re.sub(r"\([^)]*\)", "", line)
-
-    # rimuove marker tipo [WC], [1], ecc.
-    line = re.sub(r"\[[^\]]+\]", "", line)
-
-    # normalizza spazi e simboli
-    line = re.sub(r"\s+", " ", line).strip(" -–•")
-
-    return line.strip()
-
-def _looks_like_name(line: str) -> bool:
-    if not line:
-        return False
-
-    if " vs " in line.lower():
-        return False
-
-    banned = {
-        "ORDER", "PLAY", "MADRID", "OPEN", "COURT", "STADIUM",
-        "FOLLOWED", "STARTING", "NOT", "BEFORE", "SINGLES", "DOUBLES",
-        "TODAY", "TOMORROW", "ROUND", "DAY", "DEFEATS", "WTA", "ATP",
-        "STARTS", "AT", "H2H", "LIVE", "RESULTS", "SCHEDULE"
-    }
-
-    words = line.replace(".", " ").split()
-    if len(words) < 2 or len(words) > 5:
-        return False
-
-    if any(w.upper() in banned for w in words):
-        return False
-
-    letters = [c for c in line if c.isalpha()]
-    if len(letters) < 3:
-        return False
-
-    return True
-
-def _parse_matches_from_lines(lines, date_str):
-    matches = []
-    current_court = None
-    buffer_names = []
-
-    for raw in lines:
-        line = _normalize_line(raw)
-        if not line:
-            continue
-
-        upper = line.upper()
-
-        if upper in COURT_NAMES:
-            current_court = line.title()
-            buffer_names = []
-            continue
-
-        if _looks_like_name(line):
-            buffer_names.append(line.title())
-            if len(buffer_names) == 2 and current_court:
-                p1, p2 = buffer_names
-                if p1 != p2:
-                    matches.append({
-                        "player1": p1,
-                        "player2": p2,
-                        "court": current_court,
-                        "date": date_str,
-                        "tour": "ATP/WTA"
-                    })
-                buffer_names = []
-        else:
-            buffer_names = []
-
-    deduped = []
-    seen = set()
-    for m in matches:
-        key = (m["player1"].lower(), m["player2"].lower(), m["court"].lower(), m["date"])
-        rev = (m["player2"].lower(), m["player1"].lower(), m["court"].lower(), m["date"])
-        if key not in seen and rev not in seen:
-            seen.add(key)
-            deduped.append(m)
-
-    return deduped
-
-def fetch_matches_from_atp_daily_schedule(target_date=None):
-    if BeautifulSoup is None:
-        return []
-
-    url = "https://www.atptour.com/en/scores/current/madrid/1536/daily-schedule"
-
-    try:
-        r = requests.get(url, timeout=20)
-        r.raise_for_status()
-
-        soup = BeautifulSoup(r.text, "html.parser")
-        text = soup.get_text("\n", strip=True)
-        raw_lines = [x.strip() for x in text.splitlines() if x.strip()]
-        lines = [_normalize_line(x) for x in raw_lines if _normalize_line(x)]
-
-        matches = []
-        current_court = None
-        current_date = None
-
-        date_pattern = re.compile(
-            r"^[A-Z][a-z]{2},\s+\d{1,2}\s+[A-Z][a-z]+,\s+\d{4}"
-        )
-
-        i = 0
-        while i < len(lines):
-            line = lines[i]
-            upper = line.upper()
-
-            # Data tipo: Thu, 23 April, 2026
-            if date_pattern.match(line):
-                try:
-                    clean_date = line.split("(")[0].strip()
-                    parsed = datetime.strptime(clean_date, "%a, %d %B, %Y").date()
-                    current_date = parsed.isoformat()
-                except Exception:
-                    current_date = datetime.now(ZoneInfo("Europe/Madrid")).date().isoformat()
-
-                current_court = None
-                i += 1
-                continue
-
-            # Campi
-            if upper.startswith("MANOLO SANTANA STADIUM"):
-                current_court = "Manolo Santana Stadium"
-                i += 1
-                continue
-            if upper.startswith("ARANTXA SANCHEZ STADIUM"):
-                current_court = "Arantxa Sanchez Stadium"
-                i += 1
-                continue
-            if upper.startswith("STADIUM 3"):
-                current_court = "Stadium 3"
-                i += 1
-                continue
-            if upper.startswith("COURT 3"):
-                current_court = "Court 3"
-                i += 1
-                continue
-            if upper.startswith("COURT 4"):
-                current_court = "Court 4"
-                i += 1
-                continue
-            if upper.startswith("COURT 5"):
-                current_court = "Court 5"
-                i += 1
-                continue
-            if upper.startswith("COURT 6"):
-                current_court = "Court 6"
-                i += 1
-                continue
-            if upper.startswith("COURT 7"):
-                current_court = "Court 7"
-                i += 1
-                continue
-            if upper.startswith("COURT 8"):
-                current_court = "Court 8"
-                i += 1
-                continue
-
-            # Pattern: Player / Vs / Player
-            if current_court and current_date and i + 2 < len(lines):
-                p1 = lines[i]
-                mid = lines[i + 1]
-                p2 = lines[i + 2]
-
-                if _looks_like_name(p1) and mid.upper() == "VS" and _looks_like_name(p2):
-                    matches.append({
-                        "player1": p1.title(),
-                        "player2": p2.title(),
-                        "court": current_court,
-                        "date": current_date,
-                        "tour": "ATP/WTA"
-                    })
-                    i += 3
-                    continue
-
-            i += 1
-
-        # deduplica
-        deduped = []
-        seen = set()
-        for m in matches:
-            key = (m["player1"].lower(), m["player2"].lower(), m["court"].lower(), m["date"])
-            rev = (m["player2"].lower(), m["player1"].lower(), m["court"].lower(), m["date"])
-            if key not in seen and rev not in seen:
-                seen.add(key)
-                deduped.append(m)
-
-        return deduped
-
-    except Exception:
-        return []
-
-def fetch_matches_from_madrid_pdf(target_date):
-    if PdfReader is None:
-        return []
-
-    pdf_url = (
-        f"https://mutuamadridopen.com/wp-content/uploads/"
-        f"{target_date.year}/{target_date.month:02d}/OP-{target_date.year}-{target_date.month:02d}-{target_date.day:02d}.pdf"
-    )
-
-    try:
-        r = requests.get(pdf_url, timeout=20)
-        if r.status_code != 200:
-            return []
-
-        content_type = r.headers.get("content-type", "").lower()
-        if "pdf" not in content_type:
-            return []
-
-        reader = PdfReader(io.BytesIO(r.content))
-        text = "\n".join((page.extract_text() or "") for page in reader.pages)
-        lines = [x.strip() for x in text.splitlines() if x.strip()]
-        return _parse_matches_from_lines(lines, target_date.isoformat())
-    except Exception:
-        return []
-
-
-def update_matches():
-    all_matches = []
-    source_used = "fallback demo"
-
-    debug = {
-        "atp_matches_count": 0,
-        "pdf_matches_count": 0,
-        "used_source": None
-    }
-
-    # 1) Fonte primaria: ATP daily schedule
-    try:
-        atp_matches = fetch_matches_from_atp_daily_schedule()
-        debug["atp_matches_count"] = len(atp_matches)
-
-        if atp_matches:
-            all_matches = atp_matches
-            source_used = "ATP daily schedule"
-    except Exception as e:
-        debug["atp_error"] = str(e)
-
-    # 2) Fallback: PDF ufficiale Madrid
-    if not all_matches:
-        pdf_all = []
-
-        for target_date in _candidate_dates():
-            try:
-                pdf_matches = fetch_matches_from_madrid_pdf(target_date)
-                pdf_all.extend(pdf_matches)
-            except Exception as e:
-                debug[f"pdf_error_{target_date.isoformat()}"] = str(e)
-
-        debug["pdf_matches_count"] = len(pdf_all)
-
-        if pdf_all:
-            all_matches = pdf_all
-            source_used = "Madrid official PDF"
-
-    # 3) Ultimo fallback: demo
-    if not all_matches:
-        madrid_today = datetime.now(ZoneInfo("Europe/Madrid")).date().isoformat()
-
-        all_matches = [
-            {
-                "player1": "Jannik Sinner",
-                "player2": "Daniil Medvedev",
-                "court": "Manolo Santana Stadium",
-                "date": madrid_today,
-                "tour": "ATP"
-            },
-            {
-                "player1": "Carlos Alcaraz",
-                "player2": "Alexander Zverev",
-                "court": "Court 4",
-                "date": madrid_today,
-                "tour": "ATP"
-            },
-            {
-                "player1": "Iga Swiatek",
-                "player2": "Aryna Sabalenka",
-                "court": "Arantxa Sanchez Stadium",
-                "date": madrid_today,
-                "tour": "WTA"
-            }
-        ]
-
-        source_used = "fallback demo"
-
-    debug["used_source"] = source_used
-
-    safe_write_json(OUT_DIR / "matches.json", all_matches)
-    safe_write_json(OUT_DIR / "match_source_debug.json", debug)
-
-    return all_matches, source_used
-
-def main():
-    now_madrid = datetime.now(ZoneInfo("Europe/Madrid")).isoformat()
-
-    matches, match_source = update_matches()
-
+def update_players():
     try:
         results_history = scrape_results_history()
         if not isinstance(results_history, list):
@@ -441,6 +561,15 @@ def main():
 
     players = merge_players(atp_players, wta_players, elo_map)
 
+    safe_write_json(OUT_DIR / "players.json", players)
+
+    return {
+        "results_count": len(results_history),
+        "players_count": len(players),
+    }
+
+
+def update_weather():
     try:
         weather = fetch_madrid_weather_forecast()
         if not isinstance(weather, dict):
@@ -448,16 +577,35 @@ def main():
     except Exception:
         weather = {}
 
-    safe_write_json(OUT_DIR / "players.json", players)
     safe_write_json(OUT_DIR / "weather.json", weather)
-    safe_write_json(OUT_DIR / "meta.json", {
-        "updated_at": now_madrid,
+
+    return {
+        "weather_days_count": len(weather),
+    }
+
+
+# ============================================================
+# Main
+# ============================================================
+
+def main():
+    timestamp = now_madrid().isoformat()
+
+    matches, match_source = update_matches()
+    player_info = update_players()
+    weather_info = update_weather()
+
+    meta = {
+        "updated_at": timestamp,
         "match_source": match_source,
-        "players_backfill_updated_at": now_madrid,
-        "results_count": len(results_history),
         "matches_count": len(matches),
-        "players_count": len(players)
-    })
+        "players_backfill_updated_at": timestamp,
+        "results_count": player_info["results_count"],
+        "players_count": player_info["players_count"],
+        "weather_days_count": weather_info["weather_days_count"],
+    }
+
+    safe_write_json(OUT_DIR / "meta.json", meta)
 
 
 if __name__ == "__main__":
