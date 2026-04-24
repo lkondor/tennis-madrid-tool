@@ -571,10 +571,13 @@ def merge_players(atp_players, wta_players, elo_map):
 def update_players(matches):
     players = build_players_database()
 
-    # 🔥 AGGIUNTA: includi automaticamente giocatori dai match
     for m in matches:
-        for p in [m["player1"], m["player2"]]:
-            key = p.lower().strip()
+        for player_name in [m.get("player1"), m.get("player2")]:
+            if not player_name:
+                continue
+
+            key = player_name.lower().strip()
+
             if key not in players:
                 players[key] = {
                     "elo_clay": 1800.0,
@@ -589,8 +592,15 @@ def update_players(matches):
 
     safe_write_json(OUT_DIR / "players.json", players)
 
+    historical_count = sum(
+        1 for p in players.values()
+        if p.get("data_quality") == "historical_match_stats"
+    )
+
     return {
+        "results_count": 0,
         "players_count": len(players),
+        "historical_players_count": historical_count,
     }
 
 def update_weather():
@@ -626,6 +636,7 @@ def main():
         "players_backfill_updated_at": timestamp,
         "results_count": player_info["results_count"],
         "players_count": player_info["players_count"],
+        "historical_players_count": player_info["historical_players_count"],
         "weather_days_count": weather_info["weather_days_count"],
     }
 
