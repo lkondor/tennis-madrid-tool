@@ -20,6 +20,8 @@ from backfill.aggregate_players import build_three_year_rates
 from backfill.weather import fetch_madrid_weather_forecast
 from backfill.results_scraper import scrape_results_history
 from backfill.player_database import build_players_database
+from backfill.player_database import load_aliases, canonical_name
+aliases = load_aliases()
 
 OUT_DIR = Path("data/live")
 OUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -578,7 +580,7 @@ def update_players(matches):
             if not player_name:
                 continue
 
-            key = player_name.lower().strip()
+            key = canonical_name(player_name, aliases)
 
             if key not in players:
                 players[key] = {
