@@ -1,0 +1,47 @@
+{
+  "jannik sinner": {
+    "elo_clay": 1920,
+    "ace_rate_clay_3y": 0.22,
+    "ace_allowed_clay_3y": 0.18,
+    "break_rate_clay_3y": 0.29,
+    "break_allowed_clay_3y": 0.17,
+    "madrid_ace_rate": 6.5,
+    "madrid_break_rate": 3.2
+  },
+  "carlos alcaraz": {
+    "elo_clay": 1980,
+    "ace_rate_clay_3y": 0.18,
+    "ace_allowed_clay_3y": 0.16,
+    "break_rate_clay_3y": 0.34,
+    "break_allowed_clay_3y": 0.19,
+    "madrid_ace_rate": 5.2,
+    "madrid_break_rate": 3.8
+  },
+  "alexander zverev": {
+    "elo_clay": 1880,
+    "ace_rate_clay_3y": 0.24,
+    "ace_allowed_clay_3y": 0.20,
+    "break_rate_clay_3y": 0.27,
+    "break_allowed_clay_3y": 0.22,
+    "madrid_ace_rate": 8.0,
+    "madrid_break_rate": 2.9
+  },
+  "daniil medvedev": {
+    "elo_clay": 1750,
+    "ace_rate_clay_3y": 0.19,
+    "ace_allowed_clay_3y": 0.22,
+    "break_rate_clay_3y": 0.26,
+    "break_allowed_clay_3y": 0.24,
+    "madrid_ace_rate": 5.5,
+    "madrid_break_rate": 2.4
+  },
+  "holger rune": {
+    "elo_clay": 1850,
+    "ace_rate_clay_3y": 0.17,
+    "ace_allowed_clay_3y": 0.18,
+    "break_rate_clay_3y": 0.31,
+    "break_allowed_clay_3y": 0.21,
+    "madrid_ace_rate": 4.8,
+    "madrid_break_rate": 3.4
+  }
+}
