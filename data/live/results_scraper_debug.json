@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-04-24T18:57:22.312385+02:00",
-  "existing_count": 15,
+  "updated_at": "2026-04-24T19:03:02.254527+02:00",
+  "existing_count": 429,
   "new_atp_count": 0,
-  "final_count": 15,
+  "final_count": 427,
   "atp": {
     "status": "disabled_html_parser",
     "reason": "ATP results page is JS-rendered; results_history.json is used as source of truth"
