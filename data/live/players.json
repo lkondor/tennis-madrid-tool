@@ -1,176 +1,38 @@
 {
-  "jannik sinner": {
-    "tour": "ATP",
-    "stats_by_year_clay": {
-      "2023": {
-        "aces": 180,
-        "service_games_played": 260,
-        "breaks_made": 62,
-        "return_games_played": 210
-      },
-      "2024": {
-        "aces": 210,
-        "service_games_played": 275,
-        "breaks_made": 68,
-        "return_games_played": 220
-      },
-      "2025": {
-        "aces": 205,
-        "service_games_played": 270,
-        "breaks_made": 66,
-        "return_games_played": 214
-      },
-      "2026": {
-        "aces": 58,
-        "service_games_played": 75,
-        "breaks_made": 16,
-        "return_games_played": 58
-      }
-    },
-    "madrid_matches": 6,
-    "madrid_aces": 34,
-    "madrid_breaks": 11,
-    "ace_rate_clay_3y": 0.7538,
-    "break_rate_clay_3y": 0.2985,
-    "madrid_ace_rate": 5.6667,
-    "madrid_break_rate": 1.8333,
-    "ace_allowed_clay_3y": 0.7538,
-    "break_allowed_clay_3y": 0.2985,
-    "elo_clay": 2100.0
+  "alexander zverev": {
+    "elo_clay": 1488.0,
+    "ace_rate_clay_3y": 0.6667,
+    "ace_allowed_clay_3y": 0.5,
+    "break_rate_clay_3y": 0.0833,
+    "break_allowed_clay_3y": 0.25,
+    "madrid_ace_rate": 8.0,
+    "madrid_break_rate": 1.0,
+    "data_quality": "historical_match_stats",
+    "matches_in_backfill": 1
   },
   "carlos alcaraz": {
+    "elo_clay": 1512.0,
+    "ace_rate_clay_3y": 0.5,
+    "ace_allowed_clay_3y": 0.6667,
+    "break_rate_clay_3y": 0.25,
+    "break_allowed_clay_3y": 0.0833,
+    "madrid_ace_rate": 6.0,
+    "madrid_break_rate": 3.0,
+    "data_quality": "historical_match_stats",
     "tour": "ATP",
-    "stats_by_year_clay": {
-      "2023": {
-        "aces": 120,
-        "service_games_played": 240,
-        "breaks_made": 78,
-        "return_games_played": 225
-      },
-      "2024": {
-        "aces": 130,
-        "service_games_played": 250,
-        "breaks_made": 84,
-        "return_games_played": 232
-      },
-      "2025": {
-        "aces": 118,
-        "service_games_played": 238,
-        "breaks_made": 79,
-        "return_games_played": 221
-      },
-      "2026": {
-        "aces": 42,
-        "service_games_played": 68,
-        "breaks_made": 21,
-        "return_games_played": 61
-      }
-    },
-    "madrid_matches": 8,
-    "madrid_aces": 29,
-    "madrid_breaks": 19,
-    "ace_rate_clay_3y": 0.5329,
-    "break_rate_clay_3y": 0.3537,
-    "madrid_ace_rate": 3.625,
-    "madrid_break_rate": 2.375,
-    "ace_allowed_clay_3y": 0.5329,
-    "break_allowed_clay_3y": 0.3537,
-    "elo_clay": 2200.0
+    "rank": 2,
+    "matches_in_backfill": 1
   },
-  "iga swiatek": {
-    "tour": "WTA",
-    "stats_by_year_clay": {
-      "2023": {
-        "aces": 48,
-        "service_games_played": 210,
-        "breaks_made": 92,
-        "return_games_played": 240
-      },
-      "2024": {
-        "aces": 52,
-        "service_games_played": 214,
-        "breaks_made": 96,
-        "return_games_played": 244
-      },
-      "2025": {
-        "aces": 50,
-        "service_games_played": 208,
-        "breaks_made": 89,
-        "return_games_played": 236
-      },
-      "2026": {
-        "aces": 15,
-        "service_games_played": 56,
-        "breaks_made": 24,
-        "return_games_played": 63
-      }
-    },
-    "madrid_matches": 7,
-    "madrid_aces": 14,
-    "madrid_breaks": 22,
-    "ace_rate_clay_3y": 0.2461,
-    "break_rate_clay_3y": 0.3831,
-    "madrid_ace_rate": 2.0,
-    "madrid_break_rate": 3.1429,
-    "ace_allowed_clay_3y": 0.2461,
-    "break_allowed_clay_3y": 0.3831,
-    "elo_clay": 2150.0
-  },
-  "aryna sabalenka": {
-    "tour": "WTA",
-    "stats_by_year_clay": {
-      "2023": {
-        "aces": 130,
-        "service_games_played": 220,
-        "breaks_made": 60,
-        "return_games_played": 205
-      },
-      "2024": {
-        "aces": 142,
-        "service_games_played": 228,
-        "breaks_made": 63,
-        "return_games_played": 210
-      },
-      "2025": {
-        "aces": 136,
-        "service_games_played": 224,
-        "breaks_made": 59,
-        "return_games_played": 202
-      },
-      "2026": {
-        "aces": 36,
-        "service_games_played": 62,
-        "breaks_made": 14,
-        "return_games_played": 54
-      }
-    },
-    "madrid_matches": 6,
-    "madrid_aces": 27,
-    "madrid_breaks": 9,
-    "ace_rate_clay_3y": 0.602,
-    "break_rate_clay_3y": 0.2859,
-    "madrid_ace_rate": 4.5,
-    "madrid_break_rate": 1.5,
-    "ace_allowed_clay_3y": 0.602,
-    "break_allowed_clay_3y": 0.2859,
-    "elo_clay": 2100.0
-  },
-  "daniil medvedev": {
-    "elo_clay": 2050.0,
+  "jannik sinner": {
+    "elo_clay": 1800.0,
     "ace_rate_clay_3y": 0.25,
+    "ace_allowed_clay_3y": 0.23,
     "break_rate_clay_3y": 0.2,
-    "ace_allowed_clay_3y": 0.225,
-    "break_allowed_clay_3y": 0.16,
+    "break_allowed_clay_3y": 0.18,
     "madrid_ace_rate": 0.0,
-    "madrid_break_rate": 0.0
-  },
-  "alexander zverev": {
-    "elo_clay": 2000.0,
-    "ace_rate_clay_3y": 0.25,
-    "break_rate_clay_3y": 0.2,
-    "ace_allowed_clay_3y": 0.225,
-    "break_allowed_clay_3y": 0.16,
-    "madrid_ace_rate": 0.0,
-    "madrid_break_rate": 0.0
+    "madrid_break_rate": 0.0,
+    "data_quality": "fallback",
+    "tour": "ATP",
+    "rank": 1
   }
 }

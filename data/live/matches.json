@@ -35,13 +35,6 @@
     "tour": "ATP/WTA"
   },
   {
-    "player1": "H. Hurkacz",
-    "player2": "L. Musetti",
-    "court": "Arantxa Sanchez Stadium",
-    "date": "2026-04-24",
-    "tour": "ATP/WTA"
-  },
-  {
     "player1": "B. Shelton",
     "player2": "D. Prizmic",
     "court": "Arantxa Sanchez Stadium",
@@ -105,13 +98,6 @@
     "tour": "ATP/WTA"
   },
   {
-    "player1": "E. Nava",
-    "player2": "V. Vacherot",
-    "court": "Court 4",
-    "date": "2026-04-24",
-    "tour": "ATP/WTA"
-  },
-  {
     "player1": "J. Lehecka",
     "player2": "A. Tabilo",
     "court": "Court 4",
@@ -164,13 +150,6 @@
     "player1": "A. Siskova",
     "player2": "A. Krunic",
     "court": "Court 5",
-    "date": "2026-04-24",
-    "tour": "ATP/WTA"
-  },
-  {
-    "player1": "D. Lajovic",
-    "player2": "A. Rinderknech",
-    "court": "Court 6",
     "date": "2026-04-24",
     "tour": "ATP/WTA"
   },

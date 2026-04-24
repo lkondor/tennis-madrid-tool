@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-04-24T12:55:56.274907+02:00",
+  "updated_at": "2026-04-24T14:36:06.711760+02:00",
   "used_source": "ATP daily schedule",
   "atp": {
     "status": "ok",
     "url": "https://www.atptour.com/en/scores/current/madrid/1536/daily-schedule",
     "http_status": 200,
-    "line_count": 420,
+    "line_count": 428,
     "sample_lines": [
       "ATP Masters 1000 Madrid | Daily Schedule | ATP Tour | Tennis",
       "ATP Tour",
@@ -107,11 +107,13 @@
       "Starts At 11:00",
       "R64",
       "R64",
-      "H.",
-      "Hurkacz",
-      "Vs",
       "L.",
       "Musetti",
+      "Defeats",
+      "H.",
+      "Hurkacz",
+      "64 76",
+      "4",
       "H2H",
       "Followed By",
       "R64",
@@ -124,13 +126,11 @@
       "H2H",
       "Not Before 15:00",
       "L.",
-      "Jeanjean",
-      "Vs",
-      "C."
+      "Jeanjean"
     ],
-    "matches_count": 34,
+    "matches_count": 31,
     "error": null
   },
   "pdf": null,
-  "final_matches_count": 34
+  "final_matches_count": 31
 }
