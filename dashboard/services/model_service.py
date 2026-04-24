@@ -273,6 +273,8 @@ def run_prediction(match):
         "matched_player_b": b_name,
         "data_quality_a": a.get("data_quality", "fallback"),
         "data_quality_b": b.get("data_quality", "fallback"),
+        "stats_source_a": a.get("data_quality", "fallback"),
+        "stats_source_b": b.get("data_quality", "fallback"),
         "elo_a": elo_a,
         "elo_b": elo_b,
         "win_prob_a": round(p_a, 3),
