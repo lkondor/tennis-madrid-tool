@@ -338,25 +338,46 @@ def fetch_matches_from_madrid_pdf(target_date):
 
 def update_matches():
     all_matches = []
-    source_used = "fallback"
+    source_used = "fallback demo"
 
-    # 1) Prova ATP daily schedule, parsando tutte le date presenti
-    atp_matches = fetch_matches_from_atp_daily_schedule()
-    if atp_matches:
-        all_matches = atp_matches
-        source_used = "ATP daily schedule"
+    debug = {
+        "atp_matches_count": 0,
+        "pdf_matches_count": 0,
+        "used_source": None
+    }
 
-    # 2) Fallback PDF Madrid
+    # 1) Fonte primaria: ATP daily schedule
+    try:
+        atp_matches = fetch_matches_from_atp_daily_schedule()
+        debug["atp_matches_count"] = len(atp_matches)
+
+        if atp_matches:
+            all_matches = atp_matches
+            source_used = "ATP daily schedule"
+    except Exception as e:
+        debug["atp_error"] = str(e)
+
+    # 2) Fallback: PDF ufficiale Madrid
     if not all_matches:
-        for target_date in _candidate_dates():
-            pdf_matches = fetch_matches_from_madrid_pdf(target_date)
-            if pdf_matches:
-                all_matches.extend(pdf_matches)
-                source_used = "Madrid official PDF"
+        pdf_all = []
 
-    # 3) Fallback demo
+        for target_date in _candidate_dates():
+            try:
+                pdf_matches = fetch_matches_from_madrid_pdf(target_date)
+                pdf_all.extend(pdf_matches)
+            except Exception as e:
+                debug[f"pdf_error_{target_date.isoformat()}"] = str(e)
+
+        debug["pdf_matches_count"] = len(pdf_all)
+
+        if pdf_all:
+            all_matches = pdf_all
+            source_used = "Madrid official PDF"
+
+    # 3) Ultimo fallback: demo
     if not all_matches:
         madrid_today = datetime.now(ZoneInfo("Europe/Madrid")).date().isoformat()
+
         all_matches = [
             {
                 "player1": "Jannik Sinner",
@@ -380,9 +401,14 @@ def update_matches():
                 "tour": "WTA"
             }
         ]
+
         source_used = "fallback demo"
 
+    debug["used_source"] = source_used
+
     safe_write_json(OUT_DIR / "matches.json", all_matches)
+    safe_write_json(OUT_DIR / "match_source_debug.json", debug)
+
     return all_matches, source_used
 
 def main():
