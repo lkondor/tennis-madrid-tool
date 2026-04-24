@@ -25,10 +25,28 @@ def load_weather():
 
 def resolve_player_key(display_name, players):
     name = str(display_name).lower().strip()
+
+    ALIASES = {
+        "q. zheng": "qinwen zheng",
+        "s. kenin": "sofia kenin",
+        "j. sinner": "jannik sinner",
+        "c. alcaraz": "carlos alcaraz",
+        "a. zverev": "alexander zverev",
+        "d. medvedev": "daniil medvedev",
+        "h. hurkacz": "hubert hurkacz",
+        "l. musetti": "lorenzo musetti",
+        "b. shelton": "ben shelton",
+        "i. swiatek": "iga swiatek",
+        "a. sabalenka": "aryna sabalenka",
+        "e. rybakina": "elena rybakina"
+    }
+
+    if name in ALIASES and ALIASES[name] in players:
+        return ALIASES[name]
+
     cleaned = name.replace(".", "").strip()
     parts = cleaned.split()
 
-    # Se è nome abbreviato tipo "q zheng", cerca prima il nome completo
     if len(parts) >= 2 and len(parts[0]) == 1:
         initial = parts[0][0]
         surname = " ".join(parts[1:])
@@ -47,7 +65,6 @@ def resolve_player_key(display_name, players):
             if key_initial == initial and key.endswith(surname):
                 return key
 
-    # Solo dopo prova match esatto
     if name in players:
         return name
 
