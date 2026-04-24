@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-04-24T18:19:41.398087+02:00",
+  "updated_at": "2026-04-24T18:27:39.227957+02:00",
   "match_source": "ATP daily schedule",
-  "matches_count": 27,
-  "players_backfill_updated_at": "2026-04-24T18:19:41.398087+02:00",
+  "matches_count": 26,
+  "players_backfill_updated_at": "2026-04-24T18:27:39.227957+02:00",
   "results_count": 0,
-  "players_count": 55,
-  "historical_players_count": 0,
-  "unresolved_players_count": 53,
+  "players_count": 62,
+  "historical_players_count": 29,
+  "unresolved_players_count": 33,
   "weather_days_count": 7
 }
