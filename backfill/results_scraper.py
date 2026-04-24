@@ -195,16 +195,18 @@ def parse_atp_current_madrid_results():
 
 def refresh_results_history():
     """
-    Funzione principale incrementale:
-    - carica storico esistente
-    - scarica nuovi risultati disponibili
-    - unisce senza duplicati
-    - riscrive results_history.json
-    - scrive debug
+    Mantiene results_history.json come fonte principale.
+    Per ora lo scraper ATP risultati è disabilitato perché la pagina ATP è renderizzata via JS
+    e non espone risultati/stats in HTML statico affidabile.
     """
 
     existing = load_existing_results()
-    atp_new, atp_debug = [], {"status": "disabled_html_parser"}
+
+    atp_new = []
+    atp_debug = {
+        "status": "disabled_html_parser",
+        "reason": "ATP results page is JS-rendered; results_history.json is used as source of truth"
+    }
 
     merged = dedupe_results(existing + atp_new)
 
@@ -215,7 +217,7 @@ def refresh_results_history():
         "existing_count": len(existing),
         "new_atp_count": len(atp_new),
         "final_count": len(merged),
-        "atp": atp_debug,
+        "atp": atp_debug
     }
 
     safe_write_json(DEBUG_PATH, debug)
@@ -223,7 +225,7 @@ def refresh_results_history():
     return {
         "existing_count": len(existing),
         "new_atp_count": len(atp_new),
-        "final_count": len(merged),
+        "final_count": len(merged)
     }
 
 
