@@ -135,15 +135,19 @@ def cosine_similarity(a, b):
     return dot / (na * nb)
 
 
+def safe_num(value, default=0.0):
+    return value if value is not None else default
+
+
 def build_feature_vector(player_data):
     return [
-        player_data.get("elo_clay", 1800) / 2500.0,
-        player_data.get("ace_rate_clay_3y", 0),
-        player_data.get("ace_allowed_clay_3y", 0),
-        player_data.get("break_rate_clay_3y", 0),
-        player_data.get("break_allowed_clay_3y", 0),
-        player_data.get("madrid_ace_rate", 0),
-        player_data.get("madrid_break_rate", 0),
+        safe_num(player_data.get("elo_clay"), 1800) / 2500.0,
+        safe_num(player_data.get("ace_rate_clay_3y"), 0),
+        safe_num(player_data.get("ace_allowed_clay_3y"), 0),
+        safe_num(player_data.get("break_rate_clay_3y"), 0),
+        safe_num(player_data.get("break_allowed_clay_3y"), 0),
+        safe_num(player_data.get("madrid_ace_rate"), 0),
+        safe_num(player_data.get("madrid_break_rate"), 0),
     ]
 
 
