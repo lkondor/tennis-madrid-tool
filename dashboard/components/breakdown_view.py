@@ -9,6 +9,8 @@ def render_breakdown(context):
         "matched_player_b": context.get("matched_player_b"),
         "data_quality_a": context.get("data_quality_a"),
         "data_quality_b": context.get("data_quality_b"),
+        "stats_source_a": context.get("stats_source_a"),
+        "stats_source_b": context.get("stats_source_b"),
         "elo_a": context.get("elo_a"),
         "elo_b": context.get("elo_b"),
         "win_prob_a": context.get("win_prob_a"),
