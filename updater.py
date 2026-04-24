@@ -571,6 +571,8 @@ def merge_players(atp_players, wta_players, elo_map):
 def update_players(matches):
     players = build_players_database()
 
+    unresolved_players = []
+
     for m in matches:
         for player_name in [m.get("player1"), m.get("player2")]:
             if not player_name:
@@ -580,27 +582,35 @@ def update_players(matches):
 
             if key not in players:
                 players[key] = {
-                    "elo_clay": 1800.0,
-                    "ace_rate_clay_3y": 0.25,
-                    "ace_allowed_clay_3y": 0.23,
-                    "break_rate_clay_3y": 0.20,
-                    "break_allowed_clay_3y": 0.18,
-                    "madrid_ace_rate": 0.0,
-                    "madrid_break_rate": 0.0,
-                    "data_quality": "match_only"
+                    "elo_clay": None,
+                    "ace_rate_clay_3y": None,
+                    "ace_allowed_clay_3y": None,
+                    "break_rate_clay_3y": None,
+                    "break_allowed_clay_3y": None,
+                    "madrid_ace_rate": None,
+                    "madrid_break_rate": None,
+                    "data_quality": "unresolved"
                 }
+                unresolved_players.append(key)
 
     safe_write_json(OUT_DIR / "players.json", players)
+    safe_write_json(OUT_DIR / "unresolved_players.json", sorted(set(unresolved_players)))
 
     historical_count = sum(
         1 for p in players.values()
         if p.get("data_quality") == "historical_match_stats"
     )
 
+    unresolved_count = sum(
+        1 for p in players.values()
+        if p.get("data_quality") == "unresolved"
+    )
+
     return {
         "results_count": 0,
         "players_count": len(players),
         "historical_players_count": historical_count,
+        "unresolved_players_count": unresolved_count,
     }
 
 def update_weather():
@@ -637,6 +647,7 @@ def main():
         "results_count": player_info["results_count"],
         "players_count": player_info["players_count"],
         "historical_players_count": player_info["historical_players_count"],
+        "unresolved_players_count": player_info["unresolved_players_count"],
         "weather_days_count": weather_info["weather_days_count"],
     }
 
