@@ -1,32 +1,241 @@
+import json
+import re
+from pathlib import Path
+from datetime import datetime
+from zoneinfo import ZoneInfo
+
 import requests
 from bs4 import BeautifulSoup
 
 
-def scrape_atp_madrid_results():
-    url = "https://www.atptour.com/en/scores/current/madrid/1536/results"
-    try:
-        r = requests.get(url, timeout=20)
-        r.raise_for_status()
-        soup = BeautifulSoup(r.text, "html.parser")
-        text = soup.get_text("\n", strip=True)
-        lines = [x.strip() for x in text.splitlines() if x.strip()]
+OUT_DIR = Path("data/live")
+RESULTS_PATH = OUT_DIR / "results_history.json"
+DEBUG_PATH = OUT_DIR / "results_scraper_debug.json"
+ALIASES_PATH = OUT_DIR / "player_aliases.json"
 
+ATP_MADRID_RESULTS_URL = "https://www.atptour.com/en/scores/current/madrid/1536/results"
+
+MADRID_TZ = ZoneInfo("Europe/Madrid")
+
+
+def safe_write_json(path: Path, payload):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(payload, f, ensure_ascii=False, indent=2)
+
+
+def safe_load_json(path: Path, default):
+    try:
+        if not path.exists():
+            return default
+        text = path.read_text(encoding="utf-8").strip()
+        if not text:
+            return default
+        return json.loads(text)
+    except Exception:
+        return default
+
+
+def safe_get(url: str):
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (compatible; MadridPredictor/1.0; +https://github.com)"
+        )
+    }
+    return requests.get(url, timeout=25, headers=headers)
+
+
+def normalize_name(name):
+    return str(name).replace("\xa0", " ").strip().lower()
+
+
+def load_aliases():
+    return safe_load_json(ALIASES_PATH, {})
+
+
+def canonical_name(name, aliases):
+    key = normalize_name(name)
+    return normalize_name(aliases.get(key, key))
+
+
+def clean_line(line: str):
+    line = line.replace("\xa0", " ").strip()
+    line = re.sub(r"\([^)]*\)", "", line)
+    line = re.sub(r"\[[^\]]+\]", "", line)
+    line = re.sub(r"\s+", " ", line)
+    return line.strip(" -–•")
+
+
+def result_key(row):
+    return (
+        row.get("date", ""),
+        normalize_name(row.get("tour", "")),
+        normalize_name(row.get("tournament", "")),
+        normalize_name(row.get("player1", "")),
+        normalize_name(row.get("player2", "")),
+    )
+
+
+def dedupe_results(rows):
+    output = []
+    seen = set()
+
+    for row in rows:
+        key = result_key(row)
+        reverse_key = (
+            row.get("date", ""),
+            normalize_name(row.get("tour", "")),
+            normalize_name(row.get("tournament", "")),
+            normalize_name(row.get("player2", "")),
+            normalize_name(row.get("player1", "")),
+        )
+
+        if key in seen or reverse_key in seen:
+            continue
+
+        seen.add(key)
+        output.append(row)
+
+    output.sort(key=lambda x: x.get("date", ""))
+    return output
+
+
+def load_existing_results():
+    rows = safe_load_json(RESULTS_PATH, [])
+    return rows if isinstance(rows, list) else []
+
+
+def parse_atp_current_madrid_results():
+    """
+    Incremental parser base.
+    Estrae risultati disponibili dalla pagina ufficiale ATP Madrid Results.
+    Per ora salva winner/loser/date/surface; le stats ace/break vengono lasciate
+    a zero se non sono disponibili nel markup.
+    """
+
+    debug = {
+        "source": "ATP Madrid Results",
+        "url": ATP_MADRID_RESULTS_URL,
+        "http_status": None,
+        "line_count": 0,
+        "sample_lines": [],
+        "parsed_results_count": 0,
+        "status": "not_started",
+        "error": None,
+    }
+
+    try:
+        response = safe_get(ATP_MADRID_RESULTS_URL)
+        debug["http_status"] = response.status_code
+
+        if response.status_code != 200:
+            debug["status"] = "http_error"
+            return [], debug
+
+        soup = BeautifulSoup(response.text, "html.parser")
+        text = soup.get_text("\n", strip=True)
+
+        lines = [clean_line(x) for x in text.splitlines() if clean_line(x)]
+        debug["line_count"] = len(lines)
+        debug["sample_lines"] = lines[:120]
+
+        aliases = load_aliases()
         results = []
-        for i in range(len(lines) - 1):
-            if " def. " in lines[i]:
-                left, right = lines[i].split(" def. ", 1)
-                results.append({
-                    "date": "2026-04-22",
+
+        today = datetime.now(MADRID_TZ).date().isoformat()
+
+        for line in lines:
+            lower = line.lower()
+
+            # Pattern generici possibili:
+            # "Carlos Alcaraz def. Alexander Zverev"
+            # "Carlos Alcaraz Defeats Alexander Zverev"
+            if " def. " in lower:
+                left, right = re.split(r"\s+def\.\s+", line, flags=re.IGNORECASE, maxsplit=1)
+            elif " defeats " in lower:
+                left, right = re.split(r"\s+defeats\s+", line, flags=re.IGNORECASE, maxsplit=1)
+            else:
+                continue
+
+            winner = canonical_name(left, aliases).title()
+            loser = canonical_name(right, aliases).title()
+
+            if not winner or not loser or winner == loser:
+                continue
+
+            results.append(
+                {
+                    "date": today,
                     "tour": "ATP",
                     "tournament": "Madrid",
                     "surface": "Clay",
-                    "winner": left.title(),
-                    "loser": right.title(),
-                })
-        return results
-    except Exception:
-        return []
+                    "player1": winner,
+                    "player2": loser,
+                    "winner": winner,
+                    "loser": loser,
+                    "aces_p1": 0,
+                    "aces_p2": 0,
+                    "service_games_p1": 0,
+                    "service_games_p2": 0,
+                    "breaks_p1": 0,
+                    "breaks_p2": 0,
+                    "return_games_p1": 0,
+                    "return_games_p2": 0,
+                    "data_source": "ATP results page",
+                    "stats_quality": "result_only"
+                }
+            )
+
+        results = dedupe_results(results)
+        debug["parsed_results_count"] = len(results)
+        debug["status"] = "ok" if results else "no_results"
+
+        return results, debug
+
+    except Exception as exc:
+        debug["status"] = "exception"
+        debug["error"] = str(exc)
+        return [], debug
+
+
+def refresh_results_history():
+    """
+    Funzione principale incrementale:
+    - carica storico esistente
+    - scarica nuovi risultati disponibili
+    - unisce senza duplicati
+    - riscrive results_history.json
+    - scrive debug
+    """
+
+    existing = load_existing_results()
+    atp_new, atp_debug = parse_atp_current_madrid_results()
+
+    merged = dedupe_results(existing + atp_new)
+
+    safe_write_json(RESULTS_PATH, merged)
+
+    debug = {
+        "updated_at": datetime.now(MADRID_TZ).isoformat(),
+        "existing_count": len(existing),
+        "new_atp_count": len(atp_new),
+        "final_count": len(merged),
+        "atp": atp_debug,
+    }
+
+    safe_write_json(DEBUG_PATH, debug)
+
+    return {
+        "existing_count": len(existing),
+        "new_atp_count": len(atp_new),
+        "final_count": len(merged),
+    }
 
 
 def scrape_results_history():
-    return scrape_atp_madrid_results()
+    """
+    Compatibilità con il resto del progetto.
+    Aggiorna results_history.json e restituisce lo storico finale.
+    """
+    refresh_results_history()
+    return load_existing_results()
