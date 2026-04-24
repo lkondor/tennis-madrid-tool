@@ -197,12 +197,12 @@ def _parse_matches_from_lines(lines, date_str):
 
     return deduped
 
-
-def fetch_matches_from_atp_daily_schedule(target_date):
+def fetch_matches_from_atp_daily_schedule(target_date=None):
     if BeautifulSoup is None:
         return []
 
     url = "https://www.atptour.com/en/scores/current/madrid/1536/daily-schedule"
+
     try:
         r = requests.get(url, timeout=20)
         r.raise_for_status()
@@ -212,34 +212,33 @@ def fetch_matches_from_atp_daily_schedule(target_date):
         raw_lines = [x.strip() for x in text.splitlines() if x.strip()]
         lines = [_normalize_line(x) for x in raw_lines if _normalize_line(x)]
 
-        # la pagina ATP usa formato tipo "Thu, 23 April, 2026 (Day 4)"
-        target_label_1 = target_date.strftime("%a, %-d %B, %Y")
-        target_label_2 = target_date.strftime("%a, %d %B, %Y")
-
         matches = []
         current_court = None
-        in_target_day = False
-        i = 0
+        current_date = None
 
+        date_pattern = re.compile(
+            r"^[A-Z][a-z]{2},\s+\d{1,2}\s+[A-Z][a-z]+,\s+\d{4}"
+        )
+
+        i = 0
         while i < len(lines):
             line = lines[i]
             upper = line.upper()
 
-            # entra nella giornata target
-            if target_label_1.lower() in line.lower() or target_label_2.lower() in line.lower():
-                in_target_day = True
+            # Data tipo: Thu, 23 April, 2026
+            if date_pattern.match(line):
+                try:
+                    clean_date = line.split("(")[0].strip()
+                    parsed = datetime.strptime(clean_date, "%a, %d %B, %Y").date()
+                    current_date = parsed.isoformat()
+                except Exception:
+                    current_date = datetime.now(ZoneInfo("Europe/Madrid")).date().isoformat()
+
+                current_court = None
                 i += 1
                 continue
 
-            # se siamo già dentro il giorno target e parte un nuovo giorno, fermati
-            if in_target_day and re.match(r"^[A-Z][a-z]{2}, \d{1,2} [A-Z][a-z]+, \d{4}", line):
-                break
-
-            if not in_target_day:
-                i += 1
-                continue
-
-            # riconoscimento campi
+            # Campi
             if upper.startswith("MANOLO SANTANA STADIUM"):
                 current_court = "Manolo Santana Stadium"
                 i += 1
@@ -277,8 +276,8 @@ def fetch_matches_from_atp_daily_schedule(target_date):
                 i += 1
                 continue
 
-            # match futuri: nome / Vs / nome
-            if current_court and i + 2 < len(lines):
+            # Pattern: Player / Vs / Player
+            if current_court and current_date and i + 2 < len(lines):
                 p1 = lines[i]
                 mid = lines[i + 1]
                 p2 = lines[i + 2]
@@ -288,7 +287,7 @@ def fetch_matches_from_atp_daily_schedule(target_date):
                         "player1": p1.title(),
                         "player2": p2.title(),
                         "court": current_court,
-                        "date": target_date.isoformat(),
+                        "date": current_date,
                         "tour": "ATP/WTA"
                     })
                     i += 3
@@ -341,19 +340,21 @@ def update_matches():
     all_matches = []
     source_used = "fallback"
 
-    for target_date in _candidate_dates():
-        matches = fetch_matches_from_atp_daily_schedule(target_date)
-        if matches:
-            all_matches.extend(matches)
-            source_used = "ATP daily schedule"
+    # 1) Prova ATP daily schedule, parsando tutte le date presenti
+    atp_matches = fetch_matches_from_atp_daily_schedule()
+    if atp_matches:
+        all_matches = atp_matches
+        source_used = "ATP daily schedule"
 
+    # 2) Fallback PDF Madrid
     if not all_matches:
         for target_date in _candidate_dates():
-            matches = fetch_matches_from_madrid_pdf(target_date)
-            if matches:
-                all_matches.extend(matches)
+            pdf_matches = fetch_matches_from_madrid_pdf(target_date)
+            if pdf_matches:
+                all_matches.extend(pdf_matches)
                 source_used = "Madrid official PDF"
 
+    # 3) Fallback demo
     if not all_matches:
         madrid_today = datetime.now(ZoneInfo("Europe/Madrid")).date().isoformat()
         all_matches = [
@@ -383,7 +384,6 @@ def update_matches():
 
     safe_write_json(OUT_DIR / "matches.json", all_matches)
     return all_matches, source_used
-
 
 def main():
     now_madrid = datetime.now(ZoneInfo("Europe/Madrid")).isoformat()
