@@ -19,7 +19,7 @@ from backfill.wta_backfill import aggregate_wta_players_from_matches
 from backfill.aggregate_players import build_three_year_rates
 from backfill.weather import fetch_madrid_weather_forecast
 from backfill.results_scraper import scrape_results_history
-
+from backfill.player_database import build_players_database
 
 OUT_DIR = Path("data/live")
 OUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -569,36 +569,19 @@ def merge_players(atp_players, wta_players, elo_map):
 
 
 def update_players():
-    try:
-        results_history = scrape_results_history()
-        if not isinstance(results_history, list):
-            results_history = []
-    except Exception:
-        results_history = []
-
-    elo_map = compute_clay_elo(results_history)
-
-    try:
-        atp_players = build_atp_player_backfill()
-        if not isinstance(atp_players, dict):
-            atp_players = {}
-    except Exception:
-        atp_players = {}
-
-    try:
-        wta_players = aggregate_wta_players_from_matches()
-        if not isinstance(wta_players, dict):
-            wta_players = {}
-    except Exception:
-        wta_players = {}
-
-    players = merge_players(atp_players, wta_players, elo_map)
+    players = build_players_database()
 
     safe_write_json(OUT_DIR / "players.json", players)
 
+    historical_count = sum(
+        1 for p in players.values()
+        if p.get("data_quality") == "historical_match_stats"
+    )
+
     return {
-        "results_count": len(results_history),
+        "results_count": 0,
         "players_count": len(players),
+        "historical_players_count": historical_count,
     }
 
 
