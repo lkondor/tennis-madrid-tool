@@ -106,19 +106,10 @@ def load_existing_results():
 
 
 def parse_atp_current_madrid_results():
-    """
-    Incremental parser base.
-    Estrae risultati disponibili dalla pagina ufficiale ATP Madrid Results.
-    Per ora salva winner/loser/date/surface; le stats ace/break vengono lasciate
-    a zero se non sono disponibili nel markup.
-    """
-
     debug = {
         "source": "ATP Madrid Results",
         "url": ATP_MADRID_RESULTS_URL,
         "http_status": None,
-        "line_count": 0,
-        "sample_lines": [],
         "parsed_results_count": 0,
         "status": "not_started",
         "error": None,
@@ -133,60 +124,49 @@ def parse_atp_current_madrid_results():
             return [], debug
 
         soup = BeautifulSoup(response.text, "html.parser")
-        text = soup.get_text("\n", strip=True)
-
-        lines = [clean_line(x) for x in text.splitlines() if clean_line(x)]
-        debug["line_count"] = len(lines)
-        debug["sample_lines"] = lines[:120]
 
         aliases = load_aliases()
         results = []
 
         today = datetime.now(MADRID_TZ).date().isoformat()
 
-        for line in lines:
-            lower = line.lower()
+        matches = soup.select(".day-table tbody tr")
 
-            # Pattern generici possibili:
-            # "Carlos Alcaraz def. Alexander Zverev"
-            # "Carlos Alcaraz Defeats Alexander Zverev"
-            if " def. " in lower:
-                left, right = re.split(r"\s+def\.\s+", line, flags=re.IGNORECASE, maxsplit=1)
-            elif " defeats " in lower:
-                left, right = re.split(r"\s+defeats\s+", line, flags=re.IGNORECASE, maxsplit=1)
-            else:
+        for row in matches:
+            players = row.select(".day-table-name")
+
+            if len(players) < 2:
                 continue
 
-            winner = canonical_name(left, aliases).title()
-            loser = canonical_name(right, aliases).title()
+            p1 = players[0].get_text(strip=True)
+            p2 = players[1].get_text(strip=True)
 
-            if not winner or not loser or winner == loser:
-                continue
+            winner = canonical_name(p1, aliases).title()
+            loser = canonical_name(p2, aliases).title()
 
-            results.append(
-                {
-                    "date": today,
-                    "tour": "ATP",
-                    "tournament": "Madrid",
-                    "surface": "Clay",
-                    "player1": winner,
-                    "player2": loser,
-                    "winner": winner,
-                    "loser": loser,
-                    "aces_p1": 0,
-                    "aces_p2": 0,
-                    "service_games_p1": 0,
-                    "service_games_p2": 0,
-                    "breaks_p1": 0,
-                    "breaks_p2": 0,
-                    "return_games_p1": 0,
-                    "return_games_p2": 0,
-                    "data_source": "ATP results page",
-                    "stats_quality": "result_only"
-                }
-            )
+            results.append({
+                "date": today,
+                "tour": "ATP",
+                "tournament": "Madrid",
+                "surface": "Clay",
+                "player1": winner,
+                "player2": loser,
+                "winner": winner,
+                "loser": loser,
+                "aces_p1": 0,
+                "aces_p2": 0,
+                "service_games_p1": 0,
+                "service_games_p2": 0,
+                "breaks_p1": 0,
+                "breaks_p2": 0,
+                "return_games_p1": 0,
+                "return_games_p2": 0,
+                "data_source": "ATP HTML",
+                "stats_quality": "result_only"
+            })
 
         results = dedupe_results(results)
+
         debug["parsed_results_count"] = len(results)
         debug["status"] = "ok" if results else "no_results"
 
