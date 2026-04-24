@@ -616,7 +616,7 @@ def main():
     timestamp = now_madrid().isoformat()
 
     matches, match_source = update_matches()
-    player_info = update_players()
+    player_info = update_players(matches)
     weather_info = update_weather()
 
     meta = {
