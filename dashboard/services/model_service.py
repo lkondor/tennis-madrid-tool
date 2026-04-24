@@ -10,6 +10,7 @@ WEATHER_PATH = Path("data/live/weather.json")
 def load_players():
     if not PLAYERS_PATH.exists():
         return {}
+
     with open(PLAYERS_PATH, "r", encoding="utf-8") as f:
         return json.load(f)
 
@@ -17,11 +18,13 @@ def load_players():
 def load_weather():
     if not WEATHER_PATH.exists():
         return {}
+
     with open(WEATHER_PATH, "r", encoding="utf-8") as f:
         return json.load(f)
 
+
 def resolve_player_key(display_name, players):
-    name = display_name.lower().strip()
+    name = str(display_name).lower().strip()
 
     if name in players:
         return name
@@ -51,14 +54,16 @@ def win_prob(elo_a, elo_b):
     return 1 / (1 + 10 ** ((elo_b - elo_a) / 400))
 
 
-def court_factor(court: str):
+def court_factor(court):
     c = str(court).lower()
+
     if "court 4" in c:
         return 1.08
     if "manolo" in c:
         return 1.02
     if "arantxa" in c:
         return 1.01
+
     return 1.0
 
 
@@ -90,12 +95,14 @@ def cosine_similarity(a, b):
     dot = sum(x * y for x, y in zip(a, b))
     na = math.sqrt(sum(x * x for x in a))
     nb = math.sqrt(sum(y * y for y in b))
+
     if na == 0 or nb == 0:
         return 0.0
+
     return dot / (na * nb)
 
 
-def build_feature_vector(player_data: dict):
+def build_feature_vector(player_data):
     return [
         player_data.get("elo_clay", 1800) / 2500.0,
         player_data.get("ace_rate_clay_3y", 0),
@@ -107,7 +114,7 @@ def build_feature_vector(player_data: dict):
     ]
 
 
-def find_similar_players(player_name: str, all_players: dict, top_n: int = 5):
+def find_similar_players(player_name, all_players, top_n=5):
     if player_name not in all_players:
         return []
 
@@ -117,6 +124,7 @@ def find_similar_players(player_name: str, all_players: dict, top_n: int = 5):
     for other_name, other_data in all_players.items():
         if other_name == player_name:
             continue
+
         other_vec = build_feature_vector(other_data)
         sim = cosine_similarity(target_vec, other_vec)
         scores.append((other_name, sim))
@@ -141,8 +149,8 @@ def run_prediction(match):
     ace_rate_a = a.get("ace_rate_clay_3y", 0.25)
     ace_rate_b = b.get("ace_rate_clay_3y", 0.25)
 
-    ace_allowed_a = a.get("ace_allowed_clay_3y", 0.22)
-    ace_allowed_b = b.get("ace_allowed_clay_3y", 0.22)
+    ace_allowed_a = a.get("ace_allowed_clay_3y", 0.23)
+    ace_allowed_b = b.get("ace_allowed_clay_3y", 0.23)
 
     break_rate_a = a.get("break_rate_clay_3y", 0.20)
     break_rate_b = b.get("break_rate_clay_3y", 0.20)
@@ -209,8 +217,14 @@ def run_prediction(match):
     )
 
     result = {
-        "playerA": {"aces": aces_a, "breaks": breaks_a},
-        "playerB": {"aces": aces_b, "breaks": breaks_b},
+        "playerA": {
+            "aces": aces_a,
+            "breaks": breaks_a
+        },
+        "playerB": {
+            "aces": aces_b,
+            "breaks": breaks_b
+        },
         "totals": {
             "aces": round(aces_a + aces_b, 1),
             "breaks": round(breaks_a + breaks_b, 1)
@@ -218,6 +232,10 @@ def run_prediction(match):
     }
 
     context = {
+        "matched_player_a": a_name,
+        "matched_player_b": b_name,
+        "data_quality_a": a.get("data_quality", "fallback"),
+        "data_quality_b": b.get("data_quality", "fallback"),
         "elo_a": elo_a,
         "elo_b": elo_b,
         "win_prob_a": round(p_a, 3),
@@ -229,10 +247,6 @@ def run_prediction(match):
         "wind_kmh": wind_kmh,
         "ace_weather_factor": ace_wf,
         "break_weather_factor": break_wf
-        "matched_player_a": a_name,
-        "matched_player_b": b_name,
-        "data_quality_a": a.get("data_quality", "fallback"),
-        "data_quality_b": b.get("data_quality", "fallback"),
     }
 
     return result, context
