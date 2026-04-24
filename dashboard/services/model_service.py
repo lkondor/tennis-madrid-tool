@@ -159,24 +159,24 @@ def run_prediction(match):
 
     a_name = resolve_player_key(match.player1, players)
     b_name = resolve_player_key(match.player2, players)
-
+    
     a = players.get(a_name, {})
     b = players.get(b_name, {})
+    
+    elo_a = a.get("elo_clay") if a.get("elo_clay") is not None else 1800
+    elo_b = b.get("elo_clay") if b.get("elo_clay") is not None else 1800
+    
+    ace_rate_a = a.get("ace_rate_clay_3y") if a.get("ace_rate_clay_3y") is not None else 0.25
+    ace_rate_b = b.get("ace_rate_clay_3y") if b.get("ace_rate_clay_3y") is not None else 0.25
+    
+    ace_allowed_a = a.get("ace_allowed_clay_3y") if a.get("ace_allowed_clay_3y") is not None else 0.23
+    ace_allowed_b = b.get("ace_allowed_clay_3y") if b.get("ace_allowed_clay_3y") is not None else 0.23
+    
+    break_rate_a = a.get("break_rate_clay_3y") if a.get("break_rate_clay_3y") is not None else 0.20
+    break_rate_b = b.get("break_rate_clay_3y") if b.get("break_rate_clay_3y") is not None else 0.20
 
-    elo_a = a.get("elo_clay", 1800)
-    elo_b = b.get("elo_clay", 1800)
-
-    ace_rate_a = a.get("ace_rate_clay_3y", 0.25)
-    ace_rate_b = b.get("ace_rate_clay_3y", 0.25)
-
-    ace_allowed_a = a.get("ace_allowed_clay_3y", 0.23)
-    ace_allowed_b = b.get("ace_allowed_clay_3y", 0.23)
-
-    break_rate_a = a.get("break_rate_clay_3y", 0.20)
-    break_rate_b = b.get("break_rate_clay_3y", 0.20)
-
-    break_allowed_a = a.get("break_allowed_clay_3y", 0.18)
-    break_allowed_b = b.get("break_allowed_clay_3y", 0.18)
+    break_allowed_a = a.get("break_allowed_clay_3y") if a.get("break_allowed_clay_3y") is not None else 0.18
+    break_allowed_b = b.get("break_allowed_clay_3y") if b.get("break_allowed_clay_3y") is not None else 0.18
 
     p_a = win_prob(elo_a, elo_b)
     p_b = 1 - p_a
