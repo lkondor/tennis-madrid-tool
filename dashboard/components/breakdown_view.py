@@ -26,4 +26,9 @@ def render_breakdown(context):
         "wind_kmh": context.get("wind_kmh"),
         "ace_weather_factor": context.get("ace_weather_factor"),
         "break_weather_factor": context.get("break_weather_factor"),
+        "confidence_score": context.get("confidence_score"),
+        "confidence_label": context.get("confidence_label"),
+        "data_confidence": context.get("data_confidence"),
+        "weather_confidence": context.get("weather_confidence"),
+        "court_confidence": context.get("court_confidence"),
     })
