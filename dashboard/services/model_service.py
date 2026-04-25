@@ -279,7 +279,7 @@ def run_prediction(match):
         1
     )
 
-    def monte_carlo_metric(mean, simulations=1000):
+    def monte_carlo_values(mean, simulations=1000):
         values = []
 
         for _ in range(simulations):
@@ -287,7 +287,9 @@ def run_prediction(match):
             values.append(max(0, value))
 
         values.sort()
+        return values
 
+    def summarize_distribution(values):
         return {
             "mean": round(sum(values) / len(values), 2),
             "p10": round(values[int(0.10 * len(values))], 2),
@@ -295,13 +297,34 @@ def run_prediction(match):
             "p90": round(values[int(0.90 * len(values))], 2),
         }
 
-    mc_aces_a = monte_carlo_metric(aces_a)
-    mc_aces_b = monte_carlo_metric(aces_b)
-    mc_breaks_a = monte_carlo_metric(breaks_a)
-    mc_breaks_b = monte_carlo_metric(breaks_b)
+    def over_probability(values, line):
+        if not values:
+            return 0
 
-    mc_total_aces = monte_carlo_metric(aces_a + aces_b)
-    mc_total_breaks = monte_carlo_metric(breaks_a + breaks_b)
+        over_count = sum(1 for v in values if v > line)
+        return round(over_count / len(values), 3)
+
+
+    mc_aces_a_values = monte_carlo_values(aces_a)
+    mc_aces_b_values = monte_carlo_values(aces_b)
+    mc_breaks_a_values = monte_carlo_values(breaks_a)
+    mc_breaks_b_values = monte_carlo_values(breaks_b)
+
+    mc_total_aces_values = [
+        a + b for a, b in zip(mc_aces_a_values, mc_aces_b_values)
+    ]
+
+    mc_total_breaks_values = [
+        a + b for a, b in zip(mc_breaks_a_values, mc_breaks_b_values)
+    ]
+
+    mc_aces_a = summarize_distribution(mc_aces_a_values)
+    mc_aces_b = summarize_distribution(mc_aces_b_values)
+    mc_breaks_a = summarize_distribution(mc_breaks_a_values)
+    mc_breaks_b = summarize_distribution(mc_breaks_b_values)
+
+    mc_total_aces = summarize_distribution(mc_total_aces_values)
+    mc_total_breaks = summarize_distribution(mc_total_breaks_values)
 
     
     stat_diff = (
@@ -418,6 +441,8 @@ def run_prediction(match):
         "mc_breaks_b": mc_breaks_b,
         "mc_total_aces": mc_total_aces,
         "mc_total_breaks": mc_total_breaks,
+        "mc_total_aces_values": mc_total_aces_values,
+        "mc_total_breaks_values": mc_total_breaks_values,
     }
 
     return result, context
