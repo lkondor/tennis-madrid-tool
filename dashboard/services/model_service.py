@@ -277,6 +277,38 @@ def run_prediction(match):
         1
     )
 
+    def quality_score(player):
+        q = player.get("data_quality", "fallback")
+
+        if q == "official_override":
+            return 1.00
+        if q == "historical_match_stats":
+            return 0.80
+        if q == "synthetic":
+            return 0.55
+        if q == "unresolved":
+            return 0.25
+
+        return 0.40
+
+    data_confidence = (quality_score(a) + quality_score(b)) / 2
+    weather_confidence = 1.0 if avg_temp is not None and wind_kmh is not None else 0.6
+    court_confidence = 1.0 if match.court else 0.7
+
+    confidence_score = round(
+        (data_confidence * 0.65)
+        + (weather_confidence * 0.20)
+        + (court_confidence * 0.15),
+        3
+    )
+
+    if confidence_score >= 0.80:
+        confidence_label = "Alta"
+    elif confidence_score >= 0.60:
+        confidence_label = "Media"
+    else:
+        confidence_label = "Bassa"
+    
     result = {
         "playerA": {
             "aces": aces_a,
@@ -314,6 +346,11 @@ def run_prediction(match):
         "wind_kmh": wind_kmh,
         "ace_weather_factor": ace_wf,
         "break_weather_factor": break_wf
+        "confidence_score": confidence_score,
+        "confidence_label": confidence_label,
+        "data_confidence": round(data_confidence, 3),
+        "weather_confidence": weather_confidence,
+        "court_confidence": court_confidence,
     }
 
     return result, context
