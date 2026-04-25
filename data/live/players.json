@@ -694,5 +694,475 @@
     "madrid_ace_rate": 4.8,
     "madrid_break_rate": 3.4,
     "data_quality": "official_override"
+  },
+  "b. bencic": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "d. shnaider": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "j. munar": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "c. ruud": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "m. navone": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "a. zverev": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "a. sabalenka": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "j. cristian": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "a. bublik": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "s. tsitsipas": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "d. galfi": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "i. swiatek": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "a. li": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "d. medvedev": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "f. marozsan": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "a. kalinina": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "n. osaka": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "l. fernandez": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "i. jovic": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "v. gaubas": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "f. auger-aliassime": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "h. baptiste": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "d. merida": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "c. moutet": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "l. samson": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "a. bondar": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "m. damm": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "j. mensik": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "b. nakashima": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "a. blockx": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "c. ugo carabelli": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "f. cobolli": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "n. budkov kjaer": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "d. shapovalov": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "j. cerundolo": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "l. darderi": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "u. humbert": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "t. atmane": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "l. tien": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "a. vallejo": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "f. wu": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "m. kozyreva": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "y. xu": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "t. mihalikova": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "a. muhammad": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "u. eikeri": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "v. zvonareva": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
   }
 }
