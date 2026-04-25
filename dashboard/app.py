@@ -50,6 +50,26 @@ def main():
     rows = sorted(rows, key=lambda x: x["Value score"] or 0, reverse=True)
     st.dataframe(rows, use_container_width=True)
 
+    top_picks = [
+        r for r in rows
+        if (r.get("Value score") or 0) >= 0.50
+        and (r.get("Confidence score") or 0) >= 0.55
+    ]
+
+    st.subheader("Top Picks")
+
+    if not top_picks:
+        st.info("Nessun match supera le soglie operative attuali.")
+    else:
+        for pick in top_picks[:5]:
+            st.success(
+                f"{pick['Match']} | "
+                f"Value: {pick['Value']} ({pick['Value score']}) | "
+                f"Confidence: {pick['Confidence']} ({pick['Confidence score']}) | "
+                f"Ace totali: {pick['Ace totali']} | "
+                f"Break totali: {pick['Break totali']}"
+            )
+
     if not matches:
         st.warning("Nessuna partita trovata per la data selezionata.")
         return
