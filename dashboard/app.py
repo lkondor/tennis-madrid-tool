@@ -122,6 +122,19 @@ def main():
     )
 
     render_prediction(result, selected_match.player1, selected_match.player2)
+    
+    st.subheader("Monte Carlo Range")
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.write("Ace totali")
+        st.json(context.get("mc_total_aces", {}))
+
+    with col2:
+        st.write("Break totali")
+        st.json(context.get("mc_total_breaks", {}))
+    
     render_breakdown(context)
 
 
