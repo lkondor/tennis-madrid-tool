@@ -7,13 +7,6 @@
     "tour": "ATP/WTA"
   },
   {
-    "player1": "J. Munar",
-    "player2": "C. Ruud",
-    "court": "Manolo Santana Stadium",
-    "date": "2026-04-25",
-    "tour": "ATP/WTA"
-  },
-  {
     "player1": "M. Navone",
     "player2": "A. Zverev",
     "court": "Manolo Santana Stadium",
@@ -98,20 +91,6 @@
     "tour": "ATP/WTA"
   },
   {
-    "player1": "M. Damm",
-    "player2": "J. Mensik",
-    "court": "Court 4",
-    "date": "2026-04-25",
-    "tour": "ATP/WTA"
-  },
-  {
-    "player1": "B. Nakashima",
-    "player2": "A. Blockx",
-    "court": "Court 4",
-    "date": "2026-04-25",
-    "tour": "ATP/WTA"
-  },
-  {
     "player1": "C. Ugo Carabelli",
     "player2": "F. Cobolli",
     "court": "Court 4",
@@ -122,13 +101,6 @@
     "player1": "N. Budkov Kjaer",
     "player2": "D. Shapovalov",
     "court": "Court 4",
-    "date": "2026-04-25",
-    "tour": "ATP/WTA"
-  },
-  {
-    "player1": "J. Cerundolo",
-    "player2": "L. Darderi",
-    "court": "Court 5",
     "date": "2026-04-25",
     "tour": "ATP/WTA"
   },

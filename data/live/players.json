@@ -121,14 +121,14 @@
     "matches_in_backfill": 92
   },
   "alexander zverev": {
-    "elo_clay": 1880,
-    "ace_rate_clay_3y": 0.24,
-    "ace_allowed_clay_3y": 0.2,
-    "break_rate_clay_3y": 0.27,
-    "break_allowed_clay_3y": 0.22,
-    "madrid_ace_rate": 8.0,
-    "madrid_break_rate": 2.9,
-    "data_quality": "official_override",
+    "elo_clay": 1443.4,
+    "ace_rate_clay_3y": 0.5433,
+    "ace_allowed_clay_3y": 0.5762,
+    "break_rate_clay_3y": 0.2064,
+    "break_allowed_clay_3y": 0.2467,
+    "madrid_ace_rate": 10.0,
+    "madrid_break_rate": 1.0,
+    "data_quality": "historical_match_stats",
     "matches_in_backfill": 104
   },
   "alexandra eala": {
@@ -264,14 +264,14 @@
     "matches_in_backfill": 20
   },
   "carlos alcaraz": {
-    "elo_clay": 1980,
-    "ace_rate_clay_3y": 0.18,
-    "ace_allowed_clay_3y": 0.16,
-    "break_rate_clay_3y": 0.34,
-    "break_allowed_clay_3y": 0.19,
-    "madrid_ace_rate": 5.2,
-    "madrid_break_rate": 3.8,
-    "data_quality": "official_override",
+    "elo_clay": 1523.3,
+    "ace_rate_clay_3y": 0.5492,
+    "ace_allowed_clay_3y": 0.5128,
+    "break_rate_clay_3y": 0.2174,
+    "break_allowed_clay_3y": 0.2295,
+    "madrid_ace_rate": 6.0,
+    "madrid_break_rate": 3.0,
+    "data_quality": "historical_match_stats",
     "tour": "ATP",
     "rank": 2,
     "matches_in_backfill": 105
@@ -376,14 +376,14 @@
     "matches_in_backfill": 10
   },
   "daniil medvedev": {
-    "elo_clay": 1750,
-    "ace_rate_clay_3y": 0.19,
-    "ace_allowed_clay_3y": 0.22,
-    "break_rate_clay_3y": 0.26,
-    "break_allowed_clay_3y": 0.24,
-    "madrid_ace_rate": 5.5,
-    "madrid_break_rate": 2.4,
-    "data_quality": "official_override",
+    "elo_clay": 1471.0,
+    "ace_rate_clay_3y": 0.5708,
+    "ace_allowed_clay_3y": 0.5911,
+    "break_rate_clay_3y": 0.2204,
+    "break_allowed_clay_3y": 0.2183,
+    "madrid_ace_rate": 9.0,
+    "madrid_break_rate": 1.0,
+    "data_quality": "historical_match_stats",
     "matches_in_backfill": 87
   },
   "dino prizmic": {
@@ -607,14 +607,14 @@
     "matches_in_backfill": 16
   },
   "jannik sinner": {
-    "elo_clay": 1920,
-    "ace_rate_clay_3y": 0.22,
-    "ace_allowed_clay_3y": 0.18,
-    "break_rate_clay_3y": 0.29,
-    "break_allowed_clay_3y": 0.17,
-    "madrid_ace_rate": 6.5,
-    "madrid_break_rate": 3.2,
-    "data_quality": "official_override",
+    "elo_clay": 1534.9,
+    "ace_rate_clay_3y": 0.5627,
+    "ace_allowed_clay_3y": 0.582,
+    "break_rate_clay_3y": 0.2024,
+    "break_allowed_clay_3y": 0.244,
+    "madrid_ace_rate": 7.5,
+    "madrid_break_rate": 3.5,
+    "data_quality": "historical_match_stats",
     "tour": "ATP",
     "rank": 1,
     "matches_in_backfill": 93
@@ -1201,15 +1201,5 @@
     "madrid_break_rate": 0.0,
     "data_quality": "historical_match_stats",
     "matches_in_backfill": 10
-  },
-  "holger rune": {
-    "elo_clay": 1850,
-    "ace_rate_clay_3y": 0.17,
-    "ace_allowed_clay_3y": 0.18,
-    "break_rate_clay_3y": 0.31,
-    "break_allowed_clay_3y": 0.21,
-    "madrid_ace_rate": 4.8,
-    "madrid_break_rate": 3.4,
-    "data_quality": "official_override"
   }
 }
