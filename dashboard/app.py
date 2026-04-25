@@ -31,6 +31,25 @@ def main():
 
     matches = get_matches_by_date(selected_date)
 
+    st.subheader("Ranking match del giorno")
+
+    rows = []
+    for m in matches:
+        pred, ctx = run_prediction(m)
+        rows.append({
+            "Match": f"{m.player1} vs {m.player2}",
+            "Court": m.court,
+            "Ace totali": pred["totals"]["aces"],
+            "Break totali": pred["totals"]["breaks"],
+            "Confidence": ctx.get("confidence_label"),
+            "Confidence score": ctx.get("confidence_score"),
+            "Value": ctx.get("value_label"),
+            "Value score": ctx.get("value_score"),
+        })
+
+    rows = sorted(rows, key=lambda x: x["Value score"] or 0, reverse=True)
+    st.dataframe(rows, use_container_width=True)
+
     if not matches:
         st.warning("Nessuna partita trovata per la data selezionata.")
         return
