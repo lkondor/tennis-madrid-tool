@@ -52,8 +52,8 @@ def main():
 
     top_picks = [
         r for r in rows
-        if (r.get("Value score") or 0) >= 0.50
-        and (r.get("Confidence score") or 0) >= 0.55
+        if (r.get("Value score") or 0) >= min_value_score
+        and (r.get("Confidence score") or 0) >= min_confidence_score
     ]
 
     st.subheader("Top Picks")
@@ -74,6 +74,24 @@ def main():
         st.warning("Nessuna partita trovata per la data selezionata.")
         return
 
+    st.sidebar.subheader("Soglie operative")
+
+    min_value_score = st.sidebar.slider(
+        "Min Value Score",
+        min_value=0.0,
+        max_value=1.0,
+        value=0.50,
+        step=0.05
+    )
+    
+    min_confidence_score = st.sidebar.slider(
+        "Min Confidence Score",
+        min_value=0.0,
+        max_value=1.0,
+        value=0.55,
+        step=0.05
+    )
+    
     render_filters()
     selected_match = render_match_selector(matches)
     result, context = run_prediction(selected_match)
