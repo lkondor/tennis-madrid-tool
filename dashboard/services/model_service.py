@@ -308,6 +308,7 @@ def run_prediction(match):
         confidence_label = "Media"
     else:
         confidence_label = "Bassa"
+   
     
     result = {
         "playerA": {
