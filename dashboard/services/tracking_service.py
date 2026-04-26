@@ -4,27 +4,40 @@ from datetime import datetime
 
 
 TRACKING_PATH = Path("data/live/bet_tracking.json")
+RESULTS_PATH = Path("data/live/match_results.json")
 
 
-def load_tracking():
-    if not TRACKING_PATH.exists():
-        return []
+def load_json(path, default):
+    if not path.exists():
+        return default
 
     try:
-        text = TRACKING_PATH.read_text(encoding="utf-8").strip()
+        text = path.read_text(encoding="utf-8").strip()
         if not text:
-            return []
+            return default
         return json.loads(text)
     except Exception:
-        return []
+        return default
 
 
-def save_tracking(rows):
-    TRACKING_PATH.parent.mkdir(parents=True, exist_ok=True)
-    TRACKING_PATH.write_text(
+def save_json(path, rows):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
         json.dumps(rows, ensure_ascii=False, indent=2),
         encoding="utf-8"
     )
+
+
+def load_tracking():
+    return load_json(TRACKING_PATH, [])
+
+
+def save_tracking(rows):
+    save_json(TRACKING_PATH, rows)
+
+
+def load_match_results():
+    return load_json(RESULTS_PATH, [])
 
 
 def make_pick_id(date, match, market, line):
@@ -61,7 +74,7 @@ def add_picks(date, portfolio_rows):
             "confidence": p["Confidence"],
             "confidence_score": p["Confidence score"],
             "status": "PENDING",
-            "result": None,
+            "actual_value": None,
             "notes": ""
         })
 
@@ -71,13 +84,64 @@ def add_picks(date, portfolio_rows):
     return len(new_rows)
 
 
+def auto_settle_picks():
+    tracking_rows = load_tracking()
+    results = load_match_results()
+
+    result_map = {
+        (r.get("date"), r.get("match")): r
+        for r in results
+    }
+
+    updated = 0
+
+    for pick in tracking_rows:
+        if pick.get("status") != "PENDING":
+            continue
+
+        key = (pick.get("date"), pick.get("match"))
+        result = result_map.get(key)
+
+        if not result:
+            continue
+
+        market = pick.get("market")
+        line = float(pick.get("line", 0))
+
+        if market == "Over Ace":
+            actual = result.get("total_aces")
+        elif market == "Over Break":
+            actual = result.get("total_breaks")
+        else:
+            actual = None
+
+        if actual is None:
+            continue
+
+        pick["actual_value"] = actual
+
+        if actual > line:
+            pick["status"] = "WIN"
+        elif actual < line:
+            pick["status"] = "LOSS"
+        else:
+            pick["status"] = "PUSH"
+
+        pick["updated_at"] = datetime.utcnow().isoformat()
+        pick["notes"] = "Auto-settled from match_results.json"
+        updated += 1
+
+    save_tracking(tracking_rows)
+    return updated
+
+
 def update_pick_status(pick_id, status, result=None, notes=""):
     rows = load_tracking()
 
     for r in rows:
         if r.get("pick_id") == pick_id:
             r["status"] = status
-            r["result"] = result
+            r["actual_value"] = result
             r["notes"] = notes
             r["updated_at"] = datetime.utcnow().isoformat()
 
@@ -86,6 +150,7 @@ def update_pick_status(pick_id, status, result=None, notes=""):
 
 def tracking_summary(rows):
     settled = [r for r in rows if r.get("status") in ["WIN", "LOSS", "PUSH"]]
+
     wins = sum(1 for r in settled if r.get("status") == "WIN")
     losses = sum(1 for r in settled if r.get("status") == "LOSS")
     pushes = sum(1 for r in settled if r.get("status") == "PUSH")
