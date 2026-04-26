@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-04-26T16:36:05.783431+02:00",
+  "updated_at": "2026-04-26T20:36:00.824564+02:00",
   "used_source": "ATP daily schedule",
   "atp": {
     "status": "ok",
     "url": "https://www.atptour.com/en/scores/current/madrid/1536/daily-schedule",
     "http_status": 200,
-    "line_count": 415,
+    "line_count": 428,
     "sample_lines": [
       "ATP Masters 1000 Madrid | Daily Schedule | ATP Tour | Tennis",
       "ATP Tour",
@@ -86,9 +86,10 @@
       "R32",
       "J.",
       "Sinner",
-      "Vs",
+      "Defeats",
       "E.",
       "Moller",
+      "62 63",
       "H2H",
       "Not Before 20:00",
       "Q.",
@@ -125,12 +126,11 @@
       "Pliskova",
       "WTA",
       "Followed By",
-      "J.",
-      "Pegula"
+      "J."
     ],
-    "matches_count": 22,
+    "matches_count": 16,
     "error": null
   },
   "pdf": null,
-  "final_matches_count": 22
+  "final_matches_count": 16
 }

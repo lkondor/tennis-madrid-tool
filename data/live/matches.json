@@ -7,13 +7,6 @@
     "tour": "ATP/WTA"
   },
   {
-    "player1": "J. Sinner",
-    "player2": "E. Moller",
-    "court": "Manolo Santana Stadium",
-    "date": "2026-04-26",
-    "tour": "ATP/WTA"
-  },
-  {
     "player1": "Q. Zheng",
     "player2": "E. Rybakina",
     "court": "Manolo Santana Stadium",
@@ -63,20 +56,6 @@
     "tour": "ATP/WTA"
   },
   {
-    "player1": "A. Fils",
-    "player2": "E. Nava",
-    "court": "Stadium 3",
-    "date": "2026-04-26",
-    "tour": "ATP/WTA"
-  },
-  {
-    "player1": "C. Norrie",
-    "player2": "T. Tirante",
-    "court": "Stadium 3",
-    "date": "2026-04-26",
-    "tour": "ATP/WTA"
-  },
-  {
     "player1": "A. Olivetti",
     "player2": "P. Carreno Busta",
     "court": "Stadium 3",
@@ -105,20 +84,6 @@
     "tour": "ATP/WTA"
   },
   {
-    "player1": "A. Zverev",
-    "player2": "L. Darderi",
-    "court": "Court 4",
-    "date": "2026-04-26",
-    "tour": "ATP/WTA"
-  },
-  {
-    "player1": "M. Wallner",
-    "player2": "F. Cabral",
-    "court": "Court 4",
-    "date": "2026-04-26",
-    "tour": "ATP/WTA"
-  },
-  {
     "player1": "Q. Gleason",
     "player2": "C. Gauff",
     "court": "Court 5",
@@ -136,13 +101,6 @@
     "player1": "J. Tjen",
     "player2": "C. Bucsa",
     "court": "Court 5",
-    "date": "2026-04-26",
-    "tour": "ATP/WTA"
-  },
-  {
-    "player1": "T. Puetz",
-    "player2": "T. Griekspoor",
-    "court": "Court 6",
     "date": "2026-04-26",
     "tour": "ATP/WTA"
   },
