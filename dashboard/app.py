@@ -67,20 +67,89 @@ def main():
     rows = []
     for m in matches:
         pred, ctx = run_prediction(m)
+        ace_values = ctx.get("mc_total_aces_values", [])
+        break_values = ctx.get("mc_total_breaks_values", [])
+
+        ace_line_default = float(pred["totals"]["aces"])
+        break_line_default = float(pred["totals"]["breaks"])
+
+        ace_over_prob = (
+            sum(1 for v in ace_values if v > ace_line_default) / len(ace_values)
+            if ace_values else 0
+        )
+
+        break_over_prob = (
+            sum(1 for v in break_values if v > break_line_default) / len(break_values)
+            if break_values else 0
+        )
+
+        # Default market 1.85 / 1.85 = mercato no-vig vicino al 50%
+        market_prob = 0.50
+
+        ace_edge = ace_over_prob - market_prob
+        break_edge = break_over_prob - market_prob
+
         rows.append({
             "Match": f"{m.player1} vs {m.player2}",
             "Court": m.court,
             "Ace totali": pred["totals"]["aces"],
             "Break totali": pred["totals"]["breaks"],
+            "Over Ace Prob": round(ace_over_prob, 3),
+            "Over Break Prob": round(break_over_prob, 3),
+            "Ace Edge": round(ace_edge, 3),
+            "Break Edge": round(break_edge, 3),
             "Confidence": ctx.get("confidence_label"),
             "Confidence score": ctx.get("confidence_score"),
             "Value": ctx.get("value_label"),
             "Value score": ctx.get("value_score"),
         })
 
+
+    
     rows = sorted(rows, key=lambda x: x["Value score"] or 0, reverse=True)
 
     st.dataframe(rows, use_container_width=True)
+
+    st.subheader("Portfolio View")
+
+    portfolio_rows = []
+
+    for r in rows:
+        if (r.get("Ace Edge") or 0) >= 0.03:
+            portfolio_rows.append({
+                "Market": "Over Ace",
+                "Match": r["Match"],
+                "Court": r["Court"],
+                "Line": r["Ace totali"],
+                "Model Prob": r["Over Ace Prob"],
+                "Edge": r["Ace Edge"],
+                "Confidence": r["Confidence"],
+                "Confidence score": r["Confidence score"],
+            })
+
+        if (r.get("Break Edge") or 0) >= 0.03:
+            portfolio_rows.append({
+                "Market": "Over Break",
+                "Match": r["Match"],
+                "Court": r["Court"],
+                "Line": r["Break totali"],
+                "Model Prob": r["Over Break Prob"],
+                "Edge": r["Break Edge"],
+                "Confidence": r["Confidence"],
+                "Confidence score": r["Confidence score"],
+            })
+
+    portfolio_rows = sorted(
+        portfolio_rows,
+        key=lambda x: (x["Edge"], x["Confidence score"] or 0),
+        reverse=True
+    )
+
+    if portfolio_rows:
+        st.dataframe(portfolio_rows, use_container_width=True)
+    else:
+        st.info("Nessun possibile value rilevato con le soglie portfolio attuali.")
+        
 
     # ---- TOP PICKS ----
     top_picks = [
