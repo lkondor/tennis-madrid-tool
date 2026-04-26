@@ -224,6 +224,24 @@ def main():
     ace_edge = ace_over_prob - ace_market_over_prob
     break_edge = break_over_prob - break_market_over_prob
 
+    def classify_value(edge, confidence):
+        if edge >= 0.07 and confidence >= 0.60:
+            return "FORTE"
+        elif edge >= 0.03 and confidence >= 0.55:
+            return "OK"
+        else:
+            return "NO BET"
+
+    ace_value_label = classify_value(
+        ace_edge,
+        context.get("confidence_score", 0)
+    )
+
+    break_value_label = classify_value(
+        break_edge,
+        context.get("confidence_score", 0)
+    )
+
     prob_col1, prob_col2 = st.columns(2)
 
     with prob_col1:
@@ -250,9 +268,25 @@ def main():
         )
         st.caption(f"Overround Break market: {break_overround:.1%}")
 
-    
-    render_breakdown(context)
+    value_col1, value_col2 = st.columns(2)
 
+    with value_col1:
+        if ace_value_label == "FORTE":
+            st.success(f"Ace Bet: {ace_value_label}")
+        elif ace_value_label == "OK":
+            st.warning(f"Ace Bet: {ace_value_label}")
+        else:
+            st.error(f"Ace Bet: {ace_value_label}")
+
+    with value_col2:
+        if break_value_label == "FORTE":
+            st.success(f"Break Bet: {break_value_label}")
+        elif break_value_label == "OK":
+            st.warning(f"Break Bet: {break_value_label}")
+        else:
+            st.error(f"Break Bet: {break_value_label}")
+
+    render_breakdown(context)
 
 if __name__ == "__main__":
     main()
