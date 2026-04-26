@@ -12,7 +12,8 @@ from services.tracking_service import (
     load_tracking,
     add_picks,
     update_pick_status,
-    tracking_summary
+    tracking_summary,
+    auto_settle_picks
 )
 from components.match_selector import render_match_selector
 from components.prediction_view import render_prediction
@@ -189,10 +190,23 @@ def main():
             added = add_picks(selected_date, portfolio_rows)
             st.success(f"{added} nuove pick salvate nel tracking.")
 
+    if portfolio_rows:
+        added = add_picks(selected_date, portfolio_rows)
+
+        if added > 0:
+            st.success(f"{added} nuove pick salvate automaticamente nel tracking.")
+        else:
+            st.caption("Portfolio già salvato nel tracking.")
+
 
     # ---- TRACKING PICKS ----
     st.subheader("Tracking Picks")
 
+    updated_picks = auto_settle_picks()
+
+    if updated_picks > 0:
+        st.success(f"{updated_picks} pick aggiornate automaticamente con risultati reali.")
+    
     tracking_rows = load_tracking()
     summary = tracking_summary(tracking_rows)
 
