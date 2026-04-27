@@ -170,6 +170,76 @@ def fetch_stats_leaderboard_top_five():
     return output
 
 
+def inspect_js_assets(page_url):
+    debug = {
+        "page_url": page_url,
+        "js_files_count": 0,
+        "matches": [],
+        "error": None,
+    }
+
+    try:
+        response = safe_get(page_url)
+        soup = BeautifulSoup(response.text, "html.parser")
+
+        js_urls = []
+
+        for script in soup.find_all("script"):
+            src = script.get("src")
+            if not src:
+                continue
+
+            if src.startswith("/"):
+                src = "https://www.atptour.com" + src
+
+            if "atptour" in src or src.startswith("https://www.atptour.com"):
+                js_urls.append(src)
+
+        debug["js_files_count"] = len(js_urls)
+
+        keywords = [
+            "StatsLeaderboard",
+            "TopFive",
+            "IndividualGameStats",
+            "gateway",
+            "Leaderboard",
+            "tdi",
+            "Aces",
+            "BreakPoints",
+            "ReturnGames",
+            "ServiceGames",
+        ]
+
+        for js_url in js_urls[:30]:
+            try:
+                js_response = safe_get(js_url)
+                text = js_response.text
+
+                hits = [
+                    kw for kw in keywords
+                    if kw.lower() in text.lower()
+                ]
+
+                if hits:
+                    debug["matches"].append({
+                        "js_url": js_url,
+                        "hits": hits,
+                        "sample": text[:1500]
+                    })
+
+            except Exception as exc:
+                debug["matches"].append({
+                    "js_url": js_url,
+                    "error": str(exc)
+                })
+
+        return debug
+
+    except Exception as exc:
+        debug["error"] = str(exc)
+        return debug
+
+
 def inspect_page(name, url):
     debug = {
         "name": name,
@@ -261,11 +331,17 @@ def update_atp_enriched_stats():
         pages.append(inspect_page(name, url))
 
     leaderboard_test = fetch_stats_leaderboard_top_five()
+    js_asset_debug = {
+        "leaderboard": inspect_js_assets("https://www.atptour.com/en/stats/leaderboard"),
+        "individual_game_stats": inspect_js_assets("https://www.atptour.com/en/stats/individual-game-stats"),
+        "tdi_leaderboard": inspect_js_assets("https://www.atptour.com/en/stats/tdi-leaderboard"),
+    }
 
     debug = {
         "updated_at": datetime.now(MADRID_TZ).isoformat(),
         "gateway_url": ATP_GATEWAY_URL,
         "leaderboard_test": leaderboard_test,
+        "js_asset_debug": js_asset_debug,
         "pages": pages,
     }
 
