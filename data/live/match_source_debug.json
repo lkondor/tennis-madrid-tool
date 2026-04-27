@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-04-27T10:07:24.796315+02:00",
+  "updated_at": "2026-04-27T13:29:58.054738+02:00",
   "used_source": "ATP daily schedule",
   "atp": {
     "status": "ok",
     "url": "https://www.atptour.com/en/scores/current/madrid/1536/daily-schedule",
     "http_status": 200,
-    "line_count": 353,
+    "line_count": 358,
     "sample_lines": [
       "ATP Masters 1000 Madrid | Daily Schedule | ATP Tour | Tennis",
       "ATP Tour",
@@ -67,11 +67,12 @@
       "Starts At 11:00",
       "R32",
       "R32",
-      "A.",
-      "Davidovich Fokina",
-      "Vs",
       "C.",
       "Ruud",
+      "Defeats",
+      "A.",
+      "Davidovich Fokina",
+      "63 61",
       "H2H",
       "Not Before 13:00",
       "A.",
@@ -125,12 +126,11 @@
       "Medvedev",
       "Vs",
       "N.",
-      "Budkov Kjaer",
-      "H2H"
+      "Budkov Kjaer"
     ],
-    "matches_count": 23,
+    "matches_count": 21,
     "error": null
   },
   "pdf": null,
-  "final_matches_count": 23
+  "final_matches_count": 21
 }

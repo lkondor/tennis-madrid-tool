@@ -1,12 +1,5 @@
 [
   {
-    "player1": "A. Davidovich Fokina",
-    "player2": "C. Ruud",
-    "court": "Manolo Santana Stadium",
-    "date": "2026-04-27",
-    "tour": "ATP/WTA"
-  },
-  {
     "player1": "A. Sabalenka",
     "player2": "N. Osaka",
     "court": "Manolo Santana Stadium",
@@ -126,13 +119,6 @@
     "tour": "ATP/WTA"
   },
   {
-    "player1": "D. Pel",
-    "player2": "A. Goransson",
-    "court": "Court 5",
-    "date": "2026-04-27",
-    "tour": "ATP/WTA"
-  },
-  {
     "player1": "N. Skupski",
     "player2": "R. Cash",
     "court": "Court 5",
@@ -140,9 +126,9 @@
     "tour": "ATP/WTA"
   },
   {
-    "player1": "E. Roger-Vasselin",
-    "player2": "M. Gonzalez",
-    "court": "Court 6",
+    "player1": "S. Gonzalez",
+    "player2": "L. Johnson",
+    "court": "Court 5",
     "date": "2026-04-27",
     "tour": "ATP/WTA"
   },
