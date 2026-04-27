@@ -91,9 +91,16 @@ def main():
     st.subheader("Ranking match del giorno")
 
     rows = []
+    skipped_matches = 0
+
     for m in matches:
         pred, ctx = run_prediction(m)
-        ace_values = ctx.get("mc_total_aces_values", [])
+
+        if ctx.get("skipped"):
+            skipped_matches += 1
+            continue
+
+        ace_values = ctx.get("mc_total_aces_values", [])           
         break_values = ctx.get("mc_total_breaks_values", [])
 
         ace_line_default = float(pred["totals"]["aces"])
@@ -134,8 +141,11 @@ def main():
     
     rows = sorted(rows, key=lambda x: x["Value score"] or 0, reverse=True)
 
-    st.dataframe(rows, use_container_width=True)
+    if skipped_matches > 0:
+        st.caption(f"{skipped_matches} match di doppio esclusi dal modello.")
 
+    st.dataframe(rows, use_container_width=True)
+    
     # ---- PORTFOLIO VIEW ----
     st.subheader("Portfolio View")
 
@@ -186,17 +196,12 @@ def main():
         st.info("Nessun possibile value rilevato con le soglie portfolio attuali.")
 
     if portfolio_rows:
-        if st.button("Salva Portfolio nel Tracking"):
-            added = add_picks(selected_date, portfolio_rows)
-            st.success(f"{added} nuove pick salvate nel tracking.")
+    added = add_picks(selected_date, portfolio_rows)
 
-    if portfolio_rows:
-        added = add_picks(selected_date, portfolio_rows)
-
-        if added > 0:
-            st.success(f"{added} nuove pick salvate automaticamente nel tracking.")
-        else:
-            st.caption("Portfolio già salvato nel tracking.")
+    if added > 0:
+        st.success(f"{added} nuove pick salvate automaticamente nel tracking.")
+    else:
+        st.caption("Portfolio già salvato nel tracking.")
 
 
     # ---- TRACKING PICKS ----
@@ -275,7 +280,20 @@ def main():
 
     # ---- MATCH DETAIL ----
     render_filters()
-    selected_match = render_match_selector(matches)
+
+    singles_matches = []
+
+    for m in matches:
+        _, ctx = run_prediction(m)
+
+        if not ctx.get("skipped"):
+            singles_matches.append(m)
+
+    if not singles_matches:
+        st.warning("Nessun match di singolare disponibile per la data selezionata.")
+        return
+
+    selected_match = render_match_selector(singles_matches)
 
     result, context = run_prediction(selected_match)
 
