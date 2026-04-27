@@ -66,6 +66,7 @@ def inspect_page(name, url):
         "sample_lines": [],
         "keyword_hits": {},
         "sample_classes": [],
+        "endpoint_candidates": [],
         "status": "not_started",
         "error": None,
     }
@@ -79,6 +80,31 @@ def inspect_page(name, url):
             return debug
 
         soup = BeautifulSoup(response.text, "html.parser")
+
+        endpoint_candidates = []
+
+        for tag in soup.find_all(True):
+            for attr_name, attr_value in tag.attrs.items():
+                if isinstance(attr_value, list):
+                    attr_value = " ".join(str(x) for x in attr_value)
+
+                attr_value = str(attr_value)
+
+                if (
+                    "api" in attr_value.lower()
+                    or "endpoint" in attr_value.lower()
+                    or "stats" in attr_value.lower()
+                    or "leaderboard" in attr_value.lower()
+                    or "match" in attr_value.lower()
+                ):
+                    endpoint_candidates.append({
+                        "tag": tag.name,
+                        "attr": attr_name,
+                        "value": attr_value[:500]
+                    })
+
+        debug["endpoint_candidates"] = endpoint_candidates[:100]
+        
         text = soup.get_text("\n", strip=True)
 
         lines = [
