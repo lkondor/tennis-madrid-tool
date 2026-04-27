@@ -64,42 +64,110 @@ def clean_line(line):
 
 
 def fetch_stats_leaderboard_top_five():
-    debug = {
-        "url": ATP_STATS_LEADERBOARD_TOP_FIVE_URL,
-        "http_status": None,
-        "content_type": None,
-        "looks_like_json": False,
-        "json_keys": [],
-        "text_sample": None,
-        "status": "not_started",
-        "error": None,
-    }
+    base_url = "https://www.atptour.com/en/-/www/StatsLeaderboard/TopFive"
 
-    try:
-        response = safe_get(ATP_STATS_LEADERBOARD_TOP_FIVE_URL)
-        debug["http_status"] = response.status_code
-        debug["content_type"] = response.headers.get("content-type", "")
-        debug["text_sample"] = response.text[:3000]
+    test_cases = [
+        {
+            "name": "serve_clay_2026",
+            "params": {
+                "boardType": "serve",
+                "surface": "Clay",
+                "duration": "2026"
+            }
+        },
+        {
+            "name": "return_clay_2026",
+            "params": {
+                "boardType": "return",
+                "surface": "Clay",
+                "duration": "2026"
+            }
+        },
+        {
+            "name": "pressure_clay_2026",
+            "params": {
+                "boardType": "pressure",
+                "surface": "Clay",
+                "duration": "2026"
+            }
+        },
+        {
+            "name": "serve_all_52weeks",
+            "params": {
+                "boardType": "serve",
+                "surface": "All Surfaces",
+                "duration": "52 Weeks"
+            }
+        },
+        {
+            "name": "serve_alt_lowercase",
+            "params": {
+                "boardType": "serve",
+                "surface": "clay",
+                "duration": "2026"
+            }
+        }
+    ]
+
+    output = []
+
+    for case in test_cases:
+        debug = {
+            "name": case["name"],
+            "url": base_url,
+            "params": case["params"],
+            "http_status": None,
+            "content_type": None,
+            "looks_like_json": False,
+            "json_keys": [],
+            "text_sample": None,
+            "status": "not_started",
+            "error": None,
+        }
 
         try:
-            payload = response.json()
-            debug["looks_like_json"] = True
+            response = requests.get(
+                base_url,
+                params=case["params"],
+                headers={
+                    "User-Agent": (
+                        "Mozilla/5.0 (compatible; MadridPredictor/1.0; +https://github.com)"
+                    ),
+                    "Accept": "application/json, text/plain, */*",
+                    "X-Requested-With": "XMLHttpRequest",
+                    "Referer": "https://www.atptour.com/en/stats/leaderboard",
+                },
+                timeout=25
+            )
 
-            if isinstance(payload, dict):
-                debug["json_keys"] = list(payload.keys())[:50]
-            elif isinstance(payload, list):
-                debug["json_keys"] = ["list", f"length={len(payload)}"]
+            debug["http_status"] = response.status_code
+            debug["content_type"] = response.headers.get("content-type", "")
+            debug["text_sample"] = response.text[:1500]
 
-            debug["status"] = "ok_json"
-        except Exception:
-            debug["status"] = "ok_non_json" if response.status_code == 200 else "http_error"
+            try:
+                payload = response.json()
+                debug["looks_like_json"] = True
 
-        return debug
+                if isinstance(payload, dict):
+                    debug["json_keys"] = list(payload.keys())[:50]
+                elif isinstance(payload, list):
+                    debug["json_keys"] = ["list", f"length={len(payload)}"]
 
-    except Exception as exc:
-        debug["status"] = "exception"
-        debug["error"] = str(exc)
-        return debug
+                debug["status"] = "ok_json"
+            except Exception:
+                debug["status"] = (
+                    "ok_non_json"
+                    if response.status_code == 200
+                    else "http_error"
+                )
+
+        except Exception as exc:
+            debug["status"] = "exception"
+            debug["error"] = str(exc)
+
+        output.append(debug)
+
+    return output
 
 
 def inspect_page(name, url):
