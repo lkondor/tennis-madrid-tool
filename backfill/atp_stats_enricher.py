@@ -68,44 +68,24 @@ def fetch_stats_leaderboard_top_five():
 
     test_cases = [
         {
-            "name": "serve_clay_2026",
-            "params": {
-                "boardType": "serve",
-                "surface": "Clay",
-                "duration": "2026"
-            }
+            "name": "2026_clay",
+            "url": f"{base_url}/2026/Clay?v=1"
         },
         {
-            "name": "return_clay_2026",
-            "params": {
-                "boardType": "return",
-                "surface": "Clay",
-                "duration": "2026"
-            }
+            "name": "2025_clay",
+            "url": f"{base_url}/2025/Clay?v=1"
         },
         {
-            "name": "pressure_clay_2026",
-            "params": {
-                "boardType": "pressure",
-                "surface": "Clay",
-                "duration": "2026"
-            }
+            "name": "2024_clay",
+            "url": f"{base_url}/2024/Clay?v=1"
         },
         {
-            "name": "serve_all_52weeks",
-            "params": {
-                "boardType": "serve",
-                "surface": "All Surfaces",
-                "duration": "52 Weeks"
-            }
+            "name": "52weeks_clay",
+            "url": f"{base_url}/52%20Weeks/Clay?v=1"
         },
         {
-            "name": "serve_alt_lowercase",
-            "params": {
-                "boardType": "serve",
-                "surface": "clay",
-                "duration": "2026"
-            }
+            "name": "2026_all_surfaces",
+            "url": f"{base_url}/2026/All%20Surfaces?v=1"
         }
     ]
 
@@ -114,8 +94,7 @@ def fetch_stats_leaderboard_top_five():
     for case in test_cases:
         debug = {
             "name": case["name"],
-            "url": base_url,
-            "params": case["params"],
+            "url": case["url"],
             "http_status": None,
             "content_type": None,
             "looks_like_json": False,
@@ -127,8 +106,7 @@ def fetch_stats_leaderboard_top_five():
 
         try:
             response = requests.get(
-                base_url,
-                params=case["params"],
+                case["url"],
                 headers={
                     "User-Agent": (
                         "Mozilla/5.0 (compatible; MadridPredictor/1.0; +https://github.com)"
@@ -142,7 +120,7 @@ def fetch_stats_leaderboard_top_five():
 
             debug["http_status"] = response.status_code
             debug["content_type"] = response.headers.get("content-type", "")
-            debug["text_sample"] = response.text[:1500]
+            debug["text_sample"] = response.text[:3000]
 
             try:
                 payload = response.json()
