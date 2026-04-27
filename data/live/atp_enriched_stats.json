@@ -1,6 +1,325 @@
 {
-  "updated_at": "2026-04-27T17:51:40.484553+02:00",
-  "status": "debug_only",
-  "gateway_url": "https://app.atptour.com/api/v2/gateway",
-  "players": {}
+  "updated_at": "2026-04-27T18:05:31.889836+02:00",
+  "status": "ok",
+  "source": "ATP StatsLeaderboard TopFive",
+  "players": {
+    "ben shelton": {
+      "player_id": "S0S1",
+      "country": "USA",
+      "sources": [
+        "ATP leaderboard serve 2026 clay",
+        "ATP leaderboard pressure 2026 clay",
+        "ATP leaderboard pressure 2025 clay",
+        "ATP leaderboard serve 2026 all"
+      ],
+      "serve_rating_2026_clay": 308.1,
+      "pressure_rating_2026_clay": 270.3,
+      "pressure_rating_2025_clay": 271.4,
+      "serve_rating_2026_all": 306.3
+    },
+    "rafael jodar": {
+      "player_id": "J0DZ",
+      "country": "ESP",
+      "sources": [
+        "ATP leaderboard serve 2026 clay",
+        "ATP leaderboard return 2026 clay"
+      ],
+      "serve_rating_2026_clay": 291.8,
+      "return_rating_2026_clay": 178.3
+    },
+    "jannik sinner": {
+      "player_id": "S0AG",
+      "country": "ITA",
+      "sources": [
+        "ATP leaderboard serve 2026 clay",
+        "ATP leaderboard return 2026 clay",
+        "ATP leaderboard pressure 2026 clay",
+        "ATP leaderboard serve 2025 clay",
+        "ATP leaderboard return 2025 clay",
+        "ATP leaderboard serve 2026 all"
+      ],
+      "serve_rating_2026_clay": 290.4,
+      "return_rating_2026_clay": 189.1,
+      "pressure_rating_2026_clay": 263.8,
+      "serve_rating_2025_clay": 286.5,
+      "return_rating_2025_clay": 177.8,
+      "serve_rating_2026_all": 307.3
+    },
+    "alejandro tabilo": {
+      "player_id": "TE30",
+      "country": "CHI",
+      "sources": [
+        "ATP leaderboard serve 2026 clay"
+      ],
+      "serve_rating_2026_clay": 284.6
+    },
+    "joao fonseca": {
+      "player_id": "F0FV",
+      "country": "BRA",
+      "sources": [
+        "ATP leaderboard serve 2026 clay"
+      ],
+      "serve_rating_2026_clay": 283.8
+    },
+    "carlos alcaraz": {
+      "player_id": "A0E2",
+      "country": "ESP",
+      "sources": [
+        "ATP leaderboard return 2026 clay",
+        "ATP leaderboard return 2025 clay",
+        "ATP leaderboard pressure 2025 clay",
+        "ATP leaderboard return 2024 clay",
+        "ATP leaderboard return 2026 all"
+      ],
+      "return_rating_2026_clay": 189.4,
+      "return_rating_2025_clay": 176.1,
+      "pressure_rating_2025_clay": 292.3,
+      "return_rating_2024_clay": 178.0,
+      "return_rating_2026_all": 163.2
+    },
+    "mariano navone": {
+      "player_id": "N0BS",
+      "country": "ARG",
+      "sources": [
+        "ATP leaderboard return 2026 clay",
+        "ATP leaderboard pressure 2026 clay",
+        "ATP leaderboard return 2024 clay",
+        "ATP leaderboard return 2026 all",
+        "ATP leaderboard pressure 2026 all"
+      ],
+      "return_rating_2026_clay": 182.2,
+      "pressure_rating_2026_clay": 276.4,
+      "return_rating_2024_clay": 177.5,
+      "return_rating_2026_all": 160.0,
+      "pressure_rating_2026_all": 256.0
+    },
+    "casper ruud": {
+      "player_id": "RH16",
+      "country": "NOR",
+      "sources": [
+        "ATP leaderboard return 2026 clay",
+        "ATP leaderboard pressure 2024 clay"
+      ],
+      "return_rating_2026_clay": 177.8,
+      "pressure_rating_2024_clay": 278.3
+    },
+    "tommy paul": {
+      "player_id": "PL56",
+      "country": "USA",
+      "sources": [
+        "ATP leaderboard pressure 2026 clay"
+      ],
+      "pressure_rating_2026_clay": 306.5
+    },
+    "arthur fils": {
+      "player_id": "F0F1",
+      "country": "FRA",
+      "sources": [
+        "ATP leaderboard pressure 2026 clay",
+        "ATP leaderboard pressure 2026 all"
+      ],
+      "pressure_rating_2026_clay": 305.3,
+      "pressure_rating_2026_all": 268.3
+    },
+    "jakub mensik": {
+      "player_id": "M0NI",
+      "country": "CZE",
+      "sources": [
+        "ATP leaderboard serve 2025 clay"
+      ],
+      "serve_rating_2025_clay": 290.3
+    },
+    "novak djokovic": {
+      "player_id": "D643",
+      "country": "SRB",
+      "sources": [
+        "ATP leaderboard serve 2025 clay",
+        "ATP leaderboard return 2024 clay"
+      ],
+      "serve_rating_2025_clay": 288.7,
+      "return_rating_2024_clay": 179.2
+    },
+    "hubert hurkacz": {
+      "player_id": "HB71",
+      "country": "POL",
+      "sources": [
+        "ATP leaderboard serve 2025 clay",
+        "ATP leaderboard serve 2024 clay"
+      ],
+      "serve_rating_2025_clay": 283.6,
+      "serve_rating_2024_clay": 289.0
+    },
+    "alexander zverev": {
+      "player_id": "Z355",
+      "country": "GER",
+      "sources": [
+        "ATP leaderboard serve 2025 clay",
+        "ATP leaderboard serve 2024 clay",
+        "ATP leaderboard serve 2026 all"
+      ],
+      "serve_rating_2025_clay": 282.9,
+      "serve_rating_2024_clay": 290.1,
+      "serve_rating_2026_all": 300.0
+    },
+    "alex de minaur": {
+      "player_id": "DH58",
+      "country": "AUS",
+      "sources": [
+        "ATP leaderboard return 2025 clay",
+        "ATP leaderboard return 2024 clay"
+      ],
+      "return_rating_2025_clay": 175.7,
+      "return_rating_2024_clay": 179.5
+    },
+    "adrian mannarino": {
+      "player_id": "ME82",
+      "country": "FRA",
+      "sources": [
+        "ATP leaderboard return 2025 clay"
+      ],
+      "return_rating_2025_clay": 171.6
+    },
+    "flavio cobolli": {
+      "player_id": "C0E9",
+      "country": "ITA",
+      "sources": [
+        "ATP leaderboard return 2025 clay"
+      ],
+      "return_rating_2025_clay": 168.6
+    },
+    "filip misolic": {
+      "player_id": "M0JZ",
+      "country": "AUT",
+      "sources": [
+        "ATP leaderboard pressure 2025 clay"
+      ],
+      "pressure_rating_2025_clay": 288.9
+    },
+    "arthur cazaux": {
+      "player_id": "C0H0",
+      "country": "FRA",
+      "sources": [
+        "ATP leaderboard pressure 2025 clay"
+      ],
+      "pressure_rating_2025_clay": 281.1
+    },
+    "daniil medvedev": {
+      "player_id": "MM58",
+      "country": "RUS",
+      "sources": [
+        "ATP leaderboard pressure 2025 clay",
+        "ATP leaderboard pressure 2024 clay",
+        "ATP leaderboard return 2026 all"
+      ],
+      "pressure_rating_2025_clay": 273.6,
+      "pressure_rating_2024_clay": 304.0,
+      "return_rating_2026_all": 168.2
+    },
+    "jiri lehecka": {
+      "player_id": "L0BV",
+      "country": "CZE",
+      "sources": [
+        "ATP leaderboard serve 2024 clay"
+      ],
+      "serve_rating_2024_clay": 310.4
+    },
+    "matteo berrettini": {
+      "player_id": "BK40",
+      "country": "ITA",
+      "sources": [
+        "ATP leaderboard serve 2024 clay",
+        "ATP leaderboard pressure 2024 clay"
+      ],
+      "serve_rating_2024_clay": 305.2,
+      "pressure_rating_2024_clay": 302.8
+    },
+    "brandon nakashima": {
+      "player_id": "N0AE",
+      "country": "USA",
+      "sources": [
+        "ATP leaderboard serve 2024 clay"
+      ],
+      "serve_rating_2024_clay": 294.1
+    },
+    "gabriel diallo": {
+      "player_id": "D0F6",
+      "country": "CAN",
+      "sources": [
+        "ATP leaderboard return 2024 clay"
+      ],
+      "return_rating_2024_clay": 176.6
+    },
+    "zhizhen zhang": {
+      "player_id": "Z371",
+      "country": "CHN",
+      "sources": [
+        "ATP leaderboard pressure 2024 clay"
+      ],
+      "pressure_rating_2024_clay": 301.7
+    },
+    "fabio fognini": {
+      "player_id": "F510",
+      "country": "ITA",
+      "sources": [
+        "ATP leaderboard pressure 2024 clay"
+      ],
+      "pressure_rating_2024_clay": 272.0
+    },
+    "taylor fritz": {
+      "player_id": "FB98",
+      "country": "USA",
+      "sources": [
+        "ATP leaderboard serve 2026 all"
+      ],
+      "serve_rating_2026_all": 302.4
+    },
+    "felix auger-aliassime": {
+      "player_id": "AG37",
+      "country": "CAN",
+      "sources": [
+        "ATP leaderboard serve 2026 all"
+      ],
+      "serve_rating_2026_all": 295.7
+    },
+    "francisco cerundolo": {
+      "player_id": "C0AU",
+      "country": "ARG",
+      "sources": [
+        "ATP leaderboard return 2026 all"
+      ],
+      "return_rating_2026_all": 169.7
+    },
+    "corentin moutet": {
+      "player_id": "MW02",
+      "country": "FRA",
+      "sources": [
+        "ATP leaderboard return 2026 all"
+      ],
+      "return_rating_2026_all": 163.0
+    },
+    "frances tiafoe": {
+      "player_id": "TD51",
+      "country": "USA",
+      "sources": [
+        "ATP leaderboard pressure 2026 all"
+      ],
+      "pressure_rating_2026_all": 259.3
+    },
+    "alexander bublik": {
+      "player_id": "BK92",
+      "country": "KAZ",
+      "sources": [
+        "ATP leaderboard pressure 2026 all"
+      ],
+      "pressure_rating_2026_all": 258.5
+    },
+    "learner tien": {
+      "player_id": "T0HA",
+      "country": "USA",
+      "sources": [
+        "ATP leaderboard pressure 2026 all"
+      ],
+      "pressure_rating_2026_all": 254.9
+    }
+  }
 }
