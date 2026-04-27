@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-04-27T13:29:58.054738+02:00",
+  "updated_at": "2026-04-27T15:54:21.285654+02:00",
   "used_source": "ATP daily schedule",
   "atp": {
     "status": "ok",
     "url": "https://www.atptour.com/en/scores/current/madrid/1536/daily-schedule",
     "http_status": 200,
-    "line_count": 358,
+    "line_count": 366,
     "sample_lines": [
       "ATP Masters 1000 Madrid | Daily Schedule | ATP Tour | Tennis",
       "ATP Tour",
@@ -115,9 +115,10 @@
       "R32",
       "S.",
       "Tsitsipas",
-      "Vs",
+      "Defeats",
       "D.",
       "Merida",
+      "64 62",
       "H2H",
       "Followed By",
       "R32",
@@ -125,12 +126,11 @@
       "D.",
       "Medvedev",
       "Vs",
-      "N.",
-      "Budkov Kjaer"
+      "N."
     ],
-    "matches_count": 21,
+    "matches_count": 16,
     "error": null
   },
   "pdf": null,
-  "final_matches_count": 21
+  "final_matches_count": 16
 }

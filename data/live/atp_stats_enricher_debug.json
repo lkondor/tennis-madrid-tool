@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-04-27T13:29:58.782382+02:00",
+  "updated_at": "2026-04-27T15:54:22.048933+02:00",
   "pages": [
     {
       "name": "stats_home",
@@ -333,6 +333,438 @@
         "partner-logo",
         "partner-tier",
         "partners"
+      ],
+      "endpoint_candidates": [
+        {
+          "tag": "meta",
+          "attr": "content",
+          "value": "Statistics from men's professional tennis on the ATP Tour. Features stats leaderboards for serve, return and under pressure, individual match stats and more."
+        },
+        {
+          "tag": "meta",
+          "attr": "content",
+          "value": "Stats | ATP Tour | Tennis"
+        },
+        {
+          "tag": "meta",
+          "attr": "content",
+          "value": "Stats"
+        },
+        {
+          "tag": "meta",
+          "attr": "content",
+          "value": "Stats | ATP Tour | Tennis"
+        },
+        {
+          "tag": "meta",
+          "attr": "content",
+          "value": "Statistics from men's professional tennis on the ATP Tour. Features stats leaderboards for serve, return and under pressure, individual match stats and more."
+        },
+        {
+          "tag": "meta",
+          "attr": "content",
+          "value": "http://www.atptour.com/en/stats/stats-home"
+        },
+        {
+          "tag": "meta",
+          "attr": "content",
+          "value": "Stats | ATP Tour | Tennis"
+        },
+        {
+          "tag": "meta",
+          "attr": "content",
+          "value": "Statistics from men's professional tennis on the ATP Tour. Features stats leaderboards for serve, return and under pressure, individual match stats and more."
+        },
+        {
+          "tag": "link",
+          "attr": "href",
+          "value": "https://www.atptour.com/en/stats/stats-home"
+        },
+        {
+          "tag": "link",
+          "attr": "href",
+          "value": "https://www.atptour.com/es/stats/stats-home"
+        },
+        {
+          "tag": "input",
+          "attr": "class",
+          "value": "atp_globalnav-endpoint"
+        },
+        {
+          "tag": "input",
+          "attr": "value",
+          "value": "/en/stats/stats-home"
+        },
+        {
+          "tag": "input",
+          "attr": "class",
+          "value": "atp_globalnavlanguage-endpoint"
+        },
+        {
+          "tag": "input",
+          "attr": "class",
+          "value": "atp_header-endpoint"
+        },
+        {
+          "tag": "input",
+          "attr": "class",
+          "value": "atp_search-endpoint"
+        },
+        {
+          "tag": "img",
+          "attr": "src",
+          "value": "/-/media/sites/atp-tour/stats/infosys-atp-stats-72px_1.png"
+        },
+        {
+          "tag": "a",
+          "attr": "href",
+          "value": "/en/stats/stats-home"
+        },
+        {
+          "tag": "a",
+          "attr": "href",
+          "value": "/en/stats/individual-game-stats"
+        },
+        {
+          "tag": "a",
+          "attr": "href",
+          "value": "/en/stats/leaderboard"
+        },
+        {
+          "tag": "a",
+          "attr": "href",
+          "value": "/en/stats/win-loss-index"
+        },
+        {
+          "tag": "a",
+          "attr": "href",
+          "value": "/en/stats/tdi-leaderboard"
+        },
+        {
+          "tag": "a",
+          "attr": "href",
+          "value": "/en/stats/tdi-leaderboard-leaders"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "atp_stats-leaderboard"
+        },
+        {
+          "tag": "img",
+          "attr": "src",
+          "value": "/-/media/sites/atp-tour/stats/logo-infosys.svg"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "atp_stats-leaderboard-container"
+        },
+        {
+          "tag": "div",
+          "attr": ":class",
+          "value": "activeState ? 'atp_stats-leaderboard-container--active' : ''"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "leaderboard"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "leaderboard-item"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "leaderboard-header"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "leaderboard-leader"
+        },
+        {
+          "tag": "template",
+          "attr": "v-for",
+          "value": "(leader, leaderIndex) in leaderboardTopFiveServe"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "leaderboard-players"
+        },
+        {
+          "tag": "template",
+          "attr": "v-for",
+          "value": "(leader, leaderIndex) in leaderboardTopFiveServe"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "leaderboard-action"
+        },
+        {
+          "tag": "a",
+          "attr": "href",
+          "value": "/en/stats/leaderboard?boardType=serve"
+        },
+        {
+          "tag": "a",
+          "attr": "class",
+          "value": "leaderboard-link"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "leaderboard-item"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "leaderboard-header"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "leaderboard-leader"
+        },
+        {
+          "tag": "template",
+          "attr": "v-for",
+          "value": "(leader, leaderIndex) in leaderboardTopFiveReturn"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "leaderboard-players"
+        },
+        {
+          "tag": "template",
+          "attr": "v-for",
+          "value": "(leader, leaderIndex) in leaderboardTopFiveReturn"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "leaderboard-action"
+        },
+        {
+          "tag": "a",
+          "attr": "href",
+          "value": "/en/stats/leaderboard?boardType=return"
+        },
+        {
+          "tag": "a",
+          "attr": "class",
+          "value": "leaderboard-link"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "leaderboard-item"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "leaderboard-header"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "leaderboard-leader"
+        },
+        {
+          "tag": "template",
+          "attr": "v-for",
+          "value": "(leader, leaderIndex) in leaderboardTopFivePressure"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "leaderboard-players"
+        },
+        {
+          "tag": "template",
+          "attr": "v-for",
+          "value": "(leader, leaderIndex) in leaderboardTopFivePressure"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "leaderboard-action"
+        },
+        {
+          "tag": "a",
+          "attr": "href",
+          "value": "/en/stats/leaderboard?boardType=pressure"
+        },
+        {
+          "tag": "a",
+          "attr": "class",
+          "value": "leaderboard-link"
+        },
+        {
+          "tag": "input",
+          "attr": "id",
+          "value": "statsLeaderboardApiUrl"
+        },
+        {
+          "tag": "input",
+          "attr": "value",
+          "value": "/en/-/www/StatsLeaderboard/TopFive"
+        },
+        {
+          "tag": "input",
+          "attr": "id",
+          "value": "statsLeaderboardDuration"
+        },
+        {
+          "tag": "input",
+          "attr": "id",
+          "value": "statsLeaderboardSurface"
+        },
+        {
+          "tag": "script",
+          "attr": "id",
+          "value": "leaderboardPlayerInfo"
+        },
+        {
+          "tag": "input",
+          "attr": "class",
+          "value": "atp_news-api"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "loader-match-stats"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "win-stats"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "match-stats"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "win-stats"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "stats"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "match-stats"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "win-stats"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "stats"
+        },
+        {
+          "tag": "a",
+          "attr": "href",
+          "value": "https://www.atptour.com/en/stats/performance-zone"
+        },
+        {
+          "tag": "a",
+          "attr": "href",
+          "value": "https://www.atptour.com/en/stats/win-loss-index"
+        },
+        {
+          "tag": "a",
+          "attr": "href",
+          "value": "https://www.atptour.com/en/stats/performance-zone"
+        },
+        {
+          "tag": "a",
+          "attr": "href",
+          "value": "https://www.atptour.com/en/stats/win-loss-index"
+        },
+        {
+          "tag": "input",
+          "attr": "class",
+          "value": "atp_head2head-listing-endpoint"
+        },
+        {
+          "tag": "input",
+          "attr": "class",
+          "value": "atp_head2head-data-endpoint"
+        },
+        {
+          "tag": "dl",
+          "attr": "class",
+          "value": "loader-player-stats"
+        },
+        {
+          "tag": "dl",
+          "attr": "class",
+          "value": "player-stats"
+        },
+        {
+          "tag": "input",
+          "attr": "id",
+          "value": "featuredPlayerApiUrl"
+        },
+        {
+          "tag": "input",
+          "attr": "value",
+          "value": "http://www.atptour.com/en/stats/stats-home"
+        },
+        {
+          "tag": "label",
+          "attr": "for",
+          "value": "partnersApiUrl"
+        },
+        {
+          "tag": "input",
+          "attr": "id",
+          "value": "partnersApiUrl"
+        },
+        {
+          "tag": "input",
+          "attr": "name",
+          "value": "partnersApiUrl"
+        },
+        {
+          "tag": "input",
+          "attr": "aria-labelledby",
+          "value": "partnersApiUrl"
+        },
+        {
+          "tag": "input",
+          "attr": "class",
+          "value": "partnersApiUrl"
+        },
+        {
+          "tag": "input",
+          "attr": "value",
+          "value": "http://www.atptour.com/en/stats/stats-home"
+        },
+        {
+          "tag": "input",
+          "attr": "class",
+          "value": "atp_footer-endpoint"
+        },
+        {
+          "tag": "input",
+          "attr": "value",
+          "value": "https://app.atptour.com/api/v2/gateway"
+        }
       ],
       "status": "ok",
       "error": null
@@ -709,6 +1141,508 @@
         "loader-text-and-cta",
         "loading"
       ],
+      "endpoint_candidates": [
+        {
+          "tag": "meta",
+          "attr": "content",
+          "value": "Individual Match Stats | ATP Tour | Tennis"
+        },
+        {
+          "tag": "meta",
+          "attr": "content",
+          "value": "Individual Match Stats"
+        },
+        {
+          "tag": "meta",
+          "attr": "content",
+          "value": "Individual Match Stats | ATP Tour | Tennis"
+        },
+        {
+          "tag": "meta",
+          "attr": "content",
+          "value": "http://www.atptour.com/en/stats/individual-game-stats"
+        },
+        {
+          "tag": "meta",
+          "attr": "content",
+          "value": "Individual Match Stats | ATP Tour | Tennis"
+        },
+        {
+          "tag": "link",
+          "attr": "href",
+          "value": "https://www.atptour.com/en/stats/individual-game-stats"
+        },
+        {
+          "tag": "link",
+          "attr": "href",
+          "value": "https://www.atptour.com/es/stats/individual-game-stats"
+        },
+        {
+          "tag": "input",
+          "attr": "class",
+          "value": "atp_globalnav-endpoint"
+        },
+        {
+          "tag": "input",
+          "attr": "value",
+          "value": "/en/stats/individual-game-stats"
+        },
+        {
+          "tag": "input",
+          "attr": "class",
+          "value": "atp_globalnavlanguage-endpoint"
+        },
+        {
+          "tag": "input",
+          "attr": "class",
+          "value": "atp_header-endpoint"
+        },
+        {
+          "tag": "input",
+          "attr": "class",
+          "value": "atp_search-endpoint"
+        },
+        {
+          "tag": "img",
+          "attr": "src",
+          "value": "/-/media/sites/atp-tour/stats/infosys-atp-stats-72px_1.png"
+        },
+        {
+          "tag": "a",
+          "attr": "href",
+          "value": "/en/stats/stats-home"
+        },
+        {
+          "tag": "a",
+          "attr": "href",
+          "value": "/en/stats/individual-game-stats"
+        },
+        {
+          "tag": "a",
+          "attr": "href",
+          "value": "/en/stats/leaderboard"
+        },
+        {
+          "tag": "a",
+          "attr": "href",
+          "value": "/en/stats/win-loss-index"
+        },
+        {
+          "tag": "a",
+          "attr": "href",
+          "value": "/en/stats/tdi-leaderboard"
+        },
+        {
+          "tag": "a",
+          "attr": "href",
+          "value": "/en/stats/tdi-leaderboard-leaders"
+        },
+        {
+          "tag": "a",
+          "attr": "href",
+          "value": "https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fwww.atptour.com%2fen%2fstats%2findividual-game-stats"
+        },
+        {
+          "tag": "a",
+          "attr": "href",
+          "value": "https://twitter.com/intent/tweet?text=Individual+Game+Stats+%7c+ATP+Tour&url=http%3a%2f%2fwww.atptour.com%2fen%2fstats%2findividual-game-stats"
+        },
+        {
+          "tag": "a",
+          "attr": "href",
+          "value": "https://www.tiktok.com/@atptour?&url=http%3a%2f%2fwww.atptour.com%2fen%2fstats%2findividual-game-stats&title=Individual+Game+Stats+%7c+ATP+Tour"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "atp_game-stats"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "atp_game-stats--loader"
+        },
+        {
+          "tag": "table",
+          "attr": "class",
+          "value": "mega-table game-stats"
+        },
+        {
+          "tag": "template",
+          "attr": "v-for",
+          "value": "(headers, index) in gameStatsOrgHeaders"
+        },
+        {
+          "tag": "template",
+          "attr": "v-if",
+          "value": "gameStatsOrgHeaders.length == 5"
+        },
+        {
+          "tag": "template",
+          "attr": "v-if",
+          "value": "gameStatsOrgHeaders.length == 3"
+        },
+        {
+          "tag": "tr",
+          "attr": "v-for",
+          "value": "(gameStatsItems, index) in gameStatsIndex"
+        },
+        {
+          "tag": "ul",
+          "attr": "class",
+          "value": "player-stats"
+        },
+        {
+          "tag": "img",
+          "attr": ":src",
+          "value": "''+gameStatsItems.PlayerHeadshotImageCmsUrl"
+        },
+        {
+          "tag": "flag",
+          "attr": ":country",
+          "value": "getCountryCode(gameStatsItems.PlayerScRelativeUrlPlayerCountryFlag)"
+        },
+        {
+          "tag": "a",
+          "attr": ":href",
+          "value": "lowercase(gameStatsItems.PlayerScRelativeUrlPlayerProfile)"
+        },
+        {
+          "tag": "ul",
+          "attr": "class",
+          "value": "player-stats"
+        },
+        {
+          "tag": "img",
+          "attr": ":src",
+          "value": "''+gameStatsItems.PlayerHeadshotImageCmsUrl"
+        },
+        {
+          "tag": "flag",
+          "attr": ":country",
+          "value": "getCountryCode(gameStatsItems.PlayerScRelativeUrlPlayerCountryFlag)"
+        },
+        {
+          "tag": "a",
+          "attr": ":href",
+          "value": "lowercase(gameStatsItems.PlayerScRelativeUrlPlayerProfile)"
+        },
+        {
+          "tag": "div",
+          "attr": "v-if",
+          "value": "!isLoading && gameStatsIndex.length == 0"
+        },
+        {
+          "tag": "input",
+          "attr": "id",
+          "value": "gameStatsApiUrl"
+        },
+        {
+          "tag": "input",
+          "attr": "value",
+          "value": "/en/-/www/individualmatchstats/"
+        },
+        {
+          "tag": "input",
+          "attr": "id",
+          "value": "gameStatsDefaultfactType"
+        },
+        {
+          "tag": "input",
+          "attr": "id",
+          "value": "gameStatsDefaultYear"
+        },
+        {
+          "tag": "input",
+          "attr": "id",
+          "value": "gameStatsDefaultSurface"
+        },
+        {
+          "tag": "input",
+          "attr": "id",
+          "value": "gameStatsDefaultCountry"
+        },
+        {
+          "tag": "input",
+          "attr": "id",
+          "value": "gameStatsDefaultPageIndex"
+        },
+        {
+          "tag": "input",
+          "attr": "id",
+          "value": "gameStatsDefaultPageSize"
+        },
+        {
+          "tag": "input",
+          "attr": "id",
+          "value": "gameStatsDefaultSortBy"
+        },
+        {
+          "tag": "input",
+          "attr": "id",
+          "value": "gameStatsDefaultSortDirection"
+        },
+        {
+          "tag": "div",
+          "attr": "v-if",
+          "value": "tournament.HasTeamTieStats"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "match-group"
+        },
+        {
+          "tag": "div",
+          "attr": ":class",
+          "value": "{ 'match-group--active' : index === 0 }"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "match-group-header"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "match-group-type"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "match-group-players"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "match-group-cta"
+        },
+        {
+          "tag": "a",
+          "attr": "class",
+          "value": "match-group-toggler"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "match-group-content"
+        },
+        {
+          "tag": "template",
+          "attr": "v-for",
+          "value": "(teammatch, teammatchindex) in team.Matches"
+        },
+        {
+          "tag": "template",
+          "attr": ":key",
+          "value": "teammatchindex"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "match"
+        },
+        {
+          "tag": "div",
+          "attr": "v-if",
+          "value": "teammatch"
+        },
+        {
+          "tag": "span",
+          "attr": "v-if",
+          "value": "teammatch.MatchStatus !== 'F' && teammatch.MatchStatus !== 'S'"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "match-content"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "match-stats"
+        },
+        {
+          "tag": "div",
+          "attr": ":class",
+          "value": "teammatch.MatchStatus !== 'F' && teammatch.MatchStatus !== 'S' ? 'match-stats--live' : ''"
+        },
+        {
+          "tag": "player-team-score",
+          "attr": ":match",
+          "value": "teammatch"
+        },
+        {
+          "tag": "opponent-team-score",
+          "attr": ":match",
+          "value": "teammatch"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "match-footer"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "match-umpire"
+        },
+        {
+          "tag": "div",
+          "attr": "v-if",
+          "value": "teammatch.UmpireFirstName && teammatch.UmpireLastName"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "match-umpire"
+        },
+        {
+          "tag": "div",
+          "attr": "v-if",
+          "value": "!teammatch.IsWTAOrMixMatch"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "match-cta"
+        },
+        {
+          "tag": "a",
+          "attr": "v-if",
+          "value": "teammatch.Type == 'singles'"
+        },
+        {
+          "tag": "a",
+          "attr": ":href",
+          "value": "`/en/players/atp-head-2-head/${lowercase(teammatch.PlayerTeam.Player.PlayerFirstName)}-${lowercase(teammatch.PlayerTeam.Player.PlayerLastName)}-vs-${lowercase(teammatch.OpponentTeam.Player.PlayerFirstName)}-${lowercase(teammatch.OpponentTeam.Player.PlayerLastName)}/${lowercase(teammatch.PlayerTeam.Player.PlayerId)}/${lowercase(teammatch.OpponentTeam.Player.PlayerId)}`"
+        },
+        {
+          "tag": "a",
+          "attr": "v-if",
+          "value": "teammatch.Type == 'doubles'"
+        },
+        {
+          "tag": "a",
+          "attr": ":href",
+          "value": "`/en/players/atp-head-2-head/${lowercase(teammatch.PlayerTeam.Player.PlayerLastName)}-${lowercase(teammatch.PlayerTeam.Partner.PlayerLastName)}-vs-${lowercase(teammatch.OpponentTeam.Player.PlayerLastName)}-${lowercase(teammatch.OpponentTeam.Partner.PlayerLastName)}/${lowercase(teammatch.PlayerTeam.Player.PlayerId)}/${lowercase(teammatch.PlayerTeam.Partner.PlayerId)}/${lowercase(teammatch.OpponentTeam.Player.PlayerId)}/${lowercase(teammatch.OpponentTeam.Partner.PlayerId)}`"
+        },
+        {
+          "tag": "a",
+          "attr": "v-if",
+          "value": "teammatch.HasStats"
+        },
+        {
+          "tag": "a",
+          "attr": ":href",
+          "value": "`/en/scores/${tournament.EventType === 'GS' || tournament.EventType === 'UC' || tournament.EventType === 'DCR' || tournament.EventType === 'LVR' ? 'match-stats' : 'stats-centre'}/live/${tournament.EventYear}/${tournament.EventId}/${teammatch.MatchId}`"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "match-notes"
+        },
+        {
+          "tag": "div",
+          "attr": "v-if",
+          "value": "team.Matches.length === 0"
+        },
+        {
+          "tag": "div",
+          "attr": "v-if",
+          "value": "!tournament.HasTeamTieStats && tournament.LiveMatches.length > 0"
+        },
+        {
+          "tag": "template",
+          "attr": "v-for",
+          "value": "(match, index) in tournament.LiveMatches"
+        },
+        {
+          "tag": "li",
+          "attr": ":class",
+          "value": "index + 1 === tournament.LiveMatches.length ? 'last' : ''"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "match"
+        },
+        {
+          "tag": "div",
+          "attr": "v-if",
+          "value": "match"
+        },
+        {
+          "tag": "span",
+          "attr": "v-if",
+          "value": "match.MatchStatus !== 'F' && match.MatchStatus !== 'S'"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "match-content"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "match-stats"
+        },
+        {
+          "tag": "div",
+          "attr": ":class",
+          "value": "match.MatchStatus !== 'F' && match.MatchStatus !== 'S' ? 'match-stats--live' : ''"
+        },
+        {
+          "tag": "player-team-score",
+          "attr": ":match",
+          "value": "match"
+        },
+        {
+          "tag": "opponent-team-score",
+          "attr": ":match",
+          "value": "match"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "match-footer"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "match-umpire"
+        },
+        {
+          "tag": "div",
+          "attr": "v-if",
+          "value": "match.UmpireFirstName && match.UmpireLastName"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "match-umpire"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "match-cta"
+        },
+        {
+          "tag": "a",
+          "attr": "v-if",
+          "value": "match.Type == 'singles'"
+        },
+        {
+          "tag": "a",
+          "attr": ":href",
+          "value": "`/en/players/atp-head-2-head/${lowercase(match.PlayerTeam.Player.PlayerFirstName)}-${lowercase(match.PlayerTeam.Player.PlayerLastName)}-vs-${lowercase(match.OpponentTeam.Player.PlayerFirstName)}-${lowercase(match.OpponentTeam.Player.PlayerLastName)}/${lowercase(match.PlayerTeam.Player.PlayerId)}/${lowercase(match.OpponentTeam.Player.PlayerId)}`"
+        },
+        {
+          "tag": "a",
+          "attr": "v-if",
+          "value": "match.Type == 'doubles'"
+        }
+      ],
       "status": "ok",
       "error": null
     },
@@ -1084,6 +2018,508 @@
         "partners",
         "partners-loader"
       ],
+      "endpoint_candidates": [
+        {
+          "tag": "meta",
+          "attr": "content",
+          "value": "Leaderboard | ATP Tour | Tennis"
+        },
+        {
+          "tag": "meta",
+          "attr": "content",
+          "value": "Leaderboard"
+        },
+        {
+          "tag": "meta",
+          "attr": "content",
+          "value": "Leaderboard | ATP Tour | Tennis"
+        },
+        {
+          "tag": "meta",
+          "attr": "content",
+          "value": "http://www.atptour.com/en/stats/leaderboard"
+        },
+        {
+          "tag": "meta",
+          "attr": "content",
+          "value": "Leaderboard | ATP Tour | Tennis"
+        },
+        {
+          "tag": "link",
+          "attr": "href",
+          "value": "https://www.atptour.com/en/stats/leaderboard"
+        },
+        {
+          "tag": "link",
+          "attr": "href",
+          "value": "https://www.atptour.com/es/stats/leaderboard"
+        },
+        {
+          "tag": "input",
+          "attr": "class",
+          "value": "atp_globalnav-endpoint"
+        },
+        {
+          "tag": "input",
+          "attr": "value",
+          "value": "/en/stats/leaderboard"
+        },
+        {
+          "tag": "input",
+          "attr": "class",
+          "value": "atp_globalnavlanguage-endpoint"
+        },
+        {
+          "tag": "input",
+          "attr": "class",
+          "value": "atp_header-endpoint"
+        },
+        {
+          "tag": "input",
+          "attr": "class",
+          "value": "atp_search-endpoint"
+        },
+        {
+          "tag": "img",
+          "attr": "src",
+          "value": "/-/media/sites/atp-tour/stats/infosys-atp-stats-72px_1.png"
+        },
+        {
+          "tag": "a",
+          "attr": "href",
+          "value": "/en/stats/stats-home"
+        },
+        {
+          "tag": "a",
+          "attr": "href",
+          "value": "/en/stats/individual-game-stats"
+        },
+        {
+          "tag": "a",
+          "attr": "href",
+          "value": "/en/stats/leaderboard"
+        },
+        {
+          "tag": "a",
+          "attr": "href",
+          "value": "/en/stats/win-loss-index"
+        },
+        {
+          "tag": "a",
+          "attr": "href",
+          "value": "/en/stats/tdi-leaderboard"
+        },
+        {
+          "tag": "a",
+          "attr": "href",
+          "value": "/en/stats/tdi-leaderboard-leaders"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "atp_stats-leaderboard-grid"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "atp_stats-leaderboard-grid-description"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "atp_stats-leaderboard-grid-container"
+        },
+        {
+          "tag": "div",
+          "attr": ":class",
+          "value": "activeState ? 'atp_stats-leaderboard-grid-container--active' : ''"
+        },
+        {
+          "tag": "atp-tooltip",
+          "attr": "content",
+          "value": "The Serve Rating© adds four service metrics percentages plus the average number of aces per match and subtracts the average number of double faults per match."
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "atp_stats-leaderboard-grid--loader"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "leaderboard"
+        },
+        {
+          "tag": "th",
+          "attr": "@click",
+          "value": "handleSorting('Stats.ServeRatingSortField')"
+        },
+        {
+          "tag": "span",
+          "attr": "v-if",
+          "value": "sortBy === 'Stats.ServeRatingSortField'"
+        },
+        {
+          "tag": "th",
+          "attr": "@click",
+          "value": "handleSorting('Stats.FirstServePctSortField')"
+        },
+        {
+          "tag": "span",
+          "attr": "v-if",
+          "value": "sortBy === 'Stats.FirstServePctSortField'"
+        },
+        {
+          "tag": "th",
+          "attr": "@click",
+          "value": "handleSorting('Stats.FirstServePointsWonPctSortField')"
+        },
+        {
+          "tag": "span",
+          "attr": "v-if",
+          "value": "sortBy === 'Stats.FirstServePointsWonPctSortField'"
+        },
+        {
+          "tag": "th",
+          "attr": "@click",
+          "value": "handleSorting('Stats.SecondServePointsWonPctSortField')"
+        },
+        {
+          "tag": "span",
+          "attr": "v-if",
+          "value": "sortBy === 'Stats.SecondServePointsWonPctSortField'"
+        },
+        {
+          "tag": "th",
+          "attr": "@click",
+          "value": "handleSorting('Stats.ServiceGamesWonPctSortField')"
+        },
+        {
+          "tag": "span",
+          "attr": "v-if",
+          "value": "sortBy === 'Stats.ServiceGamesWonPctSortField'"
+        },
+        {
+          "tag": "th",
+          "attr": "@click",
+          "value": "handleSorting('Stats.AvgAcesPerMatchSortField')"
+        },
+        {
+          "tag": "span",
+          "attr": "v-if",
+          "value": "sortBy === 'Stats.AvgAcesPerMatchSortField'"
+        },
+        {
+          "tag": "th",
+          "attr": "@click",
+          "value": "handleSorting('Stats.AvgDblFaultsPerMatchSortField')"
+        },
+        {
+          "tag": "span",
+          "attr": "v-if",
+          "value": "sortBy === 'Stats.AvgDblFaultsPerMatchSortField'"
+        },
+        {
+          "tag": "template",
+          "attr": "v-for",
+          "value": "(item, index) in leaderboard"
+        },
+        {
+          "tag": "template",
+          "attr": ":key",
+          "value": "`leaderboard_${index}`"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "leaderboard"
+        },
+        {
+          "tag": "th",
+          "attr": "@click",
+          "value": "handleSorting('Stats.ReturnRatingSortField')"
+        },
+        {
+          "tag": "span",
+          "attr": "v-if",
+          "value": "sortBy === 'Stats.ReturnRatingSortField'"
+        },
+        {
+          "tag": "th",
+          "attr": "@click",
+          "value": "handleSorting('Stats.FirstServeReturnPointsWonPctSortField')"
+        },
+        {
+          "tag": "span",
+          "attr": "v-if",
+          "value": "sortBy === 'Stats.FirstServeReturnPointsWonPctSortField'"
+        },
+        {
+          "tag": "th",
+          "attr": "@click",
+          "value": "handleSorting('Stats.SecondServeReturnPointsWonPctSortField')"
+        },
+        {
+          "tag": "span",
+          "attr": "v-if",
+          "value": "sortBy === 'Stats.SecondServeReturnPointsWonPctSortField'"
+        },
+        {
+          "tag": "th",
+          "attr": "@click",
+          "value": "handleSorting('Stats.ReturnGamesWonPctSortField')"
+        },
+        {
+          "tag": "span",
+          "attr": "v-if",
+          "value": "sortBy === 'Stats.ReturnGamesWonPctSortField'"
+        },
+        {
+          "tag": "th",
+          "attr": "@click",
+          "value": "handleSorting('Stats.BrkPointsConvertedPctSortField')"
+        },
+        {
+          "tag": "span",
+          "attr": "v-if",
+          "value": "sortBy === 'Stats.BrkPointsConvertedPctSortField'"
+        },
+        {
+          "tag": "template",
+          "attr": "v-for",
+          "value": "(item, index) in leaderboard"
+        },
+        {
+          "tag": "template",
+          "attr": ":key",
+          "value": "`leaderboard_${index}`"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "leaderboard"
+        },
+        {
+          "tag": "th",
+          "attr": "@click",
+          "value": "handleSorting('Stats.PressureRatingSortField')"
+        },
+        {
+          "tag": "span",
+          "attr": "v-if",
+          "value": "sortBy === 'Stats.PressureRatingSortField'"
+        },
+        {
+          "tag": "th",
+          "attr": "@click",
+          "value": "handleSorting('Stats.BrkPointsConvertedPctSortField')"
+        },
+        {
+          "tag": "span",
+          "attr": "v-if",
+          "value": "sortBy === 'Stats.BrkPointsConvertedPctSortField'"
+        },
+        {
+          "tag": "th",
+          "attr": "@click",
+          "value": "handleSorting('Stats.BrkPointsSavedPctSortField')"
+        },
+        {
+          "tag": "span",
+          "attr": "v-if",
+          "value": "sortBy === 'Stats.BrkPointsSavedPctSortField'"
+        },
+        {
+          "tag": "th",
+          "attr": "@click",
+          "value": "handleSorting('Stats.TieBreaksWonPctSortField')"
+        },
+        {
+          "tag": "span",
+          "attr": "v-if",
+          "value": "sortBy === 'Stats.TieBreaksWonPctSortField'"
+        },
+        {
+          "tag": "th",
+          "attr": "@click",
+          "value": "handleSorting('Stats.DecidingSetsWonPctSortField')"
+        },
+        {
+          "tag": "span",
+          "attr": "v-if",
+          "value": "sortBy === 'Stats.DecidingSetsWonPctSortField'"
+        },
+        {
+          "tag": "template",
+          "attr": "v-for",
+          "value": "(item, index) in leaderboard"
+        },
+        {
+          "tag": "template",
+          "attr": ":key",
+          "value": "`leaderboard_${index}`"
+        },
+        {
+          "tag": "input",
+          "attr": "id",
+          "value": "statsLeaderboardApiUrl"
+        },
+        {
+          "tag": "input",
+          "attr": "value",
+          "value": "/en/-/www/StatsLeaderboard"
+        },
+        {
+          "tag": "input",
+          "attr": "id",
+          "value": "statsLeaderboardView"
+        },
+        {
+          "tag": "input",
+          "attr": "id",
+          "value": "statsLeaderboardVersus"
+        },
+        {
+          "tag": "input",
+          "attr": "id",
+          "value": "statsLeaderboardDuration"
+        },
+        {
+          "tag": "input",
+          "attr": "id",
+          "value": "statsLeaderboardSurface"
+        },
+        {
+          "tag": "input",
+          "attr": "id",
+          "value": "statsLeaderboardPaging"
+        },
+        {
+          "tag": "input",
+          "attr": "class",
+          "value": "atp_news-api"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "loader-match-stats"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "win-stats"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "match-stats"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "win-stats"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "stats"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "match-stats"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "win-stats"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "stats"
+        },
+        {
+          "tag": "a",
+          "attr": "href",
+          "value": "https://www.atptour.com/en/stats/performance-zone"
+        },
+        {
+          "tag": "a",
+          "attr": "href",
+          "value": "https://www.atptour.com/en/stats/win-loss-index"
+        },
+        {
+          "tag": "a",
+          "attr": "href",
+          "value": "https://www.atptour.com/en/stats/performance-zone"
+        },
+        {
+          "tag": "a",
+          "attr": "href",
+          "value": "https://www.atptour.com/en/stats/win-loss-index"
+        },
+        {
+          "tag": "input",
+          "attr": "class",
+          "value": "atp_head2head-listing-endpoint"
+        },
+        {
+          "tag": "input",
+          "attr": "class",
+          "value": "atp_head2head-data-endpoint"
+        },
+        {
+          "tag": "dl",
+          "attr": "class",
+          "value": "loader-player-stats"
+        },
+        {
+          "tag": "dl",
+          "attr": "class",
+          "value": "player-stats"
+        },
+        {
+          "tag": "input",
+          "attr": "id",
+          "value": "featuredPlayerApiUrl"
+        },
+        {
+          "tag": "input",
+          "attr": "value",
+          "value": "http://www.atptour.com/en/stats/leaderboard"
+        },
+        {
+          "tag": "label",
+          "attr": "for",
+          "value": "partnersApiUrl"
+        },
+        {
+          "tag": "input",
+          "attr": "id",
+          "value": "partnersApiUrl"
+        },
+        {
+          "tag": "input",
+          "attr": "name",
+          "value": "partnersApiUrl"
+        },
+        {
+          "tag": "input",
+          "attr": "aria-labelledby",
+          "value": "partnersApiUrl"
+        },
+        {
+          "tag": "input",
+          "attr": "class",
+          "value": "partnersApiUrl"
+        },
+        {
+          "tag": "input",
+          "attr": "value",
+          "value": "http://www.atptour.com/en/stats/leaderboard"
+        }
+      ],
       "status": "ok",
       "error": null
     },
@@ -1432,6 +2868,333 @@
         "partner-tier",
         "partners",
         "partners-loader"
+      ],
+      "endpoint_candidates": [
+        {
+          "tag": "meta",
+          "attr": "content",
+          "value": "TDI Leaderboard | ATP Tour | Tennis"
+        },
+        {
+          "tag": "meta",
+          "attr": "content",
+          "value": "TDI Leaderboard"
+        },
+        {
+          "tag": "meta",
+          "attr": "content",
+          "value": "TDI Leaderboard | ATP Tour | Tennis"
+        },
+        {
+          "tag": "meta",
+          "attr": "content",
+          "value": "http://www.atptour.com/en/stats/tdi-leaderboard"
+        },
+        {
+          "tag": "meta",
+          "attr": "content",
+          "value": "TDI Leaderboard | ATP Tour | Tennis"
+        },
+        {
+          "tag": "link",
+          "attr": "href",
+          "value": "https://www.atptour.com/en/stats/tdi-leaderboard"
+        },
+        {
+          "tag": "link",
+          "attr": "href",
+          "value": "https://www.atptour.com/es/stats/tdi-leaderboard"
+        },
+        {
+          "tag": "input",
+          "attr": "class",
+          "value": "atp_globalnav-endpoint"
+        },
+        {
+          "tag": "input",
+          "attr": "value",
+          "value": "/en/stats/tdi-leaderboard"
+        },
+        {
+          "tag": "input",
+          "attr": "class",
+          "value": "atp_globalnavlanguage-endpoint"
+        },
+        {
+          "tag": "input",
+          "attr": "class",
+          "value": "atp_header-endpoint"
+        },
+        {
+          "tag": "input",
+          "attr": "class",
+          "value": "atp_search-endpoint"
+        },
+        {
+          "tag": "img",
+          "attr": "src",
+          "value": "/-/media/sites/atp-tour/stats/infosys-atp-stats-72px_1.png"
+        },
+        {
+          "tag": "a",
+          "attr": "href",
+          "value": "/en/stats/stats-home"
+        },
+        {
+          "tag": "a",
+          "attr": "href",
+          "value": "/en/stats/individual-game-stats"
+        },
+        {
+          "tag": "a",
+          "attr": "href",
+          "value": "/en/stats/leaderboard"
+        },
+        {
+          "tag": "a",
+          "attr": "href",
+          "value": "/en/stats/win-loss-index"
+        },
+        {
+          "tag": "a",
+          "attr": "href",
+          "value": "/en/stats/tdi-leaderboard"
+        },
+        {
+          "tag": "a",
+          "attr": "href",
+          "value": "/en/stats/tdi-leaderboard-leaders"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "atp_tdi-leaderboard-grid"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "atp_tdi-leaderboard-grid-description"
+        },
+        {
+          "tag": "img",
+          "attr": "src",
+          "value": "/-/media/sites/atp-tour/stats/tdi_blue.png"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "atp_tdi-leaderboard-grid-container"
+        },
+        {
+          "tag": "div",
+          "attr": ":class",
+          "value": "activeState ? 'atp_tdi-leaderboard-grid-container--active' : ''"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "atp_tdi-leaderboard-grid--loader"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "leaderboard"
+        },
+        {
+          "tag": "div",
+          "attr": "v-if",
+          "value": "!isLoading && leaderboard.length > 0"
+        },
+        {
+          "tag": "template",
+          "attr": "v-for",
+          "value": "(item, index) in leaderboard"
+        },
+        {
+          "tag": "template",
+          "attr": ":key",
+          "value": "`leaderboard_${index}`"
+        },
+        {
+          "tag": "div",
+          "attr": "v-if",
+          "value": "!isLoading && leaderboard.length === 0"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "atp_tdi-leaderboard-grid--noresult"
+        },
+        {
+          "tag": "input",
+          "attr": "id",
+          "value": "statsLeaderboardApiUrl"
+        },
+        {
+          "tag": "input",
+          "attr": "value",
+          "value": "/-/aws/tdileaderboard/grid"
+        },
+        {
+          "tag": "input",
+          "attr": "id",
+          "value": "statsLeaderboardVersus"
+        },
+        {
+          "tag": "input",
+          "attr": "id",
+          "value": "statsLeaderboardDuration"
+        },
+        {
+          "tag": "input",
+          "attr": "id",
+          "value": "statsLeaderboardSurface"
+        },
+        {
+          "tag": "input",
+          "attr": "id",
+          "value": "statsLeaderboardPaging"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "atp_tdi-leaderboard-grid-description"
+        },
+        {
+          "tag": "input",
+          "attr": "class",
+          "value": "atp_news-api"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "loader-match-stats"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "win-stats"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "match-stats"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "win-stats"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "stats"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "match-stats"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "win-stats"
+        },
+        {
+          "tag": "div",
+          "attr": "class",
+          "value": "stats"
+        },
+        {
+          "tag": "a",
+          "attr": "href",
+          "value": "https://www.atptour.com/en/stats/performance-zone"
+        },
+        {
+          "tag": "a",
+          "attr": "href",
+          "value": "https://www.atptour.com/en/stats/win-loss-index"
+        },
+        {
+          "tag": "a",
+          "attr": "href",
+          "value": "https://www.atptour.com/en/stats/performance-zone"
+        },
+        {
+          "tag": "a",
+          "attr": "href",
+          "value": "https://www.atptour.com/en/stats/win-loss-index"
+        },
+        {
+          "tag": "input",
+          "attr": "class",
+          "value": "atp_head2head-listing-endpoint"
+        },
+        {
+          "tag": "input",
+          "attr": "class",
+          "value": "atp_head2head-data-endpoint"
+        },
+        {
+          "tag": "dl",
+          "attr": "class",
+          "value": "loader-player-stats"
+        },
+        {
+          "tag": "dl",
+          "attr": "class",
+          "value": "player-stats"
+        },
+        {
+          "tag": "input",
+          "attr": "id",
+          "value": "featuredPlayerApiUrl"
+        },
+        {
+          "tag": "input",
+          "attr": "value",
+          "value": "http://www.atptour.com/en/stats/tdi-leaderboard"
+        },
+        {
+          "tag": "label",
+          "attr": "for",
+          "value": "partnersApiUrl"
+        },
+        {
+          "tag": "input",
+          "attr": "id",
+          "value": "partnersApiUrl"
+        },
+        {
+          "tag": "input",
+          "attr": "name",
+          "value": "partnersApiUrl"
+        },
+        {
+          "tag": "input",
+          "attr": "aria-labelledby",
+          "value": "partnersApiUrl"
+        },
+        {
+          "tag": "input",
+          "attr": "class",
+          "value": "partnersApiUrl"
+        },
+        {
+          "tag": "input",
+          "attr": "value",
+          "value": "http://www.atptour.com/en/stats/tdi-leaderboard"
+        },
+        {
+          "tag": "input",
+          "attr": "class",
+          "value": "atp_footer-endpoint"
+        },
+        {
+          "tag": "input",
+          "attr": "value",
+          "value": "https://app.atptour.com/api/v2/gateway"
+        }
       ],
       "status": "ok",
       "error": null
