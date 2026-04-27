@@ -24,40 +24,35 @@ MAX_PRESSURE_BREAK_BOOST = 0.04
 MAX_CONFIDENCE_BOOST_PER_PLAYER = 0.04
 
 
-def load_players():
-    if not PLAYERS_PATH.exists():
-        return {}
+def load_json(path, default=None):
+    if default is None:
+        default = {}
 
-    with open(PLAYERS_PATH, "r", encoding="utf-8") as f:
-        return json.load(f)
+    if not path.exists():
+        return default
+
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return default
+
+
+def load_players():
+    return load_json(PLAYERS_PATH, {})
 
 
 def load_weather():
-    if not WEATHER_PATH.exists():
-        return {}
-
-    with open(WEATHER_PATH, "r", encoding="utf-8") as f:
-        return json.load(f)
+    return load_json(WEATHER_PATH, {})
 
 
 def load_aliases():
-    if not ALIASES_PATH.exists():
-        return {}
-
-    with open(ALIASES_PATH, "r", encoding="utf-8") as f:
-        return json.load(f)
+    return load_json(ALIASES_PATH, {})
 
 
 def load_atp_enriched_stats():
-    if not ATP_STATS_PATH.exists():
-        return {}
-
-    try:
-        with open(ATP_STATS_PATH, "r", encoding="utf-8") as f:
-            data = json.load(f)
-        return data.get("players", {})
-    except Exception:
-        return {}
+    data = load_json(ATP_STATS_PATH, {})
+    return data.get("players", {})
 
 
 def norm_name(name):
@@ -79,8 +74,8 @@ def is_doubles_player_name(name):
 
 def is_doubles_match(match):
     return (
-        is_doubles_player_name(match.player1)
-        or is_doubles_player_name(match.player2)
+        is_doubles_player_name(getattr(match, "player1", ""))
+        or is_doubles_player_name(getattr(match, "player2", ""))
     )
 
 
@@ -96,21 +91,37 @@ def bounded_rating_delta(value, baseline, scale, max_abs=1.0):
     return max(-max_abs, min(max_abs, z))
 
 
+def quality_score(player):
+    q = player.get("data_quality", "fallback")
+
+    if q == "official_override":
+        return 1.00
+    if q == "historical_match_stats":
+        return 0.80
+    if q == "synthetic":
+        return 0.55
+    if q == "unresolved":
+        return 0.25
+
+    return 0.40
+
+
 def apply_atp_rating_adjustments(
     player_name,
     ace_rate,
     break_rate,
+    atp_stats,
     season=2026,
     surface="clay",
 ):
     """
-    ATP/WTA enriched stats:
-    - serve_rating: boost ace_rate
-    - return_rating: boost break_rate
-    - pressure_rating: small boost break_rate + confidence
+    Usa ATP/WTA enriched stats solo se il player è presente.
+
+    serve_rating    -> ace_rate
+    return_rating   -> break_rate
+    pressure_rating -> break_rate leggero + confidence
     """
 
-    atp_stats = load_atp_enriched_stats()
     key = norm_name(player_name)
 
     if key not in atp_stats:
@@ -164,12 +175,15 @@ def apply_atp_rating_adjustments(
 
     confidence_boost = max(
         0.0,
-        min(MAX_CONFIDENCE_BOOST_PER_PLAYER, pressure_delta * MAX_CONFIDENCE_BOOST_PER_PLAYER),
+        min(
+            MAX_CONFIDENCE_BOOST_PER_PLAYER,
+            pressure_delta * MAX_CONFIDENCE_BOOST_PER_PLAYER,
+        ),
     )
 
     return {
-        "ace_rate": ace_rate * (1.0 + ace_boost),
-        "break_rate": break_rate * (1.0 + break_boost),
+        "ace_rate": max(0.0, ace_rate * (1.0 + ace_boost)),
+        "break_rate": max(0.0, break_rate * (1.0 + break_boost)),
         "has_atp": True,
         "serve_rating": serve_rating,
         "return_rating": return_rating,
@@ -183,12 +197,12 @@ def apply_atp_rating_adjustments(
 
 def resolve_player_key(display_name, players):
     aliases = load_aliases()
-    name = str(display_name).lower().strip()
+    name = norm_name(display_name)
 
     if name in aliases and aliases[name] in players:
         return aliases[name]
 
-    ALIASES = {
+    manual_aliases = {
         "q. zheng": "qinwen zheng",
         "s. kenin": "sofia kenin",
         "j. sinner": "jannik sinner",
@@ -203,8 +217,8 @@ def resolve_player_key(display_name, players):
         "e. rybakina": "elena rybakina",
     }
 
-    if name in ALIASES and ALIASES[name] in players:
-        return ALIASES[name]
+    if name in manual_aliases and manual_aliases[name] in players:
+        return manual_aliases[name]
 
     cleaned = name.replace(".", "").strip()
     parts = cleaned.split()
@@ -215,6 +229,7 @@ def resolve_player_key(display_name, players):
 
         for key in players.keys():
             key_parts = key.split()
+
             if len(key_parts) < 2:
                 continue
 
@@ -320,6 +335,53 @@ def find_similar_players(player_name, all_players, top_n=5):
     return scores[:top_n]
 
 
+def adjusted_elo(player):
+    elo = player.get("elo_clay") if player.get("elo_clay") is not None else 1800
+
+    if player.get("data_quality") == "official_override":
+        return elo + 50
+
+    if player.get("data_quality") == "synthetic":
+        return elo - 30
+
+    return elo
+
+
+def safe_stat(player, field, default):
+    value = player.get(field)
+    return value if value is not None else default
+
+
+def weighted_stat(value, player):
+    if player.get("data_quality") == "official_override":
+        return value * 1.15
+
+    if player.get("data_quality") == "synthetic":
+        return value * 0.90
+
+    return value
+
+
+def monte_carlo_values(mean, simulations=1000):
+    values = []
+
+    for _ in range(simulations):
+        value = random.gauss(mean, max(mean * 0.25, 0.8))
+        values.append(max(0, value))
+
+    values.sort()
+    return values
+
+
+def summarize_distribution(values):
+    return {
+        "mean": round(sum(values) / len(values), 2),
+        "p10": round(values[int(0.10 * len(values))], 2),
+        "p50": round(values[int(0.50 * len(values))], 2),
+        "p90": round(values[int(0.90 * len(values))], 2),
+    }
+
+
 def run_prediction(match):
     if is_doubles_match(match):
         return {
@@ -329,42 +391,19 @@ def run_prediction(match):
         }, {
             "skipped": True,
             "skip_reason": "doubles_match",
-            "matched_player_a": str(match.player1),
-            "matched_player_b": str(match.player2),
+            "matched_player_a": str(getattr(match, "player1", "")),
+            "matched_player_b": str(getattr(match, "player2", "")),
         }
 
     players = load_players()
     weather = load_weather()
+    atp_stats = load_atp_enriched_stats()
 
     a_name = resolve_player_key(match.player1, players)
     b_name = resolve_player_key(match.player2, players)
 
     a = players.get(a_name, {})
     b = players.get(b_name, {})
-
-    def adjusted_elo(player):
-        elo = player.get("elo_clay") if player.get("elo_clay") is not None else 1800
-
-        if player.get("data_quality") == "official_override":
-            return elo + 50
-
-        if player.get("data_quality") == "synthetic":
-            return elo - 30
-
-        return elo
-
-    def safe_stat(player, field, default):
-        value = player.get(field)
-        return value if value is not None else default
-
-    def weighted_stat(value, player):
-        if player.get("data_quality") == "official_override":
-            return value * 1.15
-
-        if player.get("data_quality") == "synthetic":
-            return value * 0.90
-
-        return value
 
     elo_a = adjusted_elo(a)
     elo_b = adjusted_elo(b)
@@ -382,23 +421,26 @@ def run_prediction(match):
     break_allowed_b = weighted_stat(safe_stat(b, "break_allowed_clay_3y", 0.18), b)
 
     atp_a = apply_atp_rating_adjustments(
-        a_name,
-        ace_rate_a_raw,
-        break_rate_a_raw,
+        player_name=a_name,
+        ace_rate=ace_rate_a_raw,
+        break_rate=break_rate_a_raw,
+        atp_stats=atp_stats,
         season=2026,
         surface="clay",
     )
 
     atp_b = apply_atp_rating_adjustments(
-        b_name,
-        ace_rate_b_raw,
-        break_rate_b_raw,
+        player_name=b_name,
+        ace_rate=ace_rate_b_raw,
+        break_rate=break_rate_b_raw,
+        atp_stats=atp_stats,
         season=2026,
         surface="clay",
     )
 
     ace_rate_a = atp_a["ace_rate"]
     ace_rate_b = atp_b["ace_rate"]
+
     break_rate_a = atp_a["break_rate"]
     break_rate_b = atp_b["break_rate"]
 
@@ -461,35 +503,19 @@ def run_prediction(match):
         1,
     )
 
-    def monte_carlo_values(mean, simulations=1000):
-        values = []
-
-        for _ in range(simulations):
-            value = random.gauss(mean, max(mean * 0.25, 0.8))
-            values.append(max(0, value))
-
-        values.sort()
-        return values
-
-    def summarize_distribution(values):
-        return {
-            "mean": round(sum(values) / len(values), 2),
-            "p10": round(values[int(0.10 * len(values))], 2),
-            "p50": round(values[int(0.50 * len(values))], 2),
-            "p90": round(values[int(0.90 * len(values))], 2),
-        }
-
     mc_aces_a_values = monte_carlo_values(aces_a)
     mc_aces_b_values = monte_carlo_values(aces_b)
     mc_breaks_a_values = monte_carlo_values(breaks_a)
     mc_breaks_b_values = monte_carlo_values(breaks_b)
 
     mc_total_aces_values = [
-        a_val + b_val for a_val, b_val in zip(mc_aces_a_values, mc_aces_b_values)
+        a_val + b_val
+        for a_val, b_val in zip(mc_aces_a_values, mc_aces_b_values)
     ]
 
     mc_total_breaks_values = [
-        a_val + b_val for a_val, b_val in zip(mc_breaks_a_values, mc_breaks_b_values)
+        a_val + b_val
+        for a_val, b_val in zip(mc_breaks_a_values, mc_breaks_b_values)
     ]
 
     mc_aces_a = summarize_distribution(mc_aces_a_values)
@@ -506,20 +532,6 @@ def run_prediction(match):
     ) / 2
 
     stat_consistency = min(stat_diff * 2, 1.0)
-
-    def quality_score(player):
-        q = player.get("data_quality", "fallback")
-
-        if q == "official_override":
-            return 1.00
-        if q == "historical_match_stats":
-            return 0.80
-        if q == "synthetic":
-            return 0.55
-        if q == "unresolved":
-            return 0.25
-
-        return 0.40
 
     data_confidence = (quality_score(a) + quality_score(b)) / 2
     weather_confidence = 1.0 if avg_temp is not None and wind_kmh is not None else 0.6
@@ -584,8 +596,11 @@ def run_prediction(match):
     }
 
     context = {
+        "skipped": False,
+
         "matched_player_a": a_name,
         "matched_player_b": b_name,
+
         "data_quality_a": a.get("data_quality", "fallback"),
         "data_quality_b": b.get("data_quality", "fallback"),
         "stats_source_a": a.get("data_quality", "fallback"),
@@ -593,12 +608,14 @@ def run_prediction(match):
 
         "atp_stats_a": atp_a["has_atp"],
         "atp_stats_b": atp_b["has_atp"],
+
         "atp_serve_rating_a": atp_a["serve_rating"],
         "atp_serve_rating_b": atp_b["serve_rating"],
         "atp_return_rating_a": atp_a["return_rating"],
         "atp_return_rating_b": atp_b["return_rating"],
         "atp_pressure_rating_a": atp_a["pressure_rating"],
         "atp_pressure_rating_b": atp_b["pressure_rating"],
+
         "atp_serve_delta_a": atp_a["serve_delta"],
         "atp_serve_delta_b": atp_b["serve_delta"],
         "atp_return_delta_a": atp_a["return_delta"],
