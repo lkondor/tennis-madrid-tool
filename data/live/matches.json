@@ -1,12 +1,5 @@
 [
   {
-    "player1": "J. Sinner",
-    "player2": "C. Norrie",
-    "court": "Manolo Santana Stadium",
-    "date": "2026-04-28",
-    "tour": "ATP/WTA"
-  },
-  {
     "player1": "L. Fernandez",
     "player2": "M. Andreeva",
     "court": "Manolo Santana Stadium",
@@ -31,13 +24,6 @@
     "player1": "J. Mensik",
     "player2": "A. Zverev",
     "court": "Manolo Santana Stadium",
-    "date": "2026-04-28",
-    "tour": "ATP/WTA"
-  },
-  {
-    "player1": "T. Etcheverry",
-    "player2": "A. Fils",
-    "court": "Arantxa Sanchez Stadium",
     "date": "2026-04-28",
     "tour": "ATP/WTA"
   },
