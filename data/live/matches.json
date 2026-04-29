@@ -7,13 +7,6 @@
     "tour": "ATP/WTA"
   },
   {
-    "player1": "J. Sinner",
-    "player2": "R. Jodar",
-    "court": "Manolo Santana Stadium",
-    "date": "2026-04-29",
-    "tour": "ATP/WTA"
-  },
-  {
     "player1": "M. Kostyuk",
     "player2": "L. Noskova",
     "court": "Manolo Santana Stadium",
@@ -38,13 +31,6 @@
     "player1": "S. Kenin",
     "player2": "A. Krunic",
     "court": "Arantxa Sanchez Stadium",
-    "date": "2026-04-29",
-    "tour": "ATP/WTA"
-  },
-  {
-    "player1": "N. Skupski",
-    "player2": "A. Goransson",
-    "court": "Stadium 3",
     "date": "2026-04-29",
     "tour": "ATP/WTA"
   },

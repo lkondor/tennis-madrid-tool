@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-04-29T17:51:50.248803+02:00",
+  "updated_at": "2026-04-29T21:07:36.891876+02:00",
   "used_source": "ATP daily schedule",
   "atp": {
     "status": "ok",
     "url": "https://www.atptour.com/en/scores/current/madrid/1536/daily-schedule",
     "http_status": 200,
-    "line_count": 310,
+    "line_count": 315,
     "sample_lines": [
       "ATP Masters 1000 Madrid | Daily Schedule | ATP Tour | Tennis",
       "ATP Tour",
@@ -76,9 +76,11 @@
       "QF",
       "J.",
       "Sinner",
-      "Vs",
+      "Defeats",
       "R.",
       "Jodar",
+      "62 76",
+      "0",
       "H2H",
       "Not Before 20:00",
       "M.",
@@ -124,13 +126,11 @@
       "B.",
       "Winter Lopez",
       "64 64",
-      "H2H",
-      "Not Before 16:00",
-      "M."
+      "H2H"
     ],
-    "matches_count": 15,
+    "matches_count": 13,
     "error": null
   },
   "pdf": null,
-  "final_matches_count": 15
+  "final_matches_count": 13
 }
