@@ -52,11 +52,39 @@ def load_aliases():
 
 def load_atp_enriched_stats():
     data = load_json(ATP_STATS_PATH, {})
-    return data.get("players", {})
-
+    return {
+        "atp": data.get("atp", {}),
+        "wta": data.get("wta", {}),
+    }
 
 def norm_name(name):
     return str(name).lower().strip()
+
+
+def detect_tour(player_name, players):
+    p = players.get(player_name, {})
+
+    # Se hai campo gender/source → usa quello
+    if "tour" in p:
+        return p["tour"]
+
+    # fallback euristico
+    name = player_name.lower()
+
+    wta_names = [
+        "swiatek",
+        "sabalenka",
+        "rybakina",
+        "gauff",
+        "pegula",
+        "zheng",
+        "jabeur",
+    ]
+
+    if any(n in name for n in wta_names):
+        return "wta"
+
+    return "atp"
 
 
 def is_doubles_player_name(name):
@@ -111,6 +139,7 @@ def apply_atp_rating_adjustments(
     ace_rate,
     break_rate,
     atp_stats,
+    players,
     season=2026,
     surface="clay",
 ):
@@ -122,9 +151,12 @@ def apply_atp_rating_adjustments(
     pressure_rating -> break_rate leggero + confidence
     """
 
+    tour = detect_tour(player_name, players)
+    tour_stats = atp_stats.get(tour, {})
+    
     key = norm_name(player_name)
-
-    if key not in atp_stats:
+    
+    if key not in tour_stats:
         return {
             "ace_rate": ace_rate,
             "break_rate": break_rate,
@@ -138,7 +170,7 @@ def apply_atp_rating_adjustments(
             "confidence_boost": 0.0,
         }
 
-    p = atp_stats[key]
+    p = tour_stats[key]
     suffix = f"{season}_{surface.lower()}"
 
     serve_rating = p.get(f"serve_rating_{suffix}")
@@ -425,15 +457,17 @@ def run_prediction(match):
         ace_rate=ace_rate_a_raw,
         break_rate=break_rate_a_raw,
         atp_stats=atp_stats,
+        players=players,
         season=2026,
         surface="clay",
     )
 
     atp_b = apply_atp_rating_adjustments(
-        player_name=b_name,
-        ace_rate=ace_rate_b_raw,
-        break_rate=break_rate_b_raw,
+        player_name=a_name,
+        ace_rate=ace_rate_a_raw,
+        break_rate=break_rate_a_raw,
         atp_stats=atp_stats,
+        players=players,
         season=2026,
         surface="clay",
     )
