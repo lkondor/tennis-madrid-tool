@@ -23,6 +23,7 @@ MAX_BREAK_BOOST = 0.16
 MAX_PRESSURE_BREAK_BOOST = 0.04
 MAX_CONFIDENCE_BOOST_PER_PLAYER = 0.04
 
+MAX_ATP_ELO_BOOST = 35
 
 def load_json(path, default=None):
     if default is None:
@@ -132,6 +133,30 @@ def quality_score(player):
         return 0.25
 
     return 0.40
+
+def atp_elo_boost_from_adjustment(atp_adjustment):
+    """
+    Converte i rating ATP/WTA enriched in piccolo boost ELO.
+    Serve + return + pressure incidono sulla win probability,
+    ma con cap massimo per evitare overfitting.
+    """
+
+    if not atp_adjustment.get("has_atp"):
+        return 0
+
+    serve_delta = atp_adjustment.get("serve_delta", 0.0)
+    return_delta = atp_adjustment.get("return_delta", 0.0)
+    pressure_delta = atp_adjustment.get("pressure_delta", 0.0)
+
+    raw_boost = (
+        serve_delta * 10
+        + return_delta * 15
+        + pressure_delta * 10
+    )
+
+    return round(
+        max(-MAX_ATP_ELO_BOOST, min(MAX_ATP_ELO_BOOST, raw_boost))
+    )
 
 
 def apply_atp_rating_adjustments(
@@ -478,7 +503,13 @@ def run_prediction(match):
     break_rate_a = atp_a["break_rate"]
     break_rate_b = atp_b["break_rate"]
 
-    p_a = win_prob(elo_a, elo_b)
+    atp_elo_boost_a = atp_elo_boost_from_adjustment(atp_a)
+    atp_elo_boost_b = atp_elo_boost_from_adjustment(atp_b)
+
+    elo_a_model = elo_a + atp_elo_boost_a
+    elo_b_model = elo_b + atp_elo_boost_b
+
+    p_a = win_prob(elo_a_model, elo_b_model)
     p_b = 1 - p_a
     model_edge = abs(p_a - 0.5) * 2
 
@@ -660,9 +691,12 @@ def run_prediction(match):
 
         "elo_a": elo_a,
         "elo_b": elo_b,
+        "atp_elo_boost_a": atp_elo_boost_a,
+        "atp_elo_boost_b": atp_elo_boost_b,
+        "elo_a_model": elo_a_model,
+        "elo_b_model": elo_b_model,
         "win_prob_a": round(p_a, 3),
         "win_prob_b": round(p_b, 3),
-
         "ace_rate_a_raw": round(ace_rate_a_raw, 4),
         "ace_rate_b_raw": round(ace_rate_b_raw, 4),
         "break_rate_a_raw": round(break_rate_a_raw, 4),
