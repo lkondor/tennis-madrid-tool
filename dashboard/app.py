@@ -132,6 +132,8 @@ def main():
                 "Over Break Prob": round(break_over_prob, 3),
                 "Ace Edge": round(ace_edge, 3),
                 "Break Edge": round(break_edge, 3),
+                "EV Ace": round((ace_over_prob * 1.85) - 1, 3),
+                "EV Break": round((break_over_prob * 1.85) - 1, 3),
                 "Confidence": ctx.get("confidence_label"),
                 "Confidence score": ctx.get("confidence_score"),
                 "Value": ctx.get("value_label"),
@@ -165,7 +167,7 @@ def main():
 
     for r in rows:
         if (
-            (r.get("Ace Edge") or 0) >= min_portfolio_edge
+            (r.get("EV Ace") or 0) >= 0.02
             and (r.get("Confidence score") or 0) >= min_portfolio_confidence
         ):
             portfolio_rows.append(
@@ -182,7 +184,7 @@ def main():
             )
 
         if (
-            (r.get("Break Edge") or 0) >= min_portfolio_edge
+            (r.get("EV Break") or 0) >= 0.02
             and (r.get("Confidence score") or 0) >= min_portfolio_confidence
         ):
             portfolio_rows.append(
@@ -193,6 +195,8 @@ def main():
                     "Line": r["Break totali"],
                     "Model Prob": r["Over Break Prob"],
                     "Edge": r["Break Edge"],
+                    "EV": round((r.get("EV Ace") or 0), 3),
+                    "EV": round((r.get("EV Break") or 0), 3),
                     "Confidence": r["Confidence"],
                     "Confidence score": r["Confidence score"],
                 }
@@ -200,7 +204,7 @@ def main():
 
     portfolio_rows = sorted(
         portfolio_rows,
-        key=lambda x: (x["Edge"], x["Confidence score"] or 0),
+        key=lambda x: (x["EV"], x["Confidence score"] or 0),
         reverse=True,
     )
 
