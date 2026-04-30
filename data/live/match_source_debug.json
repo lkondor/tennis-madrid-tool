@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-04-29T21:07:36.891876+02:00",
+  "updated_at": "2026-04-30T10:01:59.898591+02:00",
   "used_source": "ATP daily schedule",
   "atp": {
     "status": "ok",
     "url": "https://www.atptour.com/en/scores/current/madrid/1536/daily-schedule",
     "http_status": 200,
-    "line_count": 315,
+    "line_count": 316,
     "sample_lines": [
       "ATP Masters 1000 Madrid | Daily Schedule | ATP Tour | Tennis",
       "ATP Tour",
@@ -94,9 +94,10 @@
       "QF",
       "A.",
       "Fils",
-      "Vs",
+      "Defeats",
       "J.",
       "Lehecka",
+      "63 64",
       "H2H",
       "Arantxa Sanchez Stadium",
       "Starts At 13:00",
@@ -125,12 +126,11 @@
       "Llamas Ruiz",
       "B.",
       "Winter Lopez",
-      "64 64",
-      "H2H"
+      "64 64"
     ],
-    "matches_count": 13,
+    "matches_count": 12,
     "error": null
   },
   "pdf": null,
-  "final_matches_count": 13
+  "final_matches_count": 12
 }
