@@ -1,6 +1,6 @@
-# Madrid Tennis Predictor
+# Tennis Predictor
 
-App Streamlit per previsioni ace e break del torneo di Madrid.
+App Streamlit per previsioni ace e break nei tornei di tennis.
 
 ## Avvio locale
 ```bash
