@@ -21,6 +21,60 @@ from components.breakdown_view import render_breakdown
 from components.filters import render_filters
 
 
+def no_vig_prob(over_odds, under_odds):
+    raw_over = 1 / over_odds
+    raw_under = 1 / under_odds
+    total = raw_over + raw_under
+
+    if total == 0:
+        return 0, 0, 0
+
+    market_over = raw_over / total
+    market_under = raw_under / total
+    overround = total - 1
+
+    return market_over, market_under, overround
+
+
+def line_sensitivity(values, center_line, step=0.5, n=7):
+    lines = [center_line + (i - n // 2) * step for i in range(n)]
+    results = []
+
+    for line in lines:
+        prob = sum(1 for v in values if v > line) / len(values) if values else 0
+
+        results.append(
+            {
+                "Line": round(line, 2),
+                "Over Prob": round(prob, 3),
+                "Fair Odds": round(1 / prob, 2) if prob > 0 else None,
+                "EV @1.85": round((prob * 1.85) - 1, 3),
+            }
+        )
+
+    return results
+
+
+def find_fair_line(sensitivity):
+    if not sensitivity:
+        return None
+
+    closest = min(
+        sensitivity,
+        key=lambda x: abs(x["Over Prob"] - 0.5),
+    )
+
+    return closest["Line"]
+
+
+def classify_value(edge, confidence):
+    if edge >= 0.07 and confidence >= 0.60:
+        return "FORTE"
+    if edge >= 0.03 and confidence >= 0.55:
+        return "OK"
+    return "NO BET"
+
+
 def main():
     st.set_page_config(layout="wide")
     st_autorefresh(interval=15 * 60 * 1000, key="data_refresh")
@@ -39,7 +93,6 @@ def main():
         f"Aggiornato: {meta.get('updated_at', 'n/d')}"
     )
 
-    # ---- DATE SELECTION ----
     dates = get_available_dates(all_matches)
     selected_date = st.selectbox("Seleziona data", dates)
 
@@ -134,8 +187,6 @@ def main():
                 "Break Edge": round(break_edge, 3),
                 "EV Ace": round((ace_over_prob * 1.85) - 1, 3),
                 "EV Break": round((break_over_prob * 1.85) - 1, 3),
-                "EV Ace": round((ace_over_prob * 1.85) - 1, 3),
-                "EV Break": round((break_over_prob * 1.85) - 1, 3),
                 "Confidence": ctx.get("confidence_label"),
                 "Confidence score": ctx.get("confidence_score"),
                 "Value": ctx.get("value_label"),
@@ -199,8 +250,6 @@ def main():
                     "Model Prob": r["Over Break Prob"],
                     "Edge": r["Break Edge"],
                     "EV": r["EV Break"],
-                    "EV": round((r.get("EV Ace") or 0), 3),
-                    "EV": round((r.get("EV Break") or 0), 3),
                     "Confidence": r["Confidence"],
                     "Confidence score": r["Confidence score"],
                 }
@@ -369,6 +418,7 @@ def main():
         st.write("Break totali")
         st.json(context.get("mc_total_breaks", {}))
 
+    # ---- OVER/UNDER SIMULATOR ----
     st.subheader("Over/Under Simulator")
 
     ou_col1, ou_col2 = st.columns(2)
@@ -432,20 +482,6 @@ def main():
         else 0
     )
 
-    def no_vig_prob(over_odds, under_odds):
-        raw_over = 1 / over_odds
-        raw_under = 1 / under_odds
-        total = raw_over + raw_under
-
-        if total == 0:
-            return 0, 0, 0
-
-        market_over = raw_over / total
-        market_under = raw_under / total
-        overround = total - 1
-
-        return market_over, market_under, overround
-
     ace_market_over_prob, ace_market_under_prob, ace_overround = no_vig_prob(
         ace_over_odds,
         ace_under_odds,
@@ -459,13 +495,8 @@ def main():
     ace_edge = ace_over_prob - ace_market_over_prob
     break_edge = break_over_prob - break_market_over_prob
 
-    def classify_value(edge, confidence):
-        if edge >= 0.07 and confidence >= 0.60:
-            return "FORTE"
-        elif edge >= 0.03 and confidence >= 0.55:
-            return "OK"
-        else:
-            return "NO BET"
+    ace_ev = (ace_over_prob * ace_over_odds) - 1
+    break_ev = (break_over_prob * break_over_odds) - 1
 
     ace_value_label = classify_value(
         ace_edge,
@@ -481,9 +512,11 @@ def main():
 
     with prob_col1:
         st.metric("Probabilità Over Ace", f"{ace_over_prob:.1%}")
+        st.metric("EV Over Ace", f"{ace_ev:.1%}")
 
     with prob_col2:
         st.metric("Probabilità Over Break", f"{break_over_prob:.1%}")
+        st.metric("EV Over Break", f"{break_ev:.1%}")
 
     edge_col1, edge_col2 = st.columns(2)
 
@@ -520,6 +553,33 @@ def main():
             st.warning(f"Break Bet: {break_value_label}")
         else:
             st.error(f"Break Bet: {break_value_label}")
+
+    # ---- LINE SENSITIVITY ----
+    st.subheader("Line Sensitivity")
+
+    ace_sensitivity = line_sensitivity(ace_values, ace_line)
+    break_sensitivity = line_sensitivity(break_values, break_line)
+
+    fair_ace_line = find_fair_line(ace_sensitivity)
+    fair_break_line = find_fair_line(break_sensitivity)
+
+    fair_col1, fair_col2 = st.columns(2)
+
+    with fair_col1:
+        st.metric("Fair Line Ace", fair_ace_line)
+
+    with fair_col2:
+        st.metric("Fair Line Break", fair_break_line)
+
+    sens_col1, sens_col2 = st.columns(2)
+
+    with sens_col1:
+        st.write("Ace curve")
+        st.dataframe(ace_sensitivity, use_container_width=True)
+
+    with sens_col2:
+        st.write("Break curve")
+        st.dataframe(break_sensitivity, use_container_width=True)
 
     render_breakdown(context)
 
