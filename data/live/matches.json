@@ -1,12 +1,5 @@
 [
   {
-    "player1": "C. Ruud",
-    "player2": "A. Blockx",
-    "court": "Manolo Santana Stadium",
-    "date": "2026-04-30",
-    "tour": "ATP/WTA"
-  },
-  {
     "player1": "H. Baptiste",
     "player2": "M. Andreeva",
     "court": "Manolo Santana Stadium",
@@ -17,20 +10,6 @@
     "player1": "F. Cobolli",
     "player2": "A. Zverev",
     "court": "Manolo Santana Stadium",
-    "date": "2026-04-30",
-    "tour": "ATP/WTA"
-  },
-  {
-    "player1": "M. Pavic",
-    "player2": "H. Heliovaara",
-    "court": "Arantxa Sanchez Stadium",
-    "date": "2026-04-30",
-    "tour": "ATP/WTA"
-  },
-  {
-    "player1": "J. Zielinski",
-    "player2": "S. Doumbia",
-    "court": "Arantxa Sanchez Stadium",
     "date": "2026-04-30",
     "tour": "ATP/WTA"
   },
