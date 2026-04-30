@@ -1,21 +1,17 @@
 {
-  "updated_at": "2026-04-30T10:02:03.847836+02:00",
+  "updated_at": "2026-04-30T13:23:27.857691+02:00",
   "gateway_url": "https://app.atptour.com/api/v2/gateway",
   "leaderboard_test": [
     {
       "name": "2026_clay",
       "url": "https://www.atptour.com/en/-/www/StatsLeaderboard/TopFive/2026/Clay?v=1",
-      "http_status": 200,
-      "content_type": "application/json; charset=utf-8",
-      "looks_like_json": true,
-      "json_keys": [
-        "LeaderboardTopFiveServe",
-        "LeaderboardTopFiveReturn",
-        "LeaderboardTopFivePressure"
-      ],
-      "text_sample": "{\"LeaderboardTopFiveServe\":[{\"PlayerId\":\"S0S1\",\"PlayerName\":\"Ben Shelton\",\"PlayerCountryCode\":\"USA\",\"PlayerHeadshot\":\"/-/media/alias/player-headshot/s0s1\",\"ScRelativeUrlPlayerProfile\":\"/en/players/ben-shelton/s0s1/overview\",\"ScRelativeUrlPlayerCountryFlag\":\"/-/media/images/flags/usa.svg\",\"Stat\":{\"StatRating\":\"308.1\"}},{\"PlayerId\":\"J0DZ\",\"PlayerName\":\"Rafael Jodar\",\"PlayerCountryCode\":\"ESP\",\"PlayerHeadshot\":\"/-/media/alias/player-headshot/j0dz\",\"ScRelativeUrlPlayerProfile\":\"/en/players/rafael-jodar/j0dz/overview\",\"ScRelativeUrlPlayerCountryFlag\":\"/-/media/images/flags/esp.svg\",\"Stat\":{\"StatRating\":\"291.8\"}},{\"PlayerId\":\"S0AG\",\"PlayerName\":\"Jannik Sinner\",\"PlayerCountryCode\":\"ITA\",\"PlayerHeadshot\":\"/-/media/alias/player-headshot/s0ag\",\"ScRelativeUrlPlayerProfile\":\"/en/players/jannik-sinner/s0ag/overview\",\"ScRelativeUrlPlayerCountryFlag\":\"/-/media/images/flags/ita.svg\",\"Stat\":{\"StatRating\":\"290.4\"}},{\"PlayerId\":\"TE30\",\"PlayerName\":\"Alejandro Tabilo\",\"PlayerCountryCode\":\"CHI\",\"PlayerHeadshot\":\"/-/media/alias/player-headshot/te30\",\"ScRelativeUrlPlayerProfile\":\"/en/players/alejandro-tabilo/te30/overview\",\"ScRelativeUrlPlayerCountryFlag\":\"/-/media/images/flags/chi.svg\",\"Stat\":{\"StatRating\":\"284.6\"}},{\"PlayerId\":\"F0FV\",\"PlayerName\":\"Joao Fonseca\",\"PlayerCountryCode\":\"BRA\",\"PlayerHeadshot\":\"/-/media/alias/player-headshot/f0fv\",\"ScRelativeUrlPlayerProfile\":\"/en/players/joao-fonseca/f0fv/overview\",\"ScRelativeUrlPlayerCountryFlag\":\"/-/media/images/flags/bra.svg\",\"Stat\":{\"StatRating\":\"283.8\"}}],\"LeaderboardTopFiveReturn\":[{\"PlayerId\":\"A0E2\",\"PlayerName\":\"Carlos Alcaraz\",\"PlayerCountryCode\":\"ESP\",\"PlayerHeadshot\":\"/-/media/alias/player-headshot/a0e2\",\"ScRelativeUrlPlayerProfile\":\"/en/players/carlos-alcaraz/a0e2/overview\",\"ScRelativeUrlPlayerCountryFlag\":\"/-/media/images/flags/esp.svg\",\"Stat\":{\"StatRating\":\"189.4\"}},{\"PlayerId\":\"S0AG\",\"PlayerName\":\"Jannik Sinner\",\"PlayerCountryCode\":\"ITA\",\"PlayerHeadshot\":\"/-/media/alias/player-headshot/s0ag\",\"ScRelativeUrlPlayerProfile\":\"/en/players/jannik-sinner/s0ag/overview\",\"ScRelativeUrlPlayerCountryFlag\":\"/-/media/images/flags/ita.svg\",\"Stat\":{\"StatRating\":\"189.1\"}},{\"PlayerId\":\"N0BS\",\"PlayerName\":\"Mariano Navone\",\"PlayerCountryCode\":\"ARG\",\"PlayerHeadshot\":\"/-/media/alias/player-headshot/n0bs\",\"ScRelativeUrlPlayerProfile\":\"/en/players/mariano-navone/n0bs/overview\",\"ScRelativeUrlPlayerCountryFlag\":\"/-/media/images/flags/arg.svg\",\"Stat\":{\"StatRating\":\"182.2\"}},{\"PlayerId\":\"J0DZ\",\"PlayerName\":\"Rafael Jodar\",\"PlayerCountryCode\":\"ESP\",\"PlayerHeadshot\":\"/-/media/alias/player-headshot/j0dz\",\"ScRelativeUrlPlayerProfile\":\"/en/players/rafael-jodar/j0dz/overview\",\"ScRelativeUrlPlayerCountryFlag\":\"/-/media/images/flags/esp.svg\",\"Stat\":{\"StatRating\":\"178.3\"}},{\"PlayerId\":\"RH16\",\"PlayerName\":\"Casper Ruud\",\"PlayerCountryCode\":\"NOR\",\"PlayerHeadshot\":\"/-/media/alias/player-headshot/rh16\",\"ScRelativeUrlPlayerProfile\":\"/en/players/casper-ruud/rh16/overview\",\"ScRelativeUrlPlayerCountryFlag\":\"/-/media/images/flags/nor.svg\",\"Stat\":{\"StatRatin",
-      "status": "ok_json",
-      "error": null
+      "http_status": null,
+      "content_type": null,
+      "looks_like_json": false,
+      "json_keys": [],
+      "text_sample": null,
+      "status": "exception",
+      "error": "HTTPSConnectionPool(host='www.atptour.com', port=443): Read timed out. (read timeout=25)"
     },
     {
       "name": "2025_clay",

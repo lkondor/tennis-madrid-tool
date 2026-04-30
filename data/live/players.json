@@ -1938,5 +1938,185 @@
     "madrid_break_rate": 0.0,
     "data_quality": "historical_match_stats",
     "matches_in_backfill": 13
+  },
+  "j. zielinski": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "e. king": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "a. molino valdivia": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "s. pradanos galeron": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "p. mas tabuena": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "j. alcaraz garfia": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "h. suarez castellano": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "g. corrales chavarria": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "j. dronov merlos": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "s. shangichev ponomarev": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "f. fontan pardo de santayana": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "j. yang": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "r. garcia domenech": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "j. ballester galarza": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "c. marin contreras": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "p. rueda albert": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "e. badenes giner": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
+  },
+  "j. garceran conesa": {
+    "elo_clay": null,
+    "ace_rate_clay_3y": null,
+    "ace_allowed_clay_3y": null,
+    "break_rate_clay_3y": null,
+    "break_allowed_clay_3y": null,
+    "madrid_ace_rate": null,
+    "madrid_break_rate": null,
+    "data_quality": "unresolved"
   }
 }
