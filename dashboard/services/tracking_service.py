@@ -24,7 +24,7 @@ def save_json(path, rows):
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(
         json.dumps(rows, ensure_ascii=False, indent=2),
-        encoding="utf-8"
+        encoding="utf-8",
     )
 
 
@@ -44,6 +44,18 @@ def make_pick_id(date, match, market, line):
     return f"{date}|{match}|{market}|{line}"
 
 
+def normalize_market(market):
+    market = str(market).strip()
+
+    if market in ["Best Over Ace", "Over Ace"]:
+        return "Over Ace"
+
+    if market in ["Best Over Break", "Over Break"]:
+        return "Over Break"
+
+    return market
+
+
 def add_picks(date, portfolio_rows):
     existing = load_tracking()
     existing_ids = {r.get("pick_id") for r in existing}
@@ -55,28 +67,32 @@ def add_picks(date, portfolio_rows):
             date=date,
             match=p["Match"],
             market=p["Market"],
-            line=p["Line"]
+            line=p["Line"],
         )
 
         if pick_id in existing_ids:
             continue
 
-        new_rows.append({
-            "pick_id": pick_id,
-            "created_at": datetime.utcnow().isoformat(),
-            "date": date,
-            "match": p["Match"],
-            "court": p["Court"],
-            "market": p["Market"],
-            "line": p["Line"],
-            "model_prob": p["Model Prob"],
-            "edge": p["Edge"],
-            "confidence": p["Confidence"],
-            "confidence_score": p["Confidence score"],
-            "status": "PENDING",
-            "actual_value": None,
-            "notes": ""
-        })
+        new_rows.append(
+            {
+                "pick_id": pick_id,
+                "created_at": datetime.utcnow().isoformat(),
+                "date": date,
+                "match": p["Match"],
+                "court": p.get("Court"),
+                "market": p["Market"],
+                "market_type": normalize_market(p["Market"]),
+                "line": p["Line"],
+                "model_prob": p.get("Model Prob"),
+                "edge": p.get("Edge"),
+                "ev": p.get("EV"),
+                "confidence": p.get("Confidence"),
+                "confidence_score": p.get("Confidence score"),
+                "status": "PENDING",
+                "actual_value": None,
+                "notes": "",
+            }
+        )
 
     combined = existing + new_rows
     save_tracking(combined)
@@ -105,12 +121,12 @@ def auto_settle_picks():
         if not result:
             continue
 
-        market = pick.get("market")
+        market_type = pick.get("market_type") or normalize_market(pick.get("market"))
         line = float(pick.get("line", 0))
 
-        if market == "Over Ace":
+        if market_type == "Over Ace":
             actual = result.get("total_aces")
-        elif market == "Over Break":
+        elif market_type == "Over Break":
             actual = result.get("total_breaks")
         else:
             actual = None
@@ -158,11 +174,23 @@ def tracking_summary(rows):
     total = len(settled)
     win_rate = wins / total if total else 0
 
+    ev_rows = [
+        r for r in rows
+        if isinstance(r.get("ev"), (int, float))
+    ]
+
+    avg_ev = (
+        sum(r["ev"] for r in ev_rows) / len(ev_rows)
+        if ev_rows
+        else 0
+    )
+
     return {
         "total_picks": len(rows),
         "settled": total,
         "wins": wins,
         "losses": losses,
         "pushes": pushes,
-        "win_rate": win_rate
+        "win_rate": win_rate,
+        "avg_ev": avg_ev,
     }
