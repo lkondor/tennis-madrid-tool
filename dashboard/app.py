@@ -331,12 +331,13 @@ def main():
     tracking_rows = load_tracking()
     summary = tracking_summary(tracking_rows)
 
-    tcol1, tcol2, tcol3, tcol4 = st.columns(4)
+    tcol1, tcol2, tcol3, tcol4, tcol5 = st.columns(5)
 
     tcol1.metric("Pick totali", summary["total_picks"])
     tcol2.metric("Settled", summary["settled"])
     tcol3.metric("Win rate", f"{summary['win_rate']:.1%}")
     tcol4.metric("W-L-P", f"{summary['wins']}-{summary['losses']}-{summary['pushes']}")
+    tcol5.metric("Avg EV", f"{summary.get('avg_ev', 0):.1%}")
 
     if tracking_rows:
         st.dataframe(tracking_rows, use_container_width=True)
