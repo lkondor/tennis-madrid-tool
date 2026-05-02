@@ -353,6 +353,7 @@ def make_match_record(match_ref, stats_html, stats_url, context):
 def fetch_atp_live_results():
     context = load_json(TOURNAMENT_CONTEXT_PATH, {})
     slug = str(context.get("slug", "")).lower().strip()
+    season = context.get("season")
 
     if slug not in ATP_RESULTS_URLS:
         print(f"No ATP results URL configured for slug: {slug}")
@@ -366,9 +367,29 @@ def fetch_atp_live_results():
     print(f"Fetched ATP results from: {url}")
     print(f"Found stats-centre match ids: {len(match_refs)}")
 
-    records = []
+    output_path = OUTPUT_DIR / f"atp_live_{slug}_{season}.json"
 
-    for i, match_ref in enumerate(match_refs[:MAX_MATCH_STATS_PER_RUN], start=1):
+    existing_records = load_json(output_path, [])
+
+    existing_match_ids = {
+        r.get("match_id")
+        for r in existing_records
+        if r.get("match_id")
+    }
+
+    records = list(existing_records)
+
+    pending_match_refs = [
+        m for m in match_refs
+        if m.get("match_id") not in existing_match_ids
+    ]
+
+    print(f"Existing records: {len(existing_records)}")
+    print(f"Pending match ids: {len(pending_match_refs)}")
+
+    processed_this_run = 0
+
+    for i, match_ref in enumerate(pending_match_refs[:MAX_MATCH_STATS_PER_RUN], start=1):
         try:
             stats_html, stats_url = fetch_match_stats_html(
                 match_ref["mode"],
@@ -377,13 +398,19 @@ def fetch_atp_live_results():
                 match_ref["match_id"],
             )
 
-            record = make_match_record(match_ref, stats_html, stats_url, context)
+            record = make_match_record(
+                match_ref,
+                stats_html,
+                stats_url,
+                context,
+            )
 
             if record:
                 records.append(record)
+                processed_this_run += 1
 
             print(
-                f"[{i}/{min(len(match_refs), MAX_MATCH_STATS_PER_RUN)}] "
+                f"[{i}/{min(len(pending_match_refs), MAX_MATCH_STATS_PER_RUN)}] "
                 f"{match_ref['match_id']} -> "
                 f"{record.get('parse_status') if record else 'skipped'}"
             )
@@ -400,14 +427,16 @@ def fetch_atp_live_results():
         except Exception as e:
             print(f"Error fetching stats for {match_ref}: {e}")
 
-    
-    output_path = OUTPUT_DIR / f"atp_live_{slug}_{context.get('season')}.json"
     save_json(output_path, records)
 
     ok_count = sum(1 for r in records if r.get("parse_status") == "ok")
-    missing_players = sum(1 for r in records if r.get("parse_status") == "missing_players")
+    missing_players = sum(
+        1 for r in records
+        if r.get("parse_status") == "missing_players"
+    )
 
-    print(f"Parsed records: {len(records)}")
+    print(f"Processed this run: {processed_this_run}")
+    print(f"Total saved records: {len(records)}")
     print(f"OK records: {ok_count}")
     print(f"Missing player records: {missing_players}")
     print(f"Output: {output_path}")
