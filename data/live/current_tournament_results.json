@@ -22,7 +22,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848096",
-    "updated_at": "2026-05-02T17:22:03.151881"
+    "updated_at": "2026-05-02T18:49:15.808763"
   },
   {
     "date": "",
@@ -47,7 +47,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848013",
-    "updated_at": "2026-05-02T17:22:03.151893"
+    "updated_at": "2026-05-02T18:49:15.808774"
   },
   {
     "date": "",
@@ -72,7 +72,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848094",
-    "updated_at": "2026-05-02T17:22:03.151896"
+    "updated_at": "2026-05-02T18:49:15.808778"
   },
   {
     "date": "",
@@ -97,7 +97,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848141",
-    "updated_at": "2026-05-02T17:22:03.151899"
+    "updated_at": "2026-05-02T18:49:15.808782"
   },
   {
     "date": "",
@@ -122,7 +122,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848175",
-    "updated_at": "2026-05-02T17:22:03.151901"
+    "updated_at": "2026-05-02T18:49:15.808785"
   },
   {
     "date": "",
@@ -147,7 +147,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848018",
-    "updated_at": "2026-05-02T17:22:03.151904"
+    "updated_at": "2026-05-02T18:49:15.808788"
   },
   {
     "date": "",
@@ -172,7 +172,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848128",
-    "updated_at": "2026-05-02T17:22:03.151906"
+    "updated_at": "2026-05-02T18:49:15.808792"
   },
   {
     "date": "",
@@ -197,7 +197,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848060",
-    "updated_at": "2026-05-02T17:22:03.151912"
+    "updated_at": "2026-05-02T18:49:15.808799"
   },
   {
     "date": "",
@@ -222,7 +222,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.847930",
-    "updated_at": "2026-05-02T17:22:03.151917"
+    "updated_at": "2026-05-02T18:49:15.808803"
   },
   {
     "date": "",
@@ -247,7 +247,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.847953",
-    "updated_at": "2026-05-02T17:22:03.151920"
+    "updated_at": "2026-05-02T18:49:15.808806"
   },
   {
     "date": "",
@@ -272,7 +272,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848024",
-    "updated_at": "2026-05-02T17:22:03.151922"
+    "updated_at": "2026-05-02T18:49:15.808809"
   },
   {
     "date": "",
@@ -297,7 +297,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848064",
-    "updated_at": "2026-05-02T17:22:03.151924"
+    "updated_at": "2026-05-02T18:49:15.808811"
   },
   {
     "date": "",
@@ -328,7 +328,38 @@
     "source": "historical_current_season",
     "parse_status": "ok",
     "imported_at": "2026-05-02T15:50:02.558595",
-    "updated_at": "2026-05-02T17:22:03.151926"
+    "updated_at": "2026-05-02T18:49:15.808814"
+  },
+  {
+    "date": "",
+    "season": 2026,
+    "tour": "atp",
+    "tournament": "Madrid Open",
+    "tournament_slug": "madrid",
+    "surface": "clay",
+    "round": "",
+    "court": "",
+    "player1": "alexander blockx",
+    "player2": "felix auger-aliassime madrid",
+    "winner": "",
+    "score": "",
+    "aces_p1": 1,
+    "aces_p2": 1,
+    "breaks_p1": 1,
+    "breaks_p2": 1,
+    "service_games_p1": 1,
+    "service_games_p2": 1,
+    "return_games_p1": 1,
+    "return_games_p2": 1,
+    "first_serve_pct_p1": 0,
+    "first_serve_pct_p2": 0,
+    "stats_url": "https://www.atptour.com/en/scores/stats-centre/archive/2026/1536/ms027",
+    "match_id": "ms027",
+    "tournament_id": "1536",
+    "source": "historical_current_season",
+    "parse_status": "ok",
+    "imported_at": "2026-05-02T18:45:24.309445",
+    "updated_at": "2026-05-02T18:49:15.808816"
   },
   {
     "date": "",
@@ -353,7 +384,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.847921",
-    "updated_at": "2026-05-02T17:22:03.151928"
+    "updated_at": "2026-05-02T18:49:15.808819"
   },
   {
     "date": "",
@@ -378,7 +409,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.847927",
-    "updated_at": "2026-05-02T17:22:03.151930"
+    "updated_at": "2026-05-02T18:49:15.808821"
   },
   {
     "date": "",
@@ -403,7 +434,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.847960",
-    "updated_at": "2026-05-02T17:22:03.151932"
+    "updated_at": "2026-05-02T18:49:15.808825"
   },
   {
     "date": "",
@@ -428,7 +459,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.847996",
-    "updated_at": "2026-05-02T17:22:03.151952"
+    "updated_at": "2026-05-02T18:49:15.808828"
   },
   {
     "date": "",
@@ -453,7 +484,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.847936",
-    "updated_at": "2026-05-02T17:22:03.151956"
+    "updated_at": "2026-05-02T18:49:15.808831"
   },
   {
     "date": "",
@@ -478,7 +509,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.847955",
-    "updated_at": "2026-05-02T17:22:03.151960"
+    "updated_at": "2026-05-02T18:49:15.808833"
   },
   {
     "date": "",
@@ -503,7 +534,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.847987",
-    "updated_at": "2026-05-02T17:22:03.151963"
+    "updated_at": "2026-05-02T18:49:15.808835"
   },
   {
     "date": "",
@@ -528,7 +559,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848049",
-    "updated_at": "2026-05-02T17:22:03.151967"
+    "updated_at": "2026-05-02T18:49:15.808837"
   },
   {
     "date": "",
@@ -559,7 +590,7 @@
     "source": "historical_current_season",
     "parse_status": "ok",
     "imported_at": "2026-05-02T16:43:53.012159",
-    "updated_at": "2026-05-02T17:22:03.151970"
+    "updated_at": "2026-05-02T18:49:15.808840"
   },
   {
     "date": "",
@@ -584,7 +615,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848051",
-    "updated_at": "2026-05-02T17:22:03.151973"
+    "updated_at": "2026-05-02T18:49:15.808843"
   },
   {
     "date": "",
@@ -609,7 +640,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848098",
-    "updated_at": "2026-05-02T17:22:03.151975"
+    "updated_at": "2026-05-02T18:49:15.808846"
   },
   {
     "date": "",
@@ -634,7 +665,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848145",
-    "updated_at": "2026-05-02T17:22:03.151977"
+    "updated_at": "2026-05-02T18:49:15.808848"
   },
   {
     "date": "",
@@ -659,7 +690,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.847985",
-    "updated_at": "2026-05-02T17:22:03.151979"
+    "updated_at": "2026-05-02T18:49:15.808851"
   },
   {
     "date": "",
@@ -684,7 +715,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848047",
-    "updated_at": "2026-05-02T17:22:03.151980"
+    "updated_at": "2026-05-02T18:49:15.808853"
   },
   {
     "date": "",
@@ -709,7 +740,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848092",
-    "updated_at": "2026-05-02T17:22:03.151982"
+    "updated_at": "2026-05-02T18:49:15.808855"
   },
   {
     "date": "",
@@ -734,7 +765,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.847951",
-    "updated_at": "2026-05-02T17:22:03.151984"
+    "updated_at": "2026-05-02T18:49:15.808858"
   },
   {
     "date": "",
@@ -759,7 +790,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.847968",
-    "updated_at": "2026-05-02T17:22:03.151986"
+    "updated_at": "2026-05-02T18:49:15.808860"
   },
   {
     "date": "",
@@ -784,7 +815,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848006",
-    "updated_at": "2026-05-02T17:22:03.151988"
+    "updated_at": "2026-05-02T18:49:15.808862"
   },
   {
     "date": "",
@@ -815,7 +846,7 @@
     "source": "historical_current_season",
     "parse_status": "ok",
     "imported_at": "2026-05-02T16:43:53.012140",
-    "updated_at": "2026-05-02T17:22:03.151990"
+    "updated_at": "2026-05-02T18:49:15.808864"
   },
   {
     "date": "",
@@ -840,7 +871,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848183",
-    "updated_at": "2026-05-02T17:22:03.151992"
+    "updated_at": "2026-05-02T18:49:15.808867"
   },
   {
     "date": "",
@@ -865,7 +896,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848160",
-    "updated_at": "2026-05-02T17:22:03.151994"
+    "updated_at": "2026-05-02T18:49:15.808869"
   },
   {
     "date": "",
@@ -890,7 +921,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848104",
-    "updated_at": "2026-05-02T17:22:03.151996"
+    "updated_at": "2026-05-02T18:49:15.808872"
   },
   {
     "date": "",
@@ -915,7 +946,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848022",
-    "updated_at": "2026-05-02T17:22:03.152000"
+    "updated_at": "2026-05-02T18:49:15.808874"
   },
   {
     "date": "",
@@ -940,7 +971,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848084",
-    "updated_at": "2026-05-02T17:22:03.152002"
+    "updated_at": "2026-05-02T18:49:15.808876"
   },
   {
     "date": "",
@@ -965,7 +996,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848132",
-    "updated_at": "2026-05-02T17:22:03.152004"
+    "updated_at": "2026-05-02T18:49:15.808878"
   },
   {
     "date": "",
@@ -990,7 +1021,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.847963",
-    "updated_at": "2026-05-02T17:22:03.152007"
+    "updated_at": "2026-05-02T18:49:15.808880"
   },
   {
     "date": "",
@@ -1015,7 +1046,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848000",
-    "updated_at": "2026-05-02T17:22:03.152009"
+    "updated_at": "2026-05-02T18:49:15.808883"
   },
   {
     "date": "",
@@ -1046,7 +1077,7 @@
     "source": "historical_current_season",
     "parse_status": "ok",
     "imported_at": "2026-05-02T17:18:42.105276",
-    "updated_at": "2026-05-02T17:22:03.152011"
+    "updated_at": "2026-05-02T18:49:15.808885"
   },
   {
     "date": "",
@@ -1071,7 +1102,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848179",
-    "updated_at": "2026-05-02T17:22:03.152013"
+    "updated_at": "2026-05-02T18:49:15.808887"
   },
   {
     "date": "",
@@ -1096,7 +1127,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848033",
-    "updated_at": "2026-05-02T17:22:03.152014"
+    "updated_at": "2026-05-02T18:49:15.808889"
   },
   {
     "date": "",
@@ -1121,7 +1152,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848123",
-    "updated_at": "2026-05-02T17:22:03.152016"
+    "updated_at": "2026-05-02T18:49:15.808891"
   },
   {
     "date": "",
@@ -1146,7 +1177,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848136",
-    "updated_at": "2026-05-02T17:22:03.152018"
+    "updated_at": "2026-05-02T18:49:15.808893"
   },
   {
     "date": "",
@@ -1171,7 +1202,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848164",
-    "updated_at": "2026-05-02T17:22:03.152020"
+    "updated_at": "2026-05-02T18:49:15.808896"
   },
   {
     "date": "",
@@ -1196,7 +1227,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848113",
-    "updated_at": "2026-05-02T17:22:03.152022"
+    "updated_at": "2026-05-02T18:49:15.808898"
   },
   {
     "date": "",
@@ -1221,7 +1252,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848153",
-    "updated_at": "2026-05-02T17:22:03.152024"
+    "updated_at": "2026-05-02T18:49:15.808900"
   },
   {
     "date": "",
@@ -1246,7 +1277,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848186",
-    "updated_at": "2026-05-02T17:22:03.152025"
+    "updated_at": "2026-05-02T18:49:15.808902"
   },
   {
     "date": "",
@@ -1271,7 +1302,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848058",
-    "updated_at": "2026-05-02T17:22:03.152027"
+    "updated_at": "2026-05-02T18:49:15.808904"
   },
   {
     "date": "",
@@ -1296,7 +1327,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848117",
-    "updated_at": "2026-05-02T17:22:03.152029"
+    "updated_at": "2026-05-02T18:49:15.808907"
   },
   {
     "date": "",
@@ -1321,7 +1352,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848156",
-    "updated_at": "2026-05-02T17:22:03.152031"
+    "updated_at": "2026-05-02T18:49:15.808909"
   },
   {
     "date": "",
@@ -1346,7 +1377,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848194",
-    "updated_at": "2026-05-02T17:22:03.152033"
+    "updated_at": "2026-05-02T18:49:15.808911"
   },
   {
     "date": "",
@@ -1371,7 +1402,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848043",
-    "updated_at": "2026-05-02T17:22:03.152035"
+    "updated_at": "2026-05-02T18:49:15.808913"
   },
   {
     "date": "",
@@ -1396,7 +1427,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848119",
-    "updated_at": "2026-05-02T17:22:03.152037"
+    "updated_at": "2026-05-02T18:49:15.808916"
   },
   {
     "date": "",
@@ -1421,7 +1452,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848081",
-    "updated_at": "2026-05-02T17:22:03.152039"
+    "updated_at": "2026-05-02T18:49:15.808918"
   },
   {
     "date": "",
@@ -1446,7 +1477,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.847998",
-    "updated_at": "2026-05-02T17:22:03.152041"
+    "updated_at": "2026-05-02T18:49:15.808920"
   },
   {
     "date": "",
@@ -1471,7 +1502,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.847948",
-    "updated_at": "2026-05-02T17:22:03.152042"
+    "updated_at": "2026-05-02T18:49:15.808922"
   },
   {
     "date": "",
@@ -1496,7 +1527,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.847966",
-    "updated_at": "2026-05-02T17:22:03.152044"
+    "updated_at": "2026-05-02T18:49:15.808924"
   },
   {
     "date": "",
@@ -1521,7 +1552,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848004",
-    "updated_at": "2026-05-02T17:22:03.152048"
+    "updated_at": "2026-05-02T18:49:15.808927"
   },
   {
     "date": "",
@@ -1552,7 +1583,7 @@
     "source": "historical_current_season",
     "parse_status": "ok",
     "imported_at": "2026-05-02T15:50:02.558600",
-    "updated_at": "2026-05-02T17:22:03.152050"
+    "updated_at": "2026-05-02T18:49:15.808929"
   },
   {
     "date": "",
@@ -1577,7 +1608,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.847974",
-    "updated_at": "2026-05-02T17:22:03.152052"
+    "updated_at": "2026-05-02T18:49:15.808931"
   },
   {
     "date": "",
@@ -1602,7 +1633,38 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848011",
-    "updated_at": "2026-05-02T17:22:03.152054"
+    "updated_at": "2026-05-02T18:49:15.808934"
+  },
+  {
+    "date": "",
+    "season": 2026,
+    "tour": "atp",
+    "tournament": "Madrid Open",
+    "tournament_slug": "madrid",
+    "surface": "clay",
+    "round": "",
+    "court": "",
+    "player1": "francisco cerundolo",
+    "player2": "alexander blockx madrid",
+    "winner": "",
+    "score": "",
+    "aces_p1": 1,
+    "aces_p2": 1,
+    "breaks_p1": 1,
+    "breaks_p2": 1,
+    "service_games_p1": 1,
+    "service_games_p2": 1,
+    "return_games_p1": 1,
+    "return_games_p2": 1,
+    "first_serve_pct_p1": 0,
+    "first_serve_pct_p2": 0,
+    "stats_url": "https://www.atptour.com/en/scores/stats-centre/archive/2026/1536/ms013",
+    "match_id": "ms013",
+    "tournament_id": "1536",
+    "source": "historical_current_season",
+    "parse_status": "ok",
+    "imported_at": "2026-05-02T18:45:24.309423",
+    "updated_at": "2026-05-02T18:49:15.808936"
   },
   {
     "date": "",
@@ -1627,7 +1689,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848196",
-    "updated_at": "2026-05-02T17:22:03.152055"
+    "updated_at": "2026-05-02T18:49:15.808938"
   },
   {
     "date": "",
@@ -1652,7 +1714,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848107",
-    "updated_at": "2026-05-02T17:22:03.152057"
+    "updated_at": "2026-05-02T18:49:15.808941"
   },
   {
     "date": "",
@@ -1677,7 +1739,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848100",
-    "updated_at": "2026-05-02T17:22:03.152059"
+    "updated_at": "2026-05-02T18:49:15.808943"
   },
   {
     "date": "",
@@ -1702,7 +1764,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848151",
-    "updated_at": "2026-05-02T17:22:03.152061"
+    "updated_at": "2026-05-02T18:49:15.808945"
   },
   {
     "date": "",
@@ -1727,7 +1789,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848170",
-    "updated_at": "2026-05-02T17:22:03.152063"
+    "updated_at": "2026-05-02T18:49:15.808947"
   },
   {
     "date": "",
@@ -1752,7 +1814,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.847970",
-    "updated_at": "2026-05-02T17:22:03.152065"
+    "updated_at": "2026-05-02T18:49:15.808950"
   },
   {
     "date": "",
@@ -1777,7 +1839,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848020",
-    "updated_at": "2026-05-02T17:22:03.152066"
+    "updated_at": "2026-05-02T18:49:15.808952"
   },
   {
     "date": "",
@@ -1808,7 +1870,7 @@
     "source": "historical_current_season",
     "parse_status": "ok",
     "imported_at": "2026-05-02T17:18:42.105270",
-    "updated_at": "2026-05-02T17:22:03.152068"
+    "updated_at": "2026-05-02T18:49:15.808954"
   },
   {
     "date": "",
@@ -1833,7 +1895,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848125",
-    "updated_at": "2026-05-02T17:22:03.152070"
+    "updated_at": "2026-05-02T18:49:15.808956"
   },
   {
     "date": "",
@@ -1858,7 +1920,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.847903",
-    "updated_at": "2026-05-02T17:22:03.152072"
+    "updated_at": "2026-05-02T18:49:15.808959"
   },
   {
     "date": "",
@@ -1883,7 +1945,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.847933",
-    "updated_at": "2026-05-02T17:22:03.152074"
+    "updated_at": "2026-05-02T18:49:15.808966"
   },
   {
     "date": "",
@@ -1908,7 +1970,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.847939",
-    "updated_at": "2026-05-02T17:22:03.152076"
+    "updated_at": "2026-05-02T18:49:15.808968"
   },
   {
     "date": "",
@@ -1939,7 +2001,7 @@
     "source": "historical_current_season",
     "parse_status": "ok",
     "imported_at": "2026-05-02T15:50:02.558579",
-    "updated_at": "2026-05-02T17:22:03.152078"
+    "updated_at": "2026-05-02T18:49:15.808971"
   },
   {
     "date": "",
@@ -1970,7 +2032,7 @@
     "source": "historical_current_season",
     "parse_status": "ok",
     "imported_at": "2026-05-02T16:43:53.012156",
-    "updated_at": "2026-05-02T17:22:03.152080"
+    "updated_at": "2026-05-02T18:49:15.808973"
   },
   {
     "date": "",
@@ -2001,7 +2063,7 @@
     "source": "historical_current_season",
     "parse_status": "ok",
     "imported_at": "2026-05-02T17:18:42.105253",
-    "updated_at": "2026-05-02T17:22:03.152082"
+    "updated_at": "2026-05-02T18:49:15.808977"
   },
   {
     "date": "",
@@ -2026,7 +2088,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848086",
-    "updated_at": "2026-05-02T17:22:03.152084"
+    "updated_at": "2026-05-02T18:49:15.808979"
   },
   {
     "date": "",
@@ -2051,7 +2113,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.847945",
-    "updated_at": "2026-05-02T17:22:03.152086"
+    "updated_at": "2026-05-02T18:49:15.808982"
   },
   {
     "date": "",
@@ -2076,7 +2138,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.847983",
-    "updated_at": "2026-05-02T17:22:03.152088"
+    "updated_at": "2026-05-02T18:49:15.808984"
   },
   {
     "date": "",
@@ -2101,7 +2163,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848041",
-    "updated_at": "2026-05-02T17:22:03.152090"
+    "updated_at": "2026-05-02T18:49:15.808986"
   },
   {
     "date": "",
@@ -2132,7 +2194,7 @@
     "source": "historical_current_season",
     "parse_status": "ok",
     "imported_at": "2026-05-02T17:18:42.105273",
-    "updated_at": "2026-05-02T17:22:03.152091"
+    "updated_at": "2026-05-02T18:49:15.808989"
   },
   {
     "date": "",
@@ -2157,7 +2219,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848071",
-    "updated_at": "2026-05-02T17:22:03.152093"
+    "updated_at": "2026-05-02T18:49:15.808991"
   },
   {
     "date": "",
@@ -2182,7 +2244,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848009",
-    "updated_at": "2026-05-02T17:22:03.152095"
+    "updated_at": "2026-05-02T18:49:15.808994"
   },
   {
     "date": "",
@@ -2207,7 +2269,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848204",
-    "updated_at": "2026-05-02T17:22:03.152097"
+    "updated_at": "2026-05-02T18:49:15.808996"
   },
   {
     "date": "",
@@ -2232,7 +2294,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.847980",
-    "updated_at": "2026-05-02T17:22:03.152099"
+    "updated_at": "2026-05-02T18:49:15.808998"
   },
   {
     "date": "",
@@ -2257,7 +2319,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848037",
-    "updated_at": "2026-05-02T17:22:03.152101"
+    "updated_at": "2026-05-02T18:49:15.809000"
   },
   {
     "date": "",
@@ -2282,7 +2344,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848015",
-    "updated_at": "2026-05-02T17:22:03.152102"
+    "updated_at": "2026-05-02T18:49:15.809002"
   },
   {
     "date": "",
@@ -2307,7 +2369,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848158",
-    "updated_at": "2026-05-02T17:22:03.152104"
+    "updated_at": "2026-05-02T18:49:15.809004"
   },
   {
     "date": "",
@@ -2332,7 +2394,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848088",
-    "updated_at": "2026-05-02T17:22:03.152106"
+    "updated_at": "2026-05-02T18:49:15.809007"
   },
   {
     "date": "",
@@ -2357,7 +2419,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848102",
-    "updated_at": "2026-05-02T17:22:03.152109"
+    "updated_at": "2026-05-02T18:49:15.809009"
   },
   {
     "date": "",
@@ -2382,7 +2444,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848075",
-    "updated_at": "2026-05-02T17:22:03.152110"
+    "updated_at": "2026-05-02T18:49:15.809011"
   },
   {
     "date": "",
@@ -2407,7 +2469,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848134",
-    "updated_at": "2026-05-02T17:22:03.152112"
+    "updated_at": "2026-05-02T18:49:15.809014"
   },
   {
     "date": "",
@@ -2432,7 +2494,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848206",
-    "updated_at": "2026-05-02T17:22:03.152114"
+    "updated_at": "2026-05-02T18:49:15.809016"
   },
   {
     "date": "",
@@ -2457,7 +2519,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848177",
-    "updated_at": "2026-05-02T17:22:03.152116"
+    "updated_at": "2026-05-02T18:49:15.809018"
   },
   {
     "date": "",
@@ -2482,7 +2544,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848029",
-    "updated_at": "2026-05-02T17:22:03.152118"
+    "updated_at": "2026-05-02T18:49:15.809020"
   },
   {
     "date": "",
@@ -2507,7 +2569,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848066",
-    "updated_at": "2026-05-02T17:22:03.152120"
+    "updated_at": "2026-05-02T18:49:15.809023"
   },
   {
     "date": "",
@@ -2532,7 +2594,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848149",
-    "updated_at": "2026-05-02T17:22:03.152122"
+    "updated_at": "2026-05-02T18:49:15.809025"
   },
   {
     "date": "",
@@ -2557,7 +2619,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848190",
-    "updated_at": "2026-05-02T17:22:03.152125"
+    "updated_at": "2026-05-02T18:49:15.809028"
   },
   {
     "date": "",
@@ -2582,7 +2644,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848138",
-    "updated_at": "2026-05-02T17:22:03.152128"
+    "updated_at": "2026-05-02T18:49:15.809030"
   },
   {
     "date": "",
@@ -2607,7 +2669,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848198",
-    "updated_at": "2026-05-02T17:22:03.152130"
+    "updated_at": "2026-05-02T18:49:15.809032"
   },
   {
     "date": "",
@@ -2632,7 +2694,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848068",
-    "updated_at": "2026-05-02T17:22:03.152131"
+    "updated_at": "2026-05-02T18:49:15.809034"
   },
   {
     "date": "",
@@ -2657,7 +2719,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848166",
-    "updated_at": "2026-05-02T17:22:03.152133"
+    "updated_at": "2026-05-02T18:49:15.809037"
   },
   {
     "date": "",
@@ -2682,7 +2744,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848172",
-    "updated_at": "2026-05-02T17:22:03.152135"
+    "updated_at": "2026-05-02T18:49:15.809039"
   },
   {
     "date": "",
@@ -2707,7 +2769,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.847958",
-    "updated_at": "2026-05-02T17:22:03.152137"
+    "updated_at": "2026-05-02T18:49:15.809041"
   },
   {
     "date": "",
@@ -2732,7 +2794,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.847993",
-    "updated_at": "2026-05-02T17:22:03.152139"
+    "updated_at": "2026-05-02T18:49:15.809043"
   },
   {
     "date": "",
@@ -2757,7 +2819,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848035",
-    "updated_at": "2026-05-02T17:22:03.152141"
+    "updated_at": "2026-05-02T18:49:15.809046"
   },
   {
     "date": "",
@@ -2782,7 +2844,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848109",
-    "updated_at": "2026-05-02T17:22:03.152142"
+    "updated_at": "2026-05-02T18:49:15.809048"
   },
   {
     "date": "",
@@ -2807,7 +2869,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848162",
-    "updated_at": "2026-05-02T17:22:03.152145"
+    "updated_at": "2026-05-02T18:49:15.809050"
   },
   {
     "date": "",
@@ -2832,7 +2894,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848121",
-    "updated_at": "2026-05-02T17:22:03.152147"
+    "updated_at": "2026-05-02T18:49:15.809052"
   },
   {
     "date": "",
@@ -2857,7 +2919,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.847977",
-    "updated_at": "2026-05-02T17:22:03.152150"
+    "updated_at": "2026-05-02T18:49:15.809054"
   },
   {
     "date": "",
@@ -2882,7 +2944,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848002",
-    "updated_at": "2026-05-02T17:22:03.152152"
+    "updated_at": "2026-05-02T18:49:15.809057"
   },
   {
     "date": "",
@@ -2907,7 +2969,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848090",
-    "updated_at": "2026-05-02T17:22:03.152154"
+    "updated_at": "2026-05-02T18:49:15.809059"
   },
   {
     "date": "",
@@ -2938,7 +3000,7 @@
     "source": "historical_current_season",
     "parse_status": "ok",
     "imported_at": "2026-05-02T17:18:42.105278",
-    "updated_at": "2026-05-02T17:22:03.152156"
+    "updated_at": "2026-05-02T18:49:15.809061"
   },
   {
     "date": "",
@@ -2963,7 +3025,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848055",
-    "updated_at": "2026-05-02T17:22:03.152158"
+    "updated_at": "2026-05-02T18:49:15.809064"
   },
   {
     "date": "",
@@ -2988,7 +3050,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848027",
-    "updated_at": "2026-05-02T17:22:03.152160"
+    "updated_at": "2026-05-02T18:49:15.809066"
   },
   {
     "date": "",
@@ -3013,7 +3075,38 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848062",
-    "updated_at": "2026-05-02T17:22:03.152162"
+    "updated_at": "2026-05-02T18:49:15.809068"
+  },
+  {
+    "date": "",
+    "season": 2026,
+    "tour": "atp",
+    "tournament": "Madrid Open",
+    "tournament_slug": "madrid",
+    "surface": "clay",
+    "round": "",
+    "court": "",
+    "player1": "terence atmane",
+    "player2": "alexander zverev madrid",
+    "winner": "",
+    "score": "",
+    "aces_p1": 1,
+    "aces_p2": 1,
+    "breaks_p1": 1,
+    "breaks_p2": 1,
+    "service_games_p1": 1,
+    "service_games_p2": 1,
+    "return_games_p1": 1,
+    "return_games_p2": 1,
+    "first_serve_pct_p1": 0,
+    "first_serve_pct_p2": 0,
+    "stats_url": "https://www.atptour.com/en/scores/stats-centre/archive/2026/1536/ms031",
+    "match_id": "ms031",
+    "tournament_id": "1536",
+    "source": "historical_current_season",
+    "parse_status": "ok",
+    "imported_at": "2026-05-02T18:45:24.309443",
+    "updated_at": "2026-05-02T18:49:15.809070"
   },
   {
     "date": "",
@@ -3038,7 +3131,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848045",
-    "updated_at": "2026-05-02T17:22:03.152164"
+    "updated_at": "2026-05-02T18:49:15.809073"
   },
   {
     "date": "",
@@ -3063,7 +3156,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848130",
-    "updated_at": "2026-05-02T17:22:03.152165"
+    "updated_at": "2026-05-02T18:49:15.809075"
   },
   {
     "date": "",
@@ -3088,7 +3181,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848143",
-    "updated_at": "2026-05-02T17:22:03.152167"
+    "updated_at": "2026-05-02T18:49:15.809077"
   },
   {
     "date": "",
@@ -3113,7 +3206,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848192",
-    "updated_at": "2026-05-02T17:22:03.152169"
+    "updated_at": "2026-05-02T18:49:15.809079"
   },
   {
     "date": "",
@@ -3138,7 +3231,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848115",
-    "updated_at": "2026-05-02T17:22:03.152171"
+    "updated_at": "2026-05-02T18:49:15.809083"
   },
   {
     "date": "",
@@ -3163,7 +3256,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.847991",
-    "updated_at": "2026-05-02T17:22:03.152173"
+    "updated_at": "2026-05-02T18:49:15.809086"
   },
   {
     "date": "",
@@ -3188,7 +3281,38 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848053",
-    "updated_at": "2026-05-02T17:22:03.152175"
+    "updated_at": "2026-05-02T18:49:15.809088"
+  },
+  {
+    "date": "",
+    "season": 2026,
+    "tour": "atp",
+    "tournament": "Madrid Open",
+    "tournament_slug": "madrid",
+    "surface": "clay",
+    "round": "",
+    "court": "",
+    "player1": "tomas martin etcheverry",
+    "player2": "arthur fils madrid",
+    "winner": "",
+    "score": "",
+    "aces_p1": 1,
+    "aces_p2": 1,
+    "breaks_p1": 1,
+    "breaks_p2": 1,
+    "service_games_p1": 1,
+    "service_games_p2": 1,
+    "return_games_p1": 1,
+    "return_games_p2": 1,
+    "first_serve_pct_p1": 0,
+    "first_serve_pct_p2": 0,
+    "stats_url": "https://www.atptour.com/en/scores/stats-centre/archive/2026/1536/ms010",
+    "match_id": "ms010",
+    "tournament_id": "1536",
+    "source": "historical_current_season",
+    "parse_status": "ok",
+    "imported_at": "2026-05-02T18:45:24.309437",
+    "updated_at": "2026-05-02T18:49:15.809091"
   },
   {
     "date": "",
@@ -3213,7 +3337,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848077",
-    "updated_at": "2026-05-02T17:22:03.152177"
+    "updated_at": "2026-05-02T18:49:15.809093"
   },
   {
     "date": "",
@@ -3238,7 +3362,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848147",
-    "updated_at": "2026-05-02T17:22:03.152178"
+    "updated_at": "2026-05-02T18:49:15.809096"
   },
   {
     "date": "",
@@ -3263,7 +3387,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848202",
-    "updated_at": "2026-05-02T17:22:03.152180"
+    "updated_at": "2026-05-02T18:49:15.809098"
   },
   {
     "date": "",
@@ -3288,7 +3412,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.847989",
-    "updated_at": "2026-05-02T17:22:03.152182"
+    "updated_at": "2026-05-02T18:49:15.809100"
   },
   {
     "date": "",
@@ -3313,7 +3437,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848039",
-    "updated_at": "2026-05-02T17:22:03.152184"
+    "updated_at": "2026-05-02T18:49:15.809102"
   },
   {
     "date": "",
@@ -3338,7 +3462,38 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848111",
-    "updated_at": "2026-05-02T17:22:03.152186"
+    "updated_at": "2026-05-02T18:49:15.809104"
+  },
+  {
+    "date": "",
+    "season": 2026,
+    "tour": "atp",
+    "tournament": "Madrid Open",
+    "tournament_slug": "madrid",
+    "surface": "clay",
+    "round": "",
+    "court": "",
+    "player1": "vit kopriva",
+    "player2": "rafael jodar madrid",
+    "winner": "",
+    "score": "",
+    "aces_p1": 1,
+    "aces_p2": 1,
+    "breaks_p1": 1,
+    "breaks_p2": 1,
+    "service_games_p1": 1,
+    "service_games_p2": 1,
+    "return_games_p1": 1,
+    "return_games_p2": 1,
+    "first_serve_pct_p1": 0,
+    "first_serve_pct_p2": 0,
+    "stats_url": "https://www.atptour.com/en/scores/stats-centre/archive/2026/1536/ms009",
+    "match_id": "ms009",
+    "tournament_id": "1536",
+    "source": "historical_current_season",
+    "parse_status": "ok",
+    "imported_at": "2026-05-02T18:45:24.309440",
+    "updated_at": "2026-05-02T18:49:15.809107"
   },
   {
     "date": "",
@@ -3363,7 +3518,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848079",
-    "updated_at": "2026-05-02T17:22:03.152188"
+    "updated_at": "2026-05-02T18:49:15.809109"
   },
   {
     "date": "",
@@ -3388,7 +3543,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848181",
-    "updated_at": "2026-05-02T17:22:03.152190"
+    "updated_at": "2026-05-02T18:49:15.809111"
   },
   {
     "date": "",
@@ -3413,7 +3568,7 @@
     "return_games_p2": 0,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848200",
-    "updated_at": "2026-05-02T17:22:03.152192"
+    "updated_at": "2026-05-02T18:49:15.809113"
   },
   {
     "date": "2026-05-01",
@@ -3432,6 +3587,6 @@
     "total_breaks": 4,
     "source": "historical_current_season",
     "imported_at": "2026-05-02T15:32:04.848295",
-    "updated_at": "2026-05-02T17:22:03.180760"
+    "updated_at": "2026-05-02T18:49:15.848617"
   }
 ]
