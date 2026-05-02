@@ -439,6 +439,79 @@ def summarize_distribution(values):
     }
 
 
+def blend_stats(player):
+    """
+    Combina:
+    - surface stats (base)
+    - tournament history
+    - current tournament
+    """
+
+    surface_weight = 0.55
+    tournament_weight = 0.25
+
+    current_matches = player.get("current_tournament_matches", 0)
+    current_weight = min(0.25, current_matches * 0.08)
+
+    # normalizza pesi
+    total = surface_weight + tournament_weight + current_weight
+    surface_weight /= total
+    tournament_weight /= total
+    current_weight /= total
+
+    def w(field_surface, field_tourn, field_current):
+        return (
+            (player.get(field_surface, 0) * surface_weight)
+            + (player.get(field_tourn, 0) * tournament_weight)
+            + (player.get(field_current, 0) * current_weight)
+        )
+
+    return {
+        "ace_rate": w(
+            "ace_rate_surface_3y",
+            "tournament_ace_rate_3ed",
+            "current_tournament_ace_rate",
+        ),
+        "ace_allowed": w(
+            "ace_allowed_surface_3y",
+            "tournament_ace_allowed_3ed",
+            "current_tournament_ace_allowed",
+        ),
+        "break_rate": w(
+            "break_rate_surface_3y",
+            "tournament_break_rate_3ed",
+            "current_tournament_break_rate",
+        ),
+        "break_allowed": w(
+            "break_allowed_surface_3y",
+            "tournament_break_allowed_3ed",
+            "current_tournament_break_allowed",
+        ),
+    }
+
+def apply_context_adjustments(player, base_value, stat_type, court, avg_temp, wind_kmh):
+    adj = base_value
+
+    court_key = str(court).lower().strip()
+    court_adj = player.get("court_adjustments", {}).get(court_key)
+
+    if court_adj and court_adj.get("matches", 0) >= 1:
+        adj = (adj * 0.85) + (court_adj.get(stat_type, adj) * 0.15)
+
+    weather_adj = player.get("weather_adjustments", {})
+
+    if avg_temp is not None and avg_temp >= 26 and "hot" in weather_adj:
+        adj = (adj * 0.9) + (weather_adj["hot"].get(stat_type, adj) * 0.1)
+
+    if avg_temp is not None and avg_temp <= 18 and "cool" in weather_adj:
+        adj = (adj * 0.9) + (weather_adj["cool"].get(stat_type, adj) * 0.1)
+
+    if wind_kmh is not None and wind_kmh >= 15 and "windy" in weather_adj:
+        adj = (adj * 0.9) + (weather_adj["windy"].get(stat_type, adj) * 0.1)
+
+    return max(0.0, adj)
+
+
 def run_prediction(match):
     if is_doubles_match(match):
         return {
@@ -462,20 +535,27 @@ def run_prediction(match):
     a = players.get(a_name, {})
     b = players.get(b_name, {})
 
+    day_weather = weather.get(match.date, {})
+    avg_temp = day_weather.get("avg_temp")
+    wind_kmh = day_weather.get("wind_kmh")
+
     elo_a = adjusted_elo(a)
     elo_b = adjusted_elo(b)
 
-    ace_rate_a_raw = weighted_stat(safe_stat(a, "ace_rate_clay_3y", 0.25), a)
-    ace_rate_b_raw = weighted_stat(safe_stat(b, "ace_rate_clay_3y", 0.25), b)
+    blend_a = blend_stats(a)
+    blend_b = blend_stats(b)
 
-    ace_allowed_a = weighted_stat(safe_stat(a, "ace_allowed_clay_3y", 0.23), a)
-    ace_allowed_b = weighted_stat(safe_stat(b, "ace_allowed_clay_3y", 0.23), b)
+    ace_rate_a_raw = blend_a["ace_rate"]
+    ace_rate_b_raw = blend_b["ace_rate"]
 
-    break_rate_a_raw = weighted_stat(safe_stat(a, "break_rate_clay_3y", 0.20), a)
-    break_rate_b_raw = weighted_stat(safe_stat(b, "break_rate_clay_3y", 0.20), b)
+    ace_allowed_a = blend_a["ace_allowed"]
+    ace_allowed_b = blend_b["ace_allowed"]
 
-    break_allowed_a = weighted_stat(safe_stat(a, "break_allowed_clay_3y", 0.18), a)
-    break_allowed_b = weighted_stat(safe_stat(b, "break_allowed_clay_3y", 0.18), b)
+    break_rate_a_raw = blend_a["break_rate"]
+    break_rate_b_raw = blend_b["break_rate"]
+
+    break_allowed_a = blend_a["break_allowed"]
+    break_allowed_b = blend_b["break_allowed"]
 
     atp_a = apply_atp_rating_adjustments(
         player_name=a_name,
@@ -488,20 +568,86 @@ def run_prediction(match):
     )
 
     atp_b = apply_atp_rating_adjustments(
-        player_name=a_name,
-        ace_rate=ace_rate_a_raw,
-        break_rate=break_rate_a_raw,
+        player_name=b_name,
+        ace_rate=ace_rate_b_raw,
+        break_rate=break_rate_b_raw,
         atp_stats=atp_stats,
         players=players,
         season=2026,
         surface="clay",
     )
 
-    ace_rate_a = atp_a["ace_rate"]
-    ace_rate_b = atp_b["ace_rate"]
+    ace_rate_a = apply_context_adjustments(
+        player=a,
+        base_value=atp_a["ace_rate"],
+        stat_type="ace_rate",
+        court=match.court,
+        avg_temp=avg_temp,
+        wind_kmh=wind_kmh,
+    )
 
-    break_rate_a = atp_a["break_rate"]
-    break_rate_b = atp_b["break_rate"]
+    ace_rate_b = apply_context_adjustments(
+        player=b,
+        base_value=atp_b["ace_rate"],
+        stat_type="ace_rate",
+        court=match.court,
+        avg_temp=avg_temp,
+        wind_kmh=wind_kmh,
+    )
+
+    break_rate_a = apply_context_adjustments(
+        player=a,
+        base_value=atp_a["break_rate"],
+        stat_type="break_rate",
+        court=match.court,
+        avg_temp=avg_temp,
+        wind_kmh=wind_kmh,
+    )
+
+    break_rate_b = apply_context_adjustments(
+        player=b,
+        base_value=atp_b["break_rate"],
+        stat_type="break_rate",
+        court=match.court,
+        avg_temp=avg_temp,
+        wind_kmh=wind_kmh,
+    )
+
+    ace_allowed_a = apply_context_adjustments(
+        player=a,
+        base_value=ace_allowed_a,
+        stat_type="ace_allowed",
+        court=match.court,
+        avg_temp=avg_temp,
+        wind_kmh=wind_kmh,
+    )
+
+    ace_allowed_b = apply_context_adjustments(
+        player=b,
+        base_value=ace_allowed_b,
+        stat_type="ace_allowed",
+        court=match.court,
+        avg_temp=avg_temp,
+        wind_kmh=wind_kmh,
+    )
+
+    break_allowed_a = apply_context_adjustments(
+        player=a,
+        base_value=break_allowed_a,
+        stat_type="break_allowed",
+        court=match.court,
+        avg_temp=avg_temp,
+        wind_kmh=wind_kmh,
+    )
+
+    break_allowed_b = apply_context_adjustments(
+        player=b,
+        base_value=break_allowed_b,
+        stat_type="break_allowed",
+        court=match.court,
+        avg_temp=avg_temp,
+        wind_kmh=wind_kmh,
+    )
 
     atp_elo_boost_a = atp_elo_boost_from_adjustment(atp_a)
     atp_elo_boost_b = atp_elo_boost_from_adjustment(atp_b)
@@ -514,12 +660,12 @@ def run_prediction(match):
     model_edge = abs(p_a - 0.5) * 2
 
     c_factor = court_factor(match.court)
-    madrid_factor = 1.15
-    match_length = 1.08 + (1 - abs(p_a - 0.5)) * 0.5
 
-    day_weather = weather.get(match.date, {})
-    avg_temp = day_weather.get("avg_temp")
-    wind_kmh = day_weather.get("wind_kmh")
+    # Legacy tournament factor.
+    # Lo teniamo per ora, ma nel prossimo step lo renderemo dinamico via tournament_context.json.
+    madrid_factor = 1.15
+
+    match_length = 1.08 + (1 - abs(p_a - 0.5)) * 0.5
 
     ace_wf = ace_weather_factor(avg_temp, wind_kmh)
     break_wf = break_weather_factor(avg_temp, wind_kmh)
@@ -697,6 +843,7 @@ def run_prediction(match):
         "elo_b_model": elo_b_model,
         "win_prob_a": round(p_a, 3),
         "win_prob_b": round(p_b, 3),
+
         "ace_rate_a_raw": round(ace_rate_a_raw, 4),
         "ace_rate_b_raw": round(ace_rate_b_raw, 4),
         "break_rate_a_raw": round(break_rate_a_raw, 4),
@@ -706,6 +853,14 @@ def run_prediction(match):
         "ace_rate_b_used": round(ace_rate_b, 4),
         "break_rate_a_used": round(break_rate_a, 4),
         "break_rate_b_used": round(break_rate_b, 4),
+
+        "ace_allowed_a_used": round(ace_allowed_a, 4),
+        "ace_allowed_b_used": round(ace_allowed_b, 4),
+        "break_allowed_a_used": round(break_allowed_a, 4),
+        "break_allowed_b_used": round(break_allowed_b, 4),
+
+        "current_tournament_matches_a": a.get("current_tournament_matches", 0),
+        "current_tournament_matches_b": b.get("current_tournament_matches", 0),
 
         "court_factor": c_factor,
         "madrid_factor": madrid_factor,
