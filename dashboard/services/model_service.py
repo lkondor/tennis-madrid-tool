@@ -148,12 +148,18 @@ def bounded_rating_delta(value, baseline, scale, max_abs=1.0):
 def quality_score(player):
     q = player.get("data_quality", "fallback")
 
-    if q == "official_override":
+    if q == "strong_historical":
         return 1.00
     if q == "historical_match_stats":
-        return 0.80
+        return 0.85
+    if q == "partial_historical":
+        return 0.70
+    if q == "current_tournament_only":
+        return 0.60
+    if q == "official_override":
+        return 0.95
     if q == "synthetic":
-        return 0.55
+        return 0.45
     if q == "unresolved":
         return 0.25
 
@@ -418,10 +424,18 @@ def find_similar_players(player_name, all_players, top_n=5):
 
 
 def adjusted_elo(player):
-    elo = player.get("elo_clay") if player.get("elo_clay") is not None else 1800
+    elo = (
+        player.get("elo_blended")
+        or player.get("elo_surface")
+        or player.get("elo_clay")
+        or 1800
+    )
 
-    if player.get("data_quality") == "official_override":
-        return elo + 50
+    if player.get("data_quality") == "strong_historical":
+        return elo + 25
+
+    if player.get("data_quality") == "historical_match_stats":
+        return elo + 10
 
     if player.get("data_quality") == "synthetic":
         return elo - 30
@@ -466,54 +480,29 @@ def summarize_distribution(values):
 
 def blend_stats(player):
     """
-    Combina:
-    - surface stats (base)
-    - tournament history
-    - current tournament
+    Usa i campi model_* generati da build_player_stats.py.
+    Fallback ai campi generici/legacy se il player non è aggiornato.
     """
 
-    surface_weight = 0.55
-    tournament_weight = 0.25
-
-    current_matches = player.get("current_tournament_matches", 0)
-    current_weight = min(0.25, current_matches * 0.08)
-
-    # normalizza pesi
-    total = surface_weight + tournament_weight + current_weight
-    surface_weight /= total
-    tournament_weight /= total
-    current_weight /= total
-
-    def w(field_surface, field_tourn, field_current):
-        return (
-            (player.get(field_surface, 0) * surface_weight)
-            + (player.get(field_tourn, 0) * tournament_weight)
-            + (player.get(field_current, 0) * current_weight)
-        )
-
     return {
-        "ace_rate": w(
-            "ace_rate_surface_3y",
-            "tournament_ace_rate_3ed",
-            "current_tournament_ace_rate",
+        "ace_rate": player.get(
+            "model_ace_rate",
+            player.get("ace_rate_surface_3y", player.get("ace_rate_clay_3y", 0.25)),
         ),
-        "ace_allowed": w(
-            "ace_allowed_surface_3y",
-            "tournament_ace_allowed_3ed",
-            "current_tournament_ace_allowed",
+        "ace_allowed": player.get(
+            "model_ace_allowed",
+            player.get("ace_allowed_surface_3y", player.get("ace_allowed_clay_3y", 0.23)),
         ),
-        "break_rate": w(
-            "break_rate_surface_3y",
-            "tournament_break_rate_3ed",
-            "current_tournament_break_rate",
+        "break_rate": player.get(
+            "model_break_rate",
+            player.get("break_rate_surface_3y", player.get("break_rate_clay_3y", 0.20)),
         ),
-        "break_allowed": w(
-            "break_allowed_surface_3y",
-            "tournament_break_allowed_3ed",
-            "current_tournament_break_allowed",
+        "break_allowed": player.get(
+            "model_break_allowed",
+            player.get("break_allowed_surface_3y", player.get("break_allowed_clay_3y", 0.18)),
         ),
     }
-
+    
 def apply_context_adjustments(player, base_value, stat_type, court, avg_temp, wind_kmh):
     adj = base_value
 
@@ -847,6 +836,16 @@ def run_prediction(match):
 
         "data_quality_a": a.get("data_quality", "fallback"),
         "data_quality_b": b.get("data_quality", "fallback"),
+        "matches_total_a": a.get("matches_total", 0),
+        "matches_total_b": b.get("matches_total", 0),
+        "matches_surface_3y_a": a.get("matches_surface_3y", 0),
+        "matches_surface_3y_b": b.get("matches_surface_3y", 0),
+        "matches_recent_10_a": a.get("matches_recent_10", 0),
+        "matches_recent_10_b": b.get("matches_recent_10", 0),
+        "recent_form_10_a": a.get("recent_form_10"),
+        "recent_form_10_b": b.get("recent_form_10"),
+        "surface_form_20_a": a.get("surface_form_20"),
+        "surface_form_20_b": b.get("surface_form_20"),
         "stats_source_a": a.get("data_quality", "fallback"),
         "stats_source_b": b.get("data_quality", "fallback"),
 
