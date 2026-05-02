@@ -1,65 +1,37 @@
 [
   {
-    "player1": "V. Zvonareva",
-    "player2": "M. Andreeva",
+    "player1": "M. Guinard",
+    "player2": "H. Heliovaara",
     "court": "Manolo Santana Stadium",
-    "date": "2026-05-01",
+    "date": "2026-05-02",
     "tour": "ATP/WTA"
   },
   {
-    "player1": "A. Blockx",
-    "player2": "A. Zverev",
+    "player1": "M. Andreeva",
+    "player2": "M. Kostyuk",
     "court": "Manolo Santana Stadium",
-    "date": "2026-05-01",
-    "tour": "ATP/WTA"
-  },
-  {
-    "player1": "K. Mladenovic",
-    "player2": "K. Siniakova",
-    "court": "Manolo Santana Stadium",
-    "date": "2026-05-01",
+    "date": "2026-05-02",
     "tour": "ATP/WTA"
   },
   {
     "player1": "A. Garcia Fernandez",
-    "player2": "M. Esteban Gonzalez",
+    "player2": "K. Guo",
     "court": "Stadium 3",
-    "date": "2026-05-01",
-    "tour": "ATP/WTA"
-  },
-  {
-    "player1": "K. Guo",
-    "player2": "G. Elena Dumitru",
-    "court": "Stadium 3",
-    "date": "2026-05-01",
-    "tour": "ATP/WTA"
-  },
-  {
-    "player1": "G. Corrales Chavarria",
-    "player2": "P. Rueda Albert",
-    "court": "Court 6",
-    "date": "2026-05-01",
-    "tour": "ATP/WTA"
-  },
-  {
-    "player1": "E. Badenes Giner",
-    "player2": "J. Dronov Merlos",
-    "court": "Court 6",
-    "date": "2026-05-01",
+    "date": "2026-05-02",
     "tour": "ATP/WTA"
   },
   {
     "player1": "F. Fontan Pardo De Santayana",
-    "player2": "A. Molino Valdivia",
-    "court": "Court 7",
-    "date": "2026-05-01",
+    "player2": "R. Garcia Domenech",
+    "court": "Stadium 3",
+    "date": "2026-05-02",
     "tour": "ATP/WTA"
   },
   {
-    "player1": "R. Garcia Domenech",
-    "player2": "J. Alcaraz Garfia",
-    "court": "Court 7",
-    "date": "2026-05-01",
+    "player1": "J. Dronov Merlos",
+    "player2": "P. Rueda Albert",
+    "court": "Stadium 3",
+    "date": "2026-05-02",
     "tour": "ATP/WTA"
   }
 ]
